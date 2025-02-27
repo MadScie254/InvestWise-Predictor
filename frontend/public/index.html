@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Investwise: A futuristic financial platform with AI-driven insights and adaptive design.">
+  <meta name="description" content="Investwise Dashboard: A futuristic financial platform with AI-driven insights and adaptive design.">
   <meta name="keywords" content="Investwise, investment platform, AI finance, futuristic UI">
   <meta name="author" content="Investwise Team">
-  <title>Investwise - Futuristic Investment Platform</title>
+  <title>Investwise Dashboard</title>
   <!-- Favicon -->
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;900&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
   <!-- Inline CSS -->
   <style>
     /* General Reset */
@@ -23,7 +23,7 @@
     }
 
     body {
-      font-family: 'IBM Plex Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--bg-color);
       color: var(--text-color);
       transition: background 0.3s ease, color 0.3s ease;
@@ -32,13 +32,13 @@
     :root {
       --primary-color: #0A2540; /* Cyber Sapphire */
       --secondary-color: #1B998B; /* Quantum Emerald */
-      --accent-color: #FFB800; /* Auric Gold */
+      --accent-color: #FFD700; /* Auric Gold */
       --bg-color: #E5E9F0; /* Glacial White */
       --text-color: #3D3D3D; /* Nebula Gray */
       --glass-bg: rgba(255, 255, 255, 0.1);
       --shadow-light: 0 10px 20px rgba(0, 0, 0, 0.1);
       --shadow-dark: 0 10px 20px rgba(0, 0, 0, 0.3);
-      --neon-glow: 0 0 10px #FFB800, 0 0 20px #FFB800, 0 0 40px #FFB800;
+      --neon-glow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 40px #FFD700;
     }
 
     /* Dark Mode Variables */
@@ -50,317 +50,160 @@
 
     /* Header */
     .header {
-      background: var(--primary-color);
-      color: var(--text-color);
-      padding: 1rem 0;
-      position: relative;
-      z-index: 1000;
-    }
-
-    .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    .logo {
-      font-family: 'Inter', sans-serif;
-      font-weight: 900;
-      font-size: 1.5rem;
-      color: var(--accent-color);
-      text-shadow: var(--neon-glow);
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-    }
-
-    .nav-links a {
+      padding: 1rem;
+      background: var(--primary-color);
       color: var(--text-color);
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-      transition: color 0.3s ease;
     }
 
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent-color);
-      transition: width 0.3s ease;
+    .header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
     }
 
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .btn-dark-mode {
+    .dark-mode-toggle {
       background: transparent;
       border: none;
       color: var(--accent-color);
-      font-size: 1.2rem;
+      font-size: 1rem;
       cursor: pointer;
       text-shadow: var(--neon-glow);
     }
 
-    /* Hero Section */
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 4rem 0;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: var(--text-color);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 10%, transparent 10.01%);
-      animation: rotate 10s linear infinite;
-      transform-origin: 50% 50%;
-    }
-
-    @keyframes rotate {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .hero-content h1 {
-      font-family: 'Inter', sans-serif;
-      font-weight: 900;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      text-shadow: var(--neon-glow);
-    }
-
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    }
-
-    .hero-buttons .btn {
-      padding: 0.8rem 1.5rem;
-      border-radius: 20px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .btn-primary {
-      background: var(--accent-color);
-      color: var(--bg-color);
-      box-shadow: var(--neon-glow);
-    }
-
-    .btn-secondary {
-      background: var(--secondary-color);
-      color: var(--bg-color);
-      box-shadow: var(--neon-glow);
-    }
-
-    .btn-primary:hover,
-    .btn-secondary:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px var(--accent-color);
-    }
-
-    /* Features Section */
-    .features {
-      padding: 4rem 0;
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      margin: 2rem 0;
-      box-shadow: var(--shadow-light);
-    }
-
-    .feature-grid {
+    /* Cards Section */
+    .cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+      gap: 1.5rem;
+      padding: 1rem;
     }
 
-    .feature-card {
-      background: var(--bg-color);
-      padding: 2rem;
-      border-radius: 20px;
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 1.5rem;
       box-shadow: var(--shadow-light);
-      text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      overflow: hidden;
     }
 
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-dark);
     }
 
-    .feature-card:hover::before {
-      opacity: 1;
+    .card-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 20px var(--accent-color);
+    .card-content h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
     }
 
-    /* Data Visualization Section */
-    .data-viz {
-      padding: 4rem 0;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: var(--text-color);
-      text-align: center;
+    .card-content p {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0;
     }
 
-    .data-viz canvas {
-      max-width: 100%;
-      height: auto;
+    .icon {
+      width: 2rem;
+      height: 2rem;
+      fill: currentColor;
+    }
+
+    /* Line Chart Section */
+    .chart-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-light);
+      margin: 1rem;
+    }
+
+    .chart-card h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
     }
 
     /* Footer */
-    .footer {
+    footer {
+      text-align: center;
+      padding: 1rem;
       background: var(--primary-color);
       color: var(--text-color);
-      padding: 2rem 0;
-      text-align: center;
-      position: relative;
-    }
-
-    .footer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
-      z-index: -1;
-    }
-
-    .social-links {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .social-links a {
-      color: var(--accent-color);
-      font-size: 1.2rem;
-      text-shadow: var(--neon-glow);
     }
   </style>
 </head>
 <body>
-  <!-- Header Section -->
-  <header class="header" id="header">
-    <div class="container">
-      <nav class="navbar">
-        <a href="#" class="logo">Invest<span>wise</span></a>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#features">Features</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><button class="btn btn-dark-mode" onclick="toggleDarkMode()">🌙</button></li>
-        </ul>
-        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-      </nav>
-    </div>
-  </header>
+  <!-- Header -->
+  <div class="header">
+    <h1>Investwise Dashboard</h1>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Mode</button>
+  </div>
 
-  <!-- Hero Section -->
-  <section class="hero" id="hero">
-    <div class="container">
-      <div class="hero-content">
-        <h1>Futuristic Financial Insights</h1>
-        <p>Experience a next-gen investment platform powered by AI and real-time analytics.</p>
-        <div class="hero-buttons">
-          <button class="btn btn-primary" onclick="location.href='#signup'">Get Started</button>
-          <button class="btn btn-secondary" onclick="location.href='#features'">Learn More</button>
+  <!-- Cards Grid -->
+  <div class="cards-grid">
+    <!-- Portfolio Value Card -->
+    <div class="card" style="background: linear-gradient(to right, #3b82f6, #6366f1);">
+      <div class="card-content">
+        <div>
+          <h2>Portfolio Value</h2>
+          <p>$12,350</p>
         </div>
-      </div>
-      <div class="hero-image">
-        <img src="assets/hero-image.png" alt="Futuristic Dashboard">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 4l-8 8h6v8l8-8h-6z" />
+        </svg>
       </div>
     </div>
-  </section>
 
-  <!-- Features Section -->
-  <section class="features" id="features">
-    <div class="container">
-      <h2 class="section-title">Why Choose Investwise?</h2>
-      <p class="section-subtitle">Your all-in-one tool for smarter investment decisions.</p>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <i class="fas fa-chart-line"></i>
-          <h3>Real-Time Portfolio Monitoring</h3>
-          <p>Stay updated with live data and track your investments effortlessly.</p>
+    <!-- Investments Growth Card -->
+    <div class="card" style="background: linear-gradient(to right, #10b981, #14b8a6);">
+      <div class="card-content">
+        <div>
+          <h2>Investments Growth</h2>
+          <p>+14.5%</p>
         </div>
-        <div class="feature-card">
-          <i class="fas fa-brain"></i>
-          <h3>AI-Powered Insights</h3>
-          <p>Unlock actionable recommendations tailored to your risk profile.</p>
-        </div>
-        <div class="feature-card">
-          <i class="fas fa-lightbulb"></i>
-          <h3>Personalized Suggestions</h3>
-          <p>Get customized investment strategies based on your financial goals.</p>
-        </div>
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 4l-8 8h6v8l8-8h-6z" />
+        </svg>
       </div>
     </div>
-  </section>
 
-  <!-- Data Visualization Section -->
-  <section class="data-viz" id="data-viz">
-    <div class="container">
-      <h2 class="section-title">AI-Enhanced Smart Charts</h2>
-      <p class="section-subtitle">Visualize your financial growth with interactive dashboards.</p>
-      <canvas id="smartChart"></canvas>
-    </div>
-  </section>
-
-  <!-- Footer Section -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <a href="#" class="logo">Invest<span>wise</span></a>
-        <p>&copy; 2023 Investwise. All rights reserved.</p>
-        <ul class="social-links">
-          <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-        </ul>
+    <!-- Risk Factor Card -->
+    <div class="card" style="background: linear-gradient(to right, #ef4444, #f97316);">
+      <div class="card-content">
+        <div>
+          <h2>Risk Factor</h2>
+          <p>Moderate</p>
+        </div>
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 4l-8 8h6v8l8-8h-6z" />
+        </svg>
       </div>
     </div>
+  </div>
+
+  <!-- Line Chart -->
+  <div class="chart-card">
+    <h2>Market Performance</h2>
+    <!-- Embedded Altair Chart -->
+    <div>
+      <img src="chart.svg" alt="Market Performance Chart" style="width: 100%; height: auto;" />
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2023 Investwise. All rights reserved.</p>
   </footer>
 
   <!-- Inline JavaScript -->
@@ -379,67 +222,9 @@
         document.body.classList.add('dark-mode');
       }
 
-      // Initialize Chart.js for AI-Enhanced Smart Charts
-      const ctx = document.getElementById('smartChart').getContext('2d');
-      const smartChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-          datasets: [{
-            label: 'Portfolio Growth',
-            data: [1000, 1200, 1300, 1500, 1600, 1800, 2000],
-            borderColor: '#FFB800',
-            borderWidth: 2,
-            backgroundColor: 'rgba(255, 184, 0, 0.1)',
-            pointBackgroundColor: '#FFB800',
-            pointRadius: 5,
-            pointHoverRadius: 7,
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              labels: {
-                color: '#E5E9F0',
-                font: {
-                  size: 14,
-                },
-              },
-            },
-          },
-          scales: {
-            x: {
-              ticks: {
-                color: '#E5E9F0',
-              },
-              grid: {
-                color: 'rgba(255, 255, 255, 0.1)',
-              },
-            },
-            y: {
-              ticks: {
-                color: '#E5E9F0',
-              },
-              grid: {
-                color: 'rgba(255, 255, 255, 0.1)',
-              },
-            },
-          },
-        },
-      });
-    });
-
-    // Responsive Menu Toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
-
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
+      // Initialize Feather Icons
+      feather.replace();
     });
   </script>
-  <!-- Chart.js Library -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
