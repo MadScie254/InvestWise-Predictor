@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django_countries.fields import CountryField
 from enumfields import EnumField  # Install django-enumfields for robust enums
 from datetime import datetime
+from django.db import models
 
 
 # ===========================
@@ -216,3 +217,75 @@ class FinancialMetric(models.Model):
 
     def __str__(self):
         return f"{self.metric_name}: {self.value}"
+    
+
+class Revenue(FinancialMetric):
+    """
+    Represents revenue data for a company.
+    """
+    pass
+
+class BlacklistedToken(models.Model):
+    """
+    Model to store blacklisted tokens.
+    """
+    token = models.CharField(max_length=500, unique=True)
+    blacklisted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"BlacklistedToken({self.token[:50]}...)"
+    
+class Meta:
+    verbose_name = "Blacklisted Token"
+    verbose_name_plural = "Blacklisted Tokens"
+#Compare this snippet from backend/investwise/predictor.py:
+# from tensorflow.keras.models import load_model
+# from .models import Prediction
+# from .serializers import PredictionSerializer
+# from .utils import get_country_code
+# import numpy as np
+# import pandas as pd
+# from django_countries import countries
+# from datetime import datetime
+# from django.conf import settings
+#
+# # Load the pre-trained AI model
+# model = load_model(settings.PREDICTOR_MODEL_PATH)
+#
+#
+# def make_prediction(user, sector, country):
+#     """
+#     Generate an investment prediction using the AI model.
+#     """
+#     # Prepare the input data
+#     country_code = get_country_code(country)
+#     input_data = pd.DataFrame({
+#         'sector': [sector],
+#         'country': [country_code],
+#         'user_age': [user.age],
+#         'user_risk_tolerance': [user.risk_tolerance],
+#     })
+#
+#     # Generate the prediction
+#     prediction_value = model.predict(input_data)
+#
+#     # Save the prediction to the database
+#     prediction = Prediction(
+#         user=user,
+#         sector=sector,
+#         country=country,
+#         predicted_value=prediction_value,
+#         status=Prediction.Status.COMPLETED
+#     )
+#     prediction.save()
+#
+#     return prediction
+# Compare this snippet from backend/investwise/urls.py:
+# from django.urls import path
+# from rest_framework.routers import DefaultRouter
+# from .views import PredictionViewSet, EconomicIndicatorViewSet, SectorPerformanceViewSet
+#
+# # Create a router for API endpoints
+# router = DefaultRouter()
+# router.register(r'predictions', PredictionViewSet)
+# router.register(r'indicators', EconomicIndicatorViewSet)
