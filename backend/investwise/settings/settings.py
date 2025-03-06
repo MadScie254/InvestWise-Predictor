@@ -333,6 +333,7 @@ CI_CD_GIT_REPO = env('CI_CD_GIT_REPO', default='https://github.com/username/repo
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # ===========================
 # 18. Additional Settings
 # ===========================
@@ -348,3 +349,12 @@ PREDICTOR_CACHE_TIMEOUT = env.int('PREDICTOR_CACHE_TIMEOUT', default=3600)
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis', 6379)],
+        },
+    },
+}
