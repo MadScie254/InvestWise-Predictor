@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investwise - Login</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --bg-light: #f4f4f4;
+            --bg-dark: #1e1e1e;
+            --text-light: #333;
+            --text-dark: #f4f4f4;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            transition: background 0.3s, color 0.3s;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .input-group {
+            position: relative;
+            margin: 20px 0;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+        body.dark-mode .login-box {
+            background: rgba(50, 50, 50, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <input type="checkbox" id="theme-switch">
+        <label for="theme-switch" class="toggle-label">🌙</label>
+    </div>
+    <div class="container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="logo.png" alt="Investwise Logo">
+            </div>
+            <h2>Welcome to <span class="highlight">Investwise</span></h2>
+            <p class="tagline">Smart investing starts here.</p>
+            <form>
+                <div class="input-group">
+                    <input type="email" id="email" required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" required>
+                    <label for="password">Password</label>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <p class="forgot"><a href="#">Forgot password?</a></p>
+                <p class="signup">Don't have an account? <a href="#">Sign up</a></p>
+            </form>
+        </div>
+    </div>
+    <script>
+        const themeSwitch = document.getElementById('theme-switch');
+        themeSwitch.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>
