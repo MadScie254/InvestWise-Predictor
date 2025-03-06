@@ -1,5 +1,5 @@
 from celery import shared_task
-from .utils import fetch_financial_data_from_api, train_neural_network
+from .predictor.predictor.utils import fetch_financial_data_from_api, train_neural_network
 
 @shared_task
 def fetch_financial_data():
