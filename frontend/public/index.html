@@ -1,230 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Investwise Dashboard: A futuristic financial platform with AI-driven insights and adaptive design.">
-  <meta name="keywords" content="Investwise, investment platform, AI finance, futuristic UI">
-  <meta name="author" content="Investwise Team">
-  <title>Investwise Dashboard</title>
-  <!-- Favicon -->
-  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Feather Icons -->
-  <script src="https://unpkg.com/feather-icons"></script>
-  <!-- Inline CSS -->
-  <style>
-    /* General Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    :root {
-      --primary-color: #0A2540; /* Cyber Sapphire */
-      --secondary-color: #1B998B; /* Quantum Emerald */
-      --accent-color: #FFD700; /* Auric Gold */
-      --bg-color: #E5E9F0; /* Glacial White */
-      --text-color: #3D3D3D; /* Nebula Gray */
-      --glass-bg: rgba(255, 255, 255, 0.1);
-      --shadow-light: 0 10px 20px rgba(0, 0, 0, 0.1);
-      --shadow-dark: 0 10px 20px rgba(0, 0, 0, 0.3);
-      --neon-glow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 40px #FFD700;
-    }
-
-    /* Dark Mode Variables */
-    body.dark-mode {
-      --bg-color: #0A2540;
-      --text-color: #E5E9F0;
-      --glass-bg: rgba(0, 0, 0, 0.1);
-    }
-
-    /* Header */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      background: var(--primary-color);
-      color: var(--text-color);
-    }
-
-    .header h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-
-    .dark-mode-toggle {
-      background: transparent;
-      border: none;
-      color: var(--accent-color);
-      font-size: 1rem;
-      cursor: pointer;
-      text-shadow: var(--neon-glow);
-    }
-
-    /* Cards Section */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      padding: 1rem;
-    }
-
-    .card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: var(--shadow-light);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-dark);
-    }
-
-    .card-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .card-content h2 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .card-content p {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0;
-    }
-
-    .icon {
-      width: 2rem;
-      height: 2rem;
-      fill: currentColor;
-    }
-
-    /* Line Chart Section */
-    .chart-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: var(--shadow-light);
-      margin: 1rem;
-    }
-
-    .chart-card h2 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: var(--primary-color);
-      color: var(--text-color);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investwise | Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Header -->
-  <div class="header">
-    <h1>Investwise Dashboard</h1>
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Mode</button>
-  </div>
-
-  <!-- Cards Grid -->
-  <div class="cards-grid">
-    <!-- Portfolio Value Card -->
-    <div class="card" style="background: linear-gradient(to right, #3b82f6, #6366f1);">
-      <div class="card-content">
-        <div>
-          <h2>Portfolio Value</h2>
-          <p>$12,350</p>
+    <div class="background-overlay"></div>
+    <div class="container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="logo.png" alt="Investwise Logo">
+            </div>
+            <h2>Welcome to <span class="highlight">Investwise</span></h2>
+            <p class="tagline">Smart investing starts here.</p>
+            <form>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" required>
+                    <label for="password">Password</label>
+                </div>
+                <button type="submit" class="btn">Login <i class="fas fa-arrow-right"></i></button>
+                <p class="forgot"><a href="#">Forgot password?</a></p>
+                <p class="signup">Don't have an account? <a href="#">Sign up</a></p>
+            </form>
         </div>
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 4l-8 8h6v8l8-8h-6z" />
-        </svg>
-      </div>
     </div>
-
-    <!-- Investments Growth Card -->
-    <div class="card" style="background: linear-gradient(to right, #10b981, #14b8a6);">
-      <div class="card-content">
-        <div>
-          <h2>Investments Growth</h2>
-          <p>+14.5%</p>
-        </div>
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 4l-8 8h6v8l8-8h-6z" />
-        </svg>
-      </div>
-    </div>
-
-    <!-- Risk Factor Card -->
-    <div class="card" style="background: linear-gradient(to right, #ef4444, #f97316);">
-      <div class="card-content">
-        <div>
-          <h2>Risk Factor</h2>
-          <p>Moderate</p>
-        </div>
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 4l-8 8h6v8l8-8h-6z" />
-        </svg>
-      </div>
-    </div>
-  </div>
-
-  <!-- Line Chart -->
-  <div class="chart-card">
-    <h2>Market Performance</h2>
-    <!-- Embedded Altair Chart -->
-    <div>
-      <img src="chart.svg" alt="Market Performance Chart" style="width: 100%; height: auto;" />
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2023 Investwise. All rights reserved.</p>
-  </footer>
-
-  <!-- Inline JavaScript -->
-  <script>
-    // Dark Mode Toggle
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-      const isDarkMode = document.body.classList.contains('dark-mode');
-      localStorage.setItem('darkMode', isDarkMode);
-    }
-
-    // Load Dark Mode Preference
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedDarkMode = localStorage.getItem('darkMode') === 'true';
-      if (savedDarkMode) {
-        document.body.classList.add('dark-mode');
-      }
-
-      // Initialize Feather Icons
-      feather.replace();
-    });
-  </script>
 </body>
 </html>
