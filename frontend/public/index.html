@@ -22,9 +22,23 @@
         }
         .container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            text-align: center;
+        }
+        .intro {
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 1s forwards;
+            margin-bottom: 20px;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .login-box {
             background: rgba(255, 255, 255, 0.9);
@@ -32,6 +46,17 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
+            animation: slideUp 1s ease-in-out;
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
         .input-group {
             position: relative;
@@ -43,6 +68,20 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+        .input-group label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #aaa;
+            transition: 0.3s;
+        }
+        .input-group input:focus + label,
+        .input-group input:valid + label {
+            top: -10px;
+            left: 5px;
+            font-size: 12px;
+            color: var(--primary-color);
+        }
         .btn {
             background: var(--primary-color);
             color: white;
@@ -50,11 +89,16 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #45a049;
         }
         .theme-toggle {
             position: absolute;
             top: 20px;
             right: 20px;
+            cursor: pointer;
         }
         body.dark-mode {
             background-color: var(--bg-dark);
@@ -71,20 +115,22 @@
         <label for="theme-switch" class="toggle-label">🌙</label>
     </div>
     <div class="container">
+        <div class="intro">
+            <h1>Welcome to <span class="highlight">Investwise</span></h1>
+            <p class="tagline">Smart investing starts here.</p>
+        </div>
         <div class="login-box">
             <div class="logo">
                 <img src="logo.png" alt="Investwise Logo">
             </div>
-            <h2>Welcome to <span class="highlight">Investwise</span></h2>
-            <p class="tagline">Smart investing starts here.</p>
             <form>
                 <div class="input-group">
                     <input type="email" id="email" required>
-                    <label for="email">Email</label>
+                    <label for="email">📧 Email</label>
                 </div>
                 <div class="input-group">
                     <input type="password" id="password" required>
-                    <label for="password">Password</label>
+                    <label for="password">🔒 Password</label>
                 </div>
                 <button type="submit" class="btn">Login</button>
                 <p class="forgot"><a href="#">Forgot password?</a></p>
