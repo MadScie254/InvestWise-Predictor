@@ -4,6 +4,8 @@ import dj_database_url  # For database URL parsing
 import redis  # For Redis integration
 from datetime import timedelta
 import environ  # Install django-environ for environment variables
+from django.core.exceptions import ImproperlyConfigured
+from investwise.logging import configure_logging
 
 # ===========================
 # 1. Environment Variables
@@ -116,6 +118,38 @@ HEALTH_CHECK_DATA_SOURCES = env.json('HEALTH_CHECK_DATA_SOURCES', default=[
     {"url": "https://data-source.com/api", "params": {"key": "value"}},
     {"url": "https://another-data-source.com"},
 ])
+
+# ===========================
+# 0. External Logging Service (Optional)
+# ===========================
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': BASE_DIR / 'logs/application.log',
+            'maxBytes': 10 * 1024 * 1024,  # 10 MB
+            'backupCount': 5,
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
+# Initialize custom logging
+configure_logging()
 
 # ===========================
 # 5. Authentication Configuration
@@ -371,3 +405,24 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+# ===========================
+# 19. Middleware Configuration
+# ===========================
+MIDDLEWARE = [
+    ...,
+    'investwise.middleware.RequestLoggingMiddleware',
+    'investwise.middleware.UserActivityTrackingMiddleware',
+    'investwise.middleware.SecurityHeadersMiddleware',
+    'investwise.middleware.APIThrottlingMiddleware',
+    'investwise.middleware.MaintenanceModeMiddleware',
+    'investwise.middleware.CustomErrorHandlingMiddleware',
+]
+
+# ===========================
+# 20. Rate Limiting Configuration 
+# ===========================
+# Rate Limiting Configuration
+REDIS_CLIENT = redis.StrictRedis(host='redis', port=6379, db=0)
+API_RATE_LIMIT = 100  # Maximum allowed requests per minute
+MAINTENANCE_MODE = True
