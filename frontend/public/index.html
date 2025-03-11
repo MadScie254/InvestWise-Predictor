@@ -20,22 +20,23 @@
       padding: 0;
       box-sizing: border-box;
     }
-
+    
+    /* Body: Use default background (white) or set to transparent if desired */
     body {
       font-family: 'Poppins', sans-serif;
-      background: #ffffff;
+      /* Remove explicit background color to use default (white) */
       color: #1e293b;
       overflow-x: hidden;
       transition: background 0.3s ease, color 0.3s ease;
     }
-
+    
     /* Dark Mode */
     body.dark-mode {
       background: #121212;
       color: #e0e0e0;
     }
-
-    /* Particle Background Container */
+    
+    /* Particle Background Container covers the entire viewport */
     #particles-js {
       position: fixed;
       top: 0;
@@ -44,7 +45,7 @@
       height: 100%;
       z-index: -1;
     }
-
+    
     /* Header Section */
     header {
       display: flex;
@@ -58,11 +59,9 @@
       z-index: 1000;
       transition: background 0.3s ease;
     }
-
     header.dark-mode {
       background: #1e1e1e;
     }
-
     header .logo {
       font-size: 1.5rem;
       font-weight: 700;
@@ -70,28 +69,23 @@
       text-transform: uppercase;
       letter-spacing: 2px;
     }
-
     header nav ul {
       display: flex;
       gap: 2rem;
       list-style: none;
     }
-
     header nav ul li a {
       text-decoration: none;
       color: #1e293b;
       font-size: 1rem;
       transition: color 0.3s ease;
     }
-
     header.dark-mode nav ul li a {
       color: #e0e0e0;
     }
-
     header nav ul li a:hover {
       color: #6a0dad;
     }
-
     /* Dark Mode Toggle */
     .dark-mode-toggle {
       cursor: pointer;
@@ -99,11 +93,10 @@
       color: #1e293b;
       transition: color 0.3s ease;
     }
-
     body.dark-mode .dark-mode-toggle {
       color: #e0e0e0;
     }
-
+    
     /* Hero Section */
     .hero {
       height: 100vh;
@@ -115,34 +108,28 @@
       position: relative;
       z-index: 1;
     }
-
     .hero h1 {
       font-size: 3.5rem;
       font-weight: 700;
       margin-bottom: 1rem;
       color: #1e293b;
     }
-
     body.dark-mode .hero h1 {
       color: #e0e0e0;
     }
-
     .hero p {
       font-size: 1.2rem;
       margin-bottom: 2rem;
       max-width: 600px;
       color: #475569;
     }
-
     body.dark-mode .hero p {
       color: #e0e0e0;
     }
-
     .hero .cta-buttons {
       display: flex;
       gap: 1rem;
     }
-
     .hero .cta-buttons a {
       padding: 0.8rem 2rem;
       border-radius: 50px;
@@ -150,48 +137,40 @@
       font-weight: 600;
       transition: all 0.3s ease;
     }
-
     .hero .cta-buttons .btn-primary {
       background: #6a0dad;
       color: #ffffff;
     }
-
     .hero .cta-buttons .btn-secondary {
       background: transparent;
       border: 2px solid #6a0dad;
       color: #6a0dad;
     }
-
     body.dark-mode .hero .cta-buttons .btn-secondary {
       border-color: #6a0dad;
       color: #6a0dad;
     }
-
     .hero .cta-buttons a:hover {
       transform: scale(1.1);
     }
-
+    
     /* About Us Section */
     .about-us {
       padding: 5rem 10%;
       background: #f9fafb;
     }
-
     body.dark-mode .about-us {
       background: #1e1e1e;
     }
-
     .about-us h2 {
       font-size: 2.5rem;
       margin-bottom: 2rem;
       text-align: center;
       color: #6a0dad;
     }
-
     body.dark-mode .about-us h2 {
       color: #6a0dad;
     }
-
     .about-us p {
       font-size: 1rem;
       line-height: 1.6;
@@ -200,54 +179,45 @@
       margin: 0 auto;
       color: #475569;
     }
-
     body.dark-mode .about-us p {
       color: #e0e0e0;
     }
-
     .learn-more {
       margin-top: 1rem;
       text-align: center;
     }
-
     .learn-more a {
       text-decoration: none;
       color: #6a0dad;
       font-weight: 600;
       transition: color 0.3s ease;
     }
-
     .learn-more a:hover {
       color: #4b0082;
     }
-
+    
     /* Services Section */
     .services {
       padding: 5rem 10%;
       background: #ffffff;
     }
-
     body.dark-mode .services {
       background: #1e1e1e;
     }
-
     .services h2 {
       font-size: 2.5rem;
       margin-bottom: 2rem;
       text-align: center;
       color: #6a0dad;
     }
-
     body.dark-mode .services h2 {
       color: #6a0dad;
     }
-
     .service-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
     }
-
     .service-card {
       background: #ffffff;
       padding: 1.5rem;
@@ -255,68 +225,58 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
       transition: transform 0.3s ease;
     }
-
     body.dark-mode .service-card {
       background: #333;
     }
-
     .service-card:hover {
       transform: translateY(-10px);
     }
-
     .service-card i {
       font-size: 2rem;
       color: #6a0dad;
       margin-bottom: 1rem;
     }
-
     .service-card h3 {
       font-size: 1.5rem;
       margin-bottom: 1rem;
       color: #1e293b;
     }
-
     body.dark-mode .service-card h3 {
       color: #e0e0e0;
     }
-
     .service-card p {
       font-size: 1rem;
       line-height: 1.6;
       color: #475569;
     }
-
     body.dark-mode .service-card p {
       color: #e0e0e0;
     }
-
+    
     /* Footer Section */
     footer {
       padding: 2rem 10%;
       background: #0f0c29;
       text-align: center;
     }
-
     footer p {
       font-size: 0.9rem;
       margin-bottom: 1rem;
       color: #e0e0e0;
     }
-
     footer .social-icons a {
       color: #ffffff;
       font-size: 1.2rem;
       margin: 0 0.5rem;
       transition: color 0.3s ease;
     }
-
     footer .social-icons a:hover {
       color: #6a0dad;
     }
   </style>
 </head>
 <body>
-  <!-- Particle Background -->
+  <!-- Particle Background covers entire screen -->
   <div id="particles-js"></div>
 
   <!-- Header -->
@@ -383,7 +343,9 @@
   <section id="contact" class="about-us">
     <h2>Contact Us</h2>
     <p>
-      Have questions or need assistance? Reach out to us via email at <a href="mailto:info@investwise.com" style="color: #6a0dad;">info@investwise.com</a> or call us at +123 456 7890.
+      Have questions or need assistance? Reach out to us via email at 
+      <a href="mailto:info@investwise.com" style="color: #6a0dad;">info@investwise.com</a> 
+      or call us at +123 456 7890.
     </p>
     <div class="learn-more">
       <a href="#contact" target="_blank"><i class="fas fa-arrow-right"></i> Learn More</a>
@@ -413,7 +375,7 @@
           }
         },
         "color": {
-          "value": "#6a0dad"  // Accent color to match Investwise branding
+          "value": "#6a0dad"
         },
         "shape": {
           "type": "circle",
@@ -471,43 +433,53 @@
             "rotateY": 1200
           }
         }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": {
-              "enable": true,
-              "mode": "repulse"
-            },
-            "onclick": {
-              "enable": true,
-              "mode": "push"
-            },
-            "resize": true
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
           },
-          "modes": {
-            "grab": {
-              "distance": 400,
-              "line_linked": {
-                "opacity": 1
-              }
-            },
-            "bubble": {
-              "distance": 400,
-              "size": 40,
-              "duration": 2,
-              "opacity": 8,
-              "speed": 3
-            },
-            "repulse": {
-              "distance": 200,
-              "duration": 0.4
-            },
-            "push": {
-              "particles_nb": 4
-            },
-            "remove": {
-              "particles_nb": 2
-            }
-          }
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
         },
+        "modes": {
+          "grab": {
+            "distance": 400,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 200,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
+    
+    // Dark mode toggle function
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>
