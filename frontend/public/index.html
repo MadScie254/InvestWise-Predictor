@@ -4,33 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- SEO Meta Tags -->
-  <meta name="description" content="InvestWise Predictor: AI-driven investment analysis tool for data-backed decisions. Leverage advanced neural networks and financial data to maximize returns.">
-  <meta name="keywords" content="InvestWise, AI investment, financial analysis, data visualization, risk mitigation, business forecasting">
-  <meta name="author" content="InvestWise Team">
-  <!-- Open Graph Tags for Social Media Sharing -->
-  <meta property="og:title" content="InvestWise Predictor - AI-Powered Investment Analysis">
-  <meta property="og:description" content="Empower your investments with confidence using AI-driven insights and actionable recommendations.">
-  <meta property="og:image" content="assets/images/hero-bg.jpg">
-  <meta property="og:url" content="https://www.investwise.com">
+  <meta name="description" content="InvestWise Predictor: AI-driven investment analysis for data-backed decisions.">
+  <meta name="keywords" content="InvestWise, AI investment, financial analysis, market trends, risk mitigation">
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="InvestWise Predictor">
+  <meta property="og:description" content="Empower your investments with AI-driven insights and actionable recommendations.">
+  <meta property="og:image" content="https://yourdomain.com/path-to-image.jpg">
+  <meta property="og:url" content="https://investwise.example.com/">
   <meta property="og:type" content="website">
+  
   <title>InvestWise Predictor</title>
+  
   <!-- Favicon -->
   <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
-  <!-- AOS Library for Animations -->
+  
+  <!-- AOS Library for Scroll Animations -->
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <!-- Chart.js for Data Visualizations -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <!-- Particles.js Library -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  
   <!-- Custom Styles -->
   <style>
     /* General Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
       font-family: 'Poppins', sans-serif;
       background: #ffffff;
@@ -38,14 +39,12 @@
       overflow-x: hidden;
       transition: background 0.3s ease, color 0.3s ease;
     }
-
-    /* Dark Mode */
     body.dark-mode {
       background: #121212;
       color: #e0e0e0;
     }
-
-    /* Particle Background Container */
+    
+    /* Particle Background */
     #particles-js {
       position: fixed;
       top: 0;
@@ -54,25 +53,21 @@
       height: 100%;
       z-index: -1;
     }
-
-    /* Header Section */
+    
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 5%;
       background: #ffffff;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       position: fixed;
       width: 100%;
       z-index: 1000;
       transition: background 0.3s ease;
     }
-
-    header.dark-mode {
-      background: #1e1e1e;
-    }
-
+    header.dark-mode { background: #1e1e1e; }
     header .logo {
       font-size: 1.5rem;
       font-weight: 700;
@@ -80,40 +75,26 @@
       text-transform: uppercase;
       letter-spacing: 2px;
     }
-
     header nav ul {
       display: flex;
       gap: 2rem;
       list-style: none;
     }
-
     header nav ul li a {
       text-decoration: none;
       color: #1e293b;
       font-size: 1rem;
       transition: color 0.3s ease;
     }
-
-    header.dark-mode nav ul li a {
-      color: #e0e0e0;
-    }
-
-    header nav ul li a:hover {
-      color: #6a0dad;
-    }
-
+    header.dark-mode nav ul li a { color: #e0e0e0; }
+    header nav ul li a:hover { color: #6a0dad; }
     /* Dark Mode Toggle */
     .dark-mode-toggle {
       cursor: pointer;
-      font-size: 1.2rem;
-      color: #1e293b;
-      transition: color 0.3s ease;
+      width: 24px;
+      height: 24px;
     }
-
-    body.dark-mode .dark-mode-toggle {
-      color: #e0e0e0;
-    }
-
+    
     /* Hero Section */
     .hero {
       height: 100vh;
@@ -124,140 +105,47 @@
       text-align: center;
       position: relative;
       z-index: 1;
+      animation: fadeIn 1.5s ease-in-out;
     }
-
-    .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: #1e293b;
-    }
-
-    body.dark-mode .hero h1 {
-      color: #e0e0e0;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      max-width: 600px;
-      color: #475569;
-    }
-
-    body.dark-mode .hero p {
-      color: #e0e0e0;
-    }
-
-    .hero .cta-buttons {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .hero .cta-buttons a {
+    .hero h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem; }
+    .hero p { font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; }
+    .cta-buttons { display: flex; gap: 1rem; }
+    .cta-buttons a {
       padding: 0.8rem 2rem;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
       transition: all 0.3s ease;
     }
-
-    .hero .cta-buttons .btn-primary {
-      background: #6a0dad;
-      color: #ffffff;
-    }
-
-    .hero .cta-buttons .btn-secondary {
+    .btn-primary { background: #6a0dad; color: #ffffff; }
+    .btn-secondary {
       background: transparent;
       border: 2px solid #6a0dad;
       color: #6a0dad;
     }
-
-    body.dark-mode .hero .cta-buttons .btn-secondary {
-      border-color: #6a0dad;
-      color: #6a0dad;
-    }
-
-    .hero .cta-buttons a:hover {
-      transform: scale(1.1);
-    }
-
+    .cta-buttons a:hover { transform: scale(1.1); }
+    
     /* About Us Section */
     .about-us {
       padding: 5rem 10%;
       background: #f9fafb;
     }
-
-    body.dark-mode .about-us {
-      background: #1e1e1e;
-    }
-
-    .about-us h2 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      text-align: center;
-      color: #6a0dad;
-    }
-
-    body.dark-mode .about-us h2 {
-      color: #6a0dad;
-    }
-
-    .about-us p {
-      font-size: 1rem;
-      line-height: 1.6;
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-      color: #475569;
-    }
-
-    body.dark-mode .about-us p {
-      color: #e0e0e0;
-    }
-
-    .learn-more {
-      margin-top: 1rem;
-      text-align: center;
-    }
-
-    .learn-more a {
-      text-decoration: none;
-      color: #6a0dad;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    .learn-more a:hover {
-      color: #4b0082;
-    }
-
+    body.dark-mode .about-us { background: #1e1e1e; }
+    .about-us h2 { font-size: 2.5rem; margin-bottom: 2rem; text-align: center; color: #6a0dad; }
+    .about-us p { font-size: 1rem; line-height: 1.6; text-align: center; max-width: 800px; margin: 0 auto; }
+    
     /* Services Section */
     .services {
       padding: 5rem 10%;
       background: #ffffff;
     }
-
-    body.dark-mode .services {
-      background: #1e1e1e;
-    }
-
-    .services h2 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      text-align: center;
-      color: #6a0dad;
-    }
-
-    body.dark-mode .services h2 {
-      color: #6a0dad;
-    }
-
+    body.dark-mode .services { background: #1e1e1e; }
+    .services h2 { font-size: 2.5rem; margin-bottom: 2rem; text-align: center; color: #6a0dad; }
     .service-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
     }
-
     .service-card {
       background: #ffffff;
       padding: 1.5rem;
@@ -265,70 +153,103 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
       transition: transform 0.3s ease;
     }
-
-    body.dark-mode .service-card {
-      background: #333;
+    body.dark-mode .service-card { background: #333; }
+    .service-card:hover { transform: translateY(-10px); }
+    .icon { width: 2rem; height: 2rem; margin-bottom: 1rem; fill: #6a0dad; }
+    .service-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: #1e293b; }
+    body.dark-mode .service-card h3 { color: #e0e0e0; }
+    .service-card p { font-size: 1rem; line-height: 1.6; color: #475569; }
+    body.dark-mode .service-card p { color: #e0e0e0; }
+    
+    /* Login Section */
+    .login {
+      padding: 5rem 10%;
+      background: #ffffff;
     }
-
-    .service-card:hover {
-      transform: translateY(-10px);
+    body.dark-mode .login { background: #1e1e1e; }
+    .login h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: #6a0dad;
     }
-
-    .service-card svg {
-      width: 2rem;
-      height: 2rem;
-      fill: #6a0dad;
-      margin-bottom: 1rem;
+    .login form {
+      max-width: 400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
-
-    .service-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #1e293b;
-    }
-
-    body.dark-mode .service-card h3 {
-      color: #e0e0e0;
-    }
-
-    .service-card p {
+    .login input {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
       font-size: 1rem;
-      line-height: 1.6;
+    }
+    .login button {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 5px;
+      background: #6a0dad;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .login button:hover { background: #580a9c; }
+    
+    /* Testimonials Section */
+    .testimonials {
+      padding: 5rem 10%;
+      background: #f9fafb;
+      text-align: center;
+    }
+    body.dark-mode .testimonials { background: #1e1e1e; }
+    .testimonials h2 { font-size: 2.5rem; margin-bottom: 2rem; color: #6a0dad; }
+    .testimonial-item {
+      margin: 1rem auto;
+      max-width: 800px;
+      font-style: italic;
       color: #475569;
     }
-
-    body.dark-mode .service-card p {
-      color: #e0e0e0;
+    body.dark-mode .testimonial-item { color: #e0e0e0; }
+    
+    /* Contact Section */
+    .contact {
+      padding: 5rem 10%;
+      background: #f9fafb;
     }
-
-    /* Chart.js Integration */
-    .chart-container {
-      width: 80%;
-      margin: 2rem auto;
-    }
-
-    /* Footer Section */
+    body.dark-mode .contact { background: #1e1e1e; }
+    .contact h2 { font-size: 2.5rem; margin-bottom: 2rem; text-align: center; color: #6a0dad; }
+    .contact p { font-size: 1rem; line-height: 1.6; text-align: center; max-width: 800px; margin: 0 auto; }
+    
+    /* Footer */
     footer {
       padding: 2rem 10%;
       background: #0f0c29;
       text-align: center;
     }
-
-    footer p {
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-      color: #e0e0e0;
-    }
-
+    footer p { font-size: 0.9rem; margin-bottom: 1rem; color: #e0e0e0; }
     footer .social-icons a {
       color: #ffffff;
       font-size: 1.2rem;
       margin: 0 0.5rem;
       transition: color 0.3s ease;
     }
-
-    footer .social-icons a:hover {
-      color: #6a0dad;
+    footer .social-icons a:hover { color: #6a0dad; }
+    
+    /* Chart.js Integration */
+    .chart-container { width: 80%; margin: 2rem auto; }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+    }
+    
+    /* Fade In Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
@@ -337,23 +258,29 @@
   <div id="particles-js"></div>
 
   <!-- Header -->
-  <header>
-    <div class="logo">InvestWise</div>
+  <header data-aos="fade-down" aria-label="Main Navigation">
+    <div class="logo" aria-label="InvestWise Logo">InvestWise</div>
     <nav>
       <ul>
-        <li><a href="#about-us" aria-label="Navigate to About Us section">About Us</a></li>
-        <li><a href="#services" aria-label="Navigate to Services section">Services</a></li>
-        <li><a href="#login" aria-label="Navigate to Login section">Login</a></li>
-        <li><a href="#contact" aria-label="Navigate to Contact section">Contact</a></li>
+        <li><a href="#about-us" aria-label="About Us">About Us</a></li>
+        <li><a href="#services" aria-label="Our Services">Services</a></li>
+        <li><a href="#login" aria-label="Log In">Log In</a></li>
+        <li><a href="#testimonials" aria-label="Testimonials">Testimonials</a></li>
+        <li><a href="#contact" aria-label="Contact Us">Contact</a></li>
       </ul>
     </nav>
-    <i class="fas fa-moon dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode"></i>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18a8 8 0 110-16 8 8 0 010 16z"/>
+      </svg>
+    </button>
   </header>
 
   <!-- Hero Section -->
   <section class="hero" id="home" data-aos="fade-up" data-aos-duration="1000">
     <h1>Empower Your Investments with Confidence</h1>
-    <p>Turn data into financial power with AI-driven insights and actionable recommendations.</p>
+    <p>AI-driven insights to turn data into financial power.</p>
     <div class="cta-buttons">
       <a href="#login" class="btn-primary" aria-label="Get Started">Get Started</a>
       <a href="#about-us" class="btn-secondary" aria-label="Learn More">Learn More</a>
@@ -362,12 +289,17 @@
 
   <!-- About Us Section -->
   <section id="about-us" class="about-us" data-aos="fade-up" data-aos-duration="1000">
-    <h2>About InvestWise</h2>
+    <h2>About Us</h2>
     <p>
-      InvestWise Predictor is a cutting-edge investment platform designed to empower users with smart, actionable financial insights. Leveraging advanced AI models, real-time data, and interactive visualizations, we help investors make informed decisions and maximize returns.
+      InvestWise Predictor is a cutting-edge AI platform designed to simplify investment decisions. We analyze economic trends, market data, and regional policies to provide actionable insights that empower investors.
     </p>
     <div class="learn-more">
-      <a href="#about-us" target="_blank"><i class="fas fa-arrow-right"></i> Learn More</a>
+      <a href="#about-us" target="_blank" aria-label="Learn More">
+        Learn More 
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+        </svg>
+      </a>
     </div>
   </section>
 
@@ -375,174 +307,169 @@
   <section id="services" class="services" data-aos="fade-up" data-aos-duration="1000">
     <h2>Our Services</h2>
     <div class="service-cards">
-      <div class="service-card">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+      <div class="service-card" data-aos="flip-left">
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="30"></circle>
+          <path d="M32 16v32M16 32h32"></path>
         </svg>
         <h3>AI-Powered Predictions</h3>
-        <p>Forecast profitable sectors and businesses using historical data and AI models.</p>
+        <p>Forecast profitable sectors using neural networks and historical data.</p>
       </div>
-      <div class="service-card">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+      <div class="service-card" data-aos="flip-left" data-aos-delay="100">
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="8" y="16" width="48" height="32" rx="4"></rect>
+          <path d="M16 32h8v8h-8zm16-8h8v16h-8z"></path>
         </svg>
         <h3>Regional Market Analysis</h3>
-        <p>Assess investment potential across different countries and regions.</p>
+        <p>Assess investment potential in Kenya, East Africa, and global markets.</p>
       </div>
-      <div class="service-card">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+      <div class="service-card" data-aos="flip-left" data-aos-delay="200">
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M32 4l28 16v24L32 60 4 44V20L32 4z"></path>
+          <path d="M32 16v32"></path>
         </svg>
         <h3>Risk Mitigation Strategies</h3>
-        <p>Identify high-risk investments and unstable markets to protect your portfolio.</p>
+        <p>Identify unstable markets and protect your portfolio from risks.</p>
       </div>
     </div>
-    <div class="chart-container">
+    <div class="chart-container" data-aos="fade-up" data-aos-duration="1000">
       <canvas id="investmentChart"></canvas>
     </div>
     <div class="learn-more">
-      <a href="#services" target="_blank"><i class="fas fa-arrow-right"></i> Learn More</a>
+      <a href="#services" target="_blank" aria-label="Learn More">
+        Learn More 
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Login Section -->
+  <section id="login" class="login" data-aos="fade-up" data-aos-duration="1000">
+    <h2>Log In</h2>
+    <form aria-label="Login Form">
+      <input type="email" name="email" placeholder="Email" aria-label="Email Address" required>
+      <input type="password" name="password" placeholder="Password" aria-label="Password" required>
+      <button type="submit" aria-label="Submit Login">Log In</button>
+    </form>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="testimonials" data-aos="fade-up" data-aos-duration="1000">
+    <h2>Testimonials</h2>
+    <div class="testimonial-item">
+      <p>"InvestWise Predictor transformed the way I invest. The insights are invaluable!"</p>
+      <cite>- Alex M.</cite>
+    </div>
+    <div class="testimonial-item">
+      <p>"The platform's AI-driven analysis gave me a new perspective on market trends."</p>
+      <cite>- Sarah K.</cite>
+    </div>
+    <div class="testimonial-item">
+      <p>"I feel empowered and informed every time I log in. Highly recommended!"</p>
+      <cite>- John D.</cite>
     </div>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="about-us" data-aos="fade-up" data-aos-duration="1000">
+  <section id="contact" class="contact" data-aos="fade-up" data-aos-duration="1000">
     <h2>Contact Us</h2>
     <p>
-      Have questions or need assistance? Reach out to us via email at 
-      <a href="mailto:info@investwise.com" style="color: #6a0dad;">info@investwise.com</a> 
+      Reach out via email at 
+      <a href="mailto:info@investwise.com" style="color: #6a0dad;" aria-label="Email InvestWise">info@investwise.com</a>
       or call us at +123 456 7890.
     </p>
     <div class="learn-more">
-      <a href="#contact" target="_blank"><i class="fas fa-arrow-right"></i> Learn More</a>
+      <a href="#contact" target="_blank" aria-label="Learn More">
+        Learn More 
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+        </svg>
+      </a>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer>
+  <footer data-aos="fade-up">
     <p>&copy; 2023 InvestWise Predictor. All rights reserved.</p>
-    <div class="social-icons">
-      <a href="#"><i class="fab fa-facebook"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-linkedin"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
+    <div class="social-icons" aria-label="Social Media Links">
+      <a href="#" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+          <path d="M22.675 0h-21.35C.601 0 0 .6 0 1.337v21.326C0 23.4.601 24 1.325 24H12.82v-9.294H9.692V11.01h3.127V8.412c0-3.1 1.893-4.788 4.658-4.788 1.325 0 2.464.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.696h-3.12V24h6.116c.724 0 1.325-.6 1.325-1.337V1.337C24 .6 23.399 0 22.675 0z"/>
+        </svg>
+      </a>
+      <a href="#" aria-label="Twitter">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+          <path d="M24 4.557a9.83 9.83 0 01-2.828.775 4.932 4.932 0 002.165-2.724 9.864 9.864 0 01-3.127 1.196 4.92 4.92 0 00-8.384 4.482A13.978 13.978 0 011.671 3.149a4.92 4.92 0 001.524 6.573 4.903 4.903 0 01-2.229-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.935 4.935 0 01-2.224.084 4.926 4.926 0 004.604 3.417A9.867 9.867 0 010 19.54a13.94 13.94 0 007.548 2.212c9.057 0 14.009-7.514 14.009-14.009 0-.213-.005-.425-.014-.636A10.012 10.012 0 0024 4.557z"/>
+        </svg>
+      </a>
+      <a href="#" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554V14.85c0-1.345-.027-3.075-1.877-3.075-1.877 0-2.164 1.463-2.164 2.975v5.705H9.299V9h3.414v1.561h.049c.476-.9 1.637-1.848 3.367-1.848 3.602 0 4.268 2.37 4.268 5.455v6.284zM5.337 7.433a2.062 2.062 0 01-2.062-2.062 2.062 2.062 0 112.062 2.062zm1.777 13.019H3.56V9h3.554v11.452zM22.225 0H1.771C.792 0 0 .771 0 1.723v20.554C0 23.229.792 24 1.771 24h20.451C23.206 24 24 23.229 24 22.277V1.723C24 .771 23.206 0 22.225 0z"/>
+        </svg>
+      </a>
+      <a href="#" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.337 3.608 1.312.975.975 1.25 2.242 1.312 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.337 2.633-1.312 3.608-.975.975-2.242 1.25-3.608 1.312-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.337-3.608-1.312-.975-.975-1.25-2.242-1.312-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.337-2.633 1.312-3.608.975-.975 2.242-1.25 3.608-1.312C8.416 2.175 8.796 2.163 12 2.163M12 0C8.741 0 8.332.015 7.052.072 5.775.129 4.602.416 3.635 1.383 2.667 2.35 2.38 3.523 2.323 4.8.015 8.332 0 8.741 0 12s.015 3.668.072 4.948c.057 1.277.344 2.45 1.312 3.417.967.967 2.14 1.254 3.417 1.312C8.332 23.985 8.741 24 12 24s3.668-.015 4.948-.072c1.277-.057 2.45-.344 3.417-1.312.967-.967 1.254-2.14 1.312-3.417.057-1.28.072-1.689.072-4.948s-.015-3.668-.072-4.948c-.057-1.277-.344-2.45-1.312-3.417C19.398.416 18.225.129 16.948.072 15.668.015 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+        </svg>
+      </a>
     </div>
   </footer>
 
-  <!-- Initialize particles.js -->
-  <script>
-    particlesJS("particles-js", {
-      "particles": {
-        "number": {
-          "value": 80,
-          "density": {
-            "enable": true,
-            "value_area": 800
-          }
-        },
-        "color": {
-          "value": "#6a0dad"
-        },
-        "shape": {
-          "type": "circle",
-          "stroke": {
-            "width": 0,
-            "color": "#000000"
-          }
-        },
-        "opacity": {
-          "value": 0.5,
-          "random": false
-        },
-        "size": {
-          "value": 3,
-          "random": true
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#6a0dad",
-          "opacity": 0.4,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 6,
-          "direction": "none",
-          "random": false,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false
-        }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": {
-            "enable": true,
-            "mode": "repulse"
-          },
-          "onclick": {
-            "enable": true,
-            "mode": "push"
-          },
-          "resize": true
-        },
-        "modes": {
-          "grab": {
-            "distance": 400,
-            "line_linked": {
-              "opacity": 1
-            }
-          },
-          "bubble": {
-            "distance": 400,
-            "size": 40,
-            "duration": 2,
-            "opacity": 8,
-            "speed": 3
-          },
-          "repulse": {
-            "distance": 200,
-            "duration": 0.4
-          },
-          "push": {
-            "particles_nb": 4
-          }
-        }
-      },
-      "retina_detect": true
-    });
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
-    // Dark mode toggle function
+  <!-- JavaScript -->
+  <script>
+    // Initialize particles.js
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#6a0dad" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: false },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: "#6a0dad", opacity: 0.4 },
+        move: { enable: true, speed: 6, direction: "none" }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } },
+        modes: { repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+    
+    // Initialize AOS
+    AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    
+    // Dark Mode Toggle
     function toggleDarkMode() {
       document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
     }
-
-    // Initialize AOS
-    AOS.init();
-
-    // Chart.js Integration
+    // Load Dark Mode Preference
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+    
+    // Chart.js Integration (Example Bar Chart)
     const ctx = document.getElementById('investmentChart').getContext('2d');
-    const investmentChart = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        labels: ['Tech', 'Agriculture', 'Energy', 'Real Estate'],
         datasets: [{
-          label: 'Investment Growth (%)',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'Sector Growth (%)',
+          data: [25, 15, 10, 30],
           backgroundColor: '#6a0dad',
           borderColor: '#6a0dad',
           borderWidth: 1
         }]
       },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
+      options: { scales: { y: { beginAtZero: true } } }
     });
   </script>
 </body>
