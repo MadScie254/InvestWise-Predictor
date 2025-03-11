@@ -426,3 +426,24 @@ MIDDLEWARE = [
 REDIS_CLIENT = redis.StrictRedis(host='redis', port=6379, db=0)
 API_RATE_LIMIT = 100  # Maximum allowed requests per minute
 MAINTENANCE_MODE = True
+
+# ===========================
+# 21. Custom Permissions Configuration
+# ===========================
+# Custom Permissions Configuration
+# Custom Permissions Configuration
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+        'investwise.permissions.IsInvestor',
+    ],
+}
+
+# ===========================
+# 22. Whitelisted IP Configuration
+# ===========================
+# Whitelisted IP Configuration
+WHITELISTED_IPS = [
+    "192.168.1.1",
+    "127.0.0.1",
+]

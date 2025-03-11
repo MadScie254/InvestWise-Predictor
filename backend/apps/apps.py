@@ -7,6 +7,17 @@ import logging
 import requests
 from django.db import connection
 from django.core.cache import cache
+import logging.config
+
+# Set up logging for this module
+logger = logging.getLogger(__name__)
+
+class PredictorConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'predictor'
+
+    def ready(self):
+        import investwise.signals  # Import signals to connect them
 
 # Set up logging for this module
 logger = logging.getLogger(__name__)
