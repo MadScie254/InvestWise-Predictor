@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- tsParticles Library -->
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.min.js"></script>
+  <!-- Particles.js Library -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <!-- Custom Styles -->
   <style>
     /* General Reset */
@@ -36,7 +36,7 @@
     }
 
     /* Particle Background Container */
-    #tsparticles {
+    #particles-js {
       position: fixed;
       top: 0;
       left: 0;
@@ -66,7 +66,7 @@
     header .logo {
       font-size: 1.5rem;
       font-weight: 700;
-      color: #007BFF;
+      color: #6a0dad;
       text-transform: uppercase;
       letter-spacing: 2px;
     }
@@ -89,7 +89,7 @@
     }
 
     header nav ul li a:hover {
-      color: #007BFF;
+      color: #6a0dad;
     }
 
     /* Dark Mode Toggle */
@@ -114,31 +114,27 @@
       text-align: center;
       position: relative;
       z-index: 1;
-      background: url('https://images.unsplash.com/photo-1583438563801-8c8cf0d5f196?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: -1;
     }
 
     .hero h1 {
       font-size: 3.5rem;
       font-weight: 700;
       margin-bottom: 1rem;
-      color: #ffffff;
+      color: #1e293b;
+    }
+
+    body.dark-mode .hero h1 {
+      color: #e0e0e0;
     }
 
     .hero p {
       font-size: 1.2rem;
       margin-bottom: 2rem;
       max-width: 600px;
+      color: #475569;
+    }
+
+    body.dark-mode .hero p {
       color: #e0e0e0;
     }
 
@@ -156,14 +152,19 @@
     }
 
     .hero .cta-buttons .btn-primary {
-      background: #007BFF;
+      background: #6a0dad;
       color: #ffffff;
     }
 
     .hero .cta-buttons .btn-secondary {
       background: transparent;
-      border: 2px solid #007BFF;
-      color: #ffffff;
+      border: 2px solid #6a0dad;
+      color: #6a0dad;
+    }
+
+    body.dark-mode .hero .cta-buttons .btn-secondary {
+      border-color: #6a0dad;
+      color: #6a0dad;
     }
 
     .hero .cta-buttons a:hover {
@@ -184,11 +185,11 @@
       font-size: 2.5rem;
       margin-bottom: 2rem;
       text-align: center;
-      color: #007BFF;
+      color: #6a0dad;
     }
 
     body.dark-mode .about-us h2 {
-      color: #007BFF;
+      color: #6a0dad;
     }
 
     .about-us p {
@@ -211,13 +212,13 @@
 
     .learn-more a {
       text-decoration: none;
-      color: #007BFF;
+      color: #6a0dad;
       font-weight: 600;
       transition: color 0.3s ease;
     }
 
     .learn-more a:hover {
-      color: #0056b3;
+      color: #4b0082;
     }
 
     /* Services Section */
@@ -234,11 +235,11 @@
       font-size: 2.5rem;
       margin-bottom: 2rem;
       text-align: center;
-      color: #007BFF;
+      color: #6a0dad;
     }
 
     body.dark-mode .services h2 {
-      color: #007BFF;
+      color: #6a0dad;
     }
 
     .service-cards {
@@ -265,7 +266,7 @@
 
     .service-card i {
       font-size: 2rem;
-      color: #007BFF;
+      color: #6a0dad;
       margin-bottom: 1rem;
     }
 
@@ -310,13 +311,13 @@
     }
 
     footer .social-icons a:hover {
-      color: #007BFF;
+      color: #6a0dad;
     }
   </style>
 </head>
 <body>
   <!-- Particle Background -->
-  <div id="tsparticles"></div>
+  <div id="particles-js"></div>
 
   <!-- Header -->
   <header>
@@ -382,7 +383,7 @@
   <section id="contact" class="about-us">
     <h2>Contact Us</h2>
     <p>
-      Have questions or need assistance? Reach out to us via email at <a href="mailto:info@investwise.com" style="color: #007BFF;">info@investwise.com</a> or call us at +123 456 7890.
+      Have questions or need assistance? Reach out to us via email at <a href="mailto:info@investwise.com" style="color: #6a0dad;">info@investwise.com</a> or call us at +123 456 7890.
     </p>
     <div class="learn-more">
       <a href="#contact" target="_blank"><i class="fas fa-arrow-right"></i> Learn More</a>
@@ -400,57 +401,16 @@
     </div>
   </footer>
 
-  <!-- JavaScript -->
+  <!-- Initialize particles.js -->
   <script>
-    // Initialize tsParticles
-    tsParticles.load("tsparticles", {
-      fpsLimit: 60,
-      particles: {
-        number: { value: 80, density: { enable: true, value_area: 800 } },
-        color: { value: "#007BFF" },
-        shape: { type: "circle" },
-        opacity: { value: 0.5, random: false, anim: { enable: false } },
-        size: { value: 3, random: true, anim: { enable: false } },
-        move: {
-          enable: true,
-          speed: 2,
-          direction: "none",
-          random: false,
-          straight: false,
-          out_mode: "out",
-          bounce: false,
-          attract: { enable: false, rotateX: 600, rotateY: 1200 }
-        }
-      },
-      interactivity: {
-        detect_on: "canvas",
-        events: {
-          onhover: { enable: true, mode: "repulse" },
-          onclick: { enable: true, mode: "push" },
-          resize: true
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
         },
-        modes: {
-          repulse: { distance: 100, duration: 0.4 },
-          push: { particles_nb: 4 }
-        }
-      },
-      retina_detect: true
-    });
-
-    // Dark Mode Toggle
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-      const isDarkMode = document.body.classList.contains('dark-mode');
-      localStorage.setItem('darkMode', isDarkMode);
-    }
-
-    // Load Dark Mode Preference on Page Load
-    window.addEventListener('DOMContentLoaded', () => {
-      const isDarkMode = localStorage.getItem('darkMode') === 'true';
-      if (isDarkMode) {
-        document.body.classList.add('dark-mode');
-      }
-    });
-  </script>
-</body>
-</html>
+        "color": {
+          "value": "#6a0dad"  // Accent color to match Invest
