@@ -9,14 +9,14 @@
   <!-- Open Graph Tags -->
   <meta property="og:title" content="InvestWise Predictor">
   <meta property="og:description" content="Empower your investments with AI-driven insights and actionable recommendations.">
-  <meta property="og:image" content="https://yourdomain.com/path-to-image.jpg">
+  <meta property="og:image" content="https://yourdomain.com/assets/logo.png">
   <meta property="og:url" content="https://investwise.example.com/">
   <meta property="og:type" content="website">
   
   <title>InvestWise Predictor</title>
   
-  <!-- Favicon -->
-  <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
+  <!-- Favicon using logo.png -->
+  <link rel="icon" href="assets/logo.png" type="image/png">
   
   <!-- AOS Library for Scroll Animations -->
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
@@ -68,12 +68,14 @@
       transition: background 0.3s ease;
     }
     header.dark-mode { background: #1e1e1e; }
-    header .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #6a0dad;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+    header .logo a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    header .logo img {
+      height: 40px;
+      width: auto;
     }
     header nav ul {
       display: flex;
@@ -259,7 +261,11 @@
 
   <!-- Header -->
   <header data-aos="fade-down" aria-label="Main Navigation">
-    <div class="logo" aria-label="InvestWise Logo">InvestWise</div>
+    <div class="logo" aria-label="InvestWise Logo">
+      <a href="#home">
+        <img src="assets/logo.png" alt="InvestWise Logo" style="height:40px;">
+      </a>
+    </div>
     <nav>
       <ul>
         <li><a href="#about-us" aria-label="About Us">About Us</a></li>
