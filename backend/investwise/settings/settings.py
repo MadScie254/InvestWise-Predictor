@@ -225,6 +225,15 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'investwise.error_handling.custom_exception_handler',
+}
+
+MIDDLEWARE = [
+    ...,
+    'investwise.error_handling.GlobalErrorHandlerMiddleware',
+]
+
 # ===========================
 # 12. Celery & Redis Configuration
 # ===========================

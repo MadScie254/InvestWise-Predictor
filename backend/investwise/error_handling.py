@@ -169,6 +169,12 @@ def handle_external_api_error(response: requests.Response):
         logger.error(f"External API error: {response.status_code} - {response.text}")
         raise ExternalAPIError(detail=f"API call failed with status code {response.status_code}")
 
+def handle_model_loading_error():
+    """
+    Utility to handle errors when loading the AI model.
+    """
+    logger.error("AI model loading error.")
+    raise ModelLoadingError(detail="AI model could not be loaded.")
 
 def handle_database_error(func):
     """
