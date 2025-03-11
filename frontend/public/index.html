@@ -3,13 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="InvestWise Predictor: AI-driven investment analysis tool for data-backed decisions. Leverage advanced neural networks and financial data to maximize returns.">
+  <meta name="keywords" content="InvestWise, AI investment, financial analysis, data visualization, risk mitigation, business forecasting">
+  <meta name="author" content="InvestWise Team">
+  <!-- Open Graph Tags for Social Media Sharing -->
+  <meta property="og:title" content="InvestWise Predictor - AI-Powered Investment Analysis">
+  <meta property="og:description" content="Empower your investments with confidence using AI-driven insights and actionable recommendations.">
+  <meta property="og:image" content="assets/images/hero-bg.jpg">
+  <meta property="og:url" content="https://www.investwise.com">
+  <meta property="og:type" content="website">
   <title>InvestWise Predictor</title>
   <!-- Favicon -->
   <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- AOS Library for Animations -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Chart.js for Data Visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Particles.js Library -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <!-- Custom Styles -->
@@ -20,23 +30,22 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
-    /* Body: Use default background (white) or set to transparent if desired */
+
     body {
       font-family: 'Poppins', sans-serif;
-      /* Remove explicit background color to use default (white) */
+      background: #ffffff;
       color: #1e293b;
       overflow-x: hidden;
       transition: background 0.3s ease, color 0.3s ease;
     }
-    
+
     /* Dark Mode */
     body.dark-mode {
       background: #121212;
       color: #e0e0e0;
     }
-    
-    /* Particle Background Container covers the entire viewport */
+
+    /* Particle Background Container */
     #particles-js {
       position: fixed;
       top: 0;
@@ -45,7 +54,7 @@
       height: 100%;
       z-index: -1;
     }
-    
+
     /* Header Section */
     header {
       display: flex;
@@ -59,9 +68,11 @@
       z-index: 1000;
       transition: background 0.3s ease;
     }
+
     header.dark-mode {
       background: #1e1e1e;
     }
+
     header .logo {
       font-size: 1.5rem;
       font-weight: 700;
@@ -69,23 +80,28 @@
       text-transform: uppercase;
       letter-spacing: 2px;
     }
+
     header nav ul {
       display: flex;
       gap: 2rem;
       list-style: none;
     }
+
     header nav ul li a {
       text-decoration: none;
       color: #1e293b;
       font-size: 1rem;
       transition: color 0.3s ease;
     }
+
     header.dark-mode nav ul li a {
       color: #e0e0e0;
     }
+
     header nav ul li a:hover {
       color: #6a0dad;
     }
+
     /* Dark Mode Toggle */
     .dark-mode-toggle {
       cursor: pointer;
@@ -93,10 +109,11 @@
       color: #1e293b;
       transition: color 0.3s ease;
     }
+
     body.dark-mode .dark-mode-toggle {
       color: #e0e0e0;
     }
-    
+
     /* Hero Section */
     .hero {
       height: 100vh;
@@ -108,28 +125,34 @@
       position: relative;
       z-index: 1;
     }
+
     .hero h1 {
       font-size: 3.5rem;
       font-weight: 700;
       margin-bottom: 1rem;
       color: #1e293b;
     }
+
     body.dark-mode .hero h1 {
       color: #e0e0e0;
     }
+
     .hero p {
       font-size: 1.2rem;
       margin-bottom: 2rem;
       max-width: 600px;
       color: #475569;
     }
+
     body.dark-mode .hero p {
       color: #e0e0e0;
     }
+
     .hero .cta-buttons {
       display: flex;
       gap: 1rem;
     }
+
     .hero .cta-buttons a {
       padding: 0.8rem 2rem;
       border-radius: 50px;
@@ -137,40 +160,48 @@
       font-weight: 600;
       transition: all 0.3s ease;
     }
+
     .hero .cta-buttons .btn-primary {
       background: #6a0dad;
       color: #ffffff;
     }
+
     .hero .cta-buttons .btn-secondary {
       background: transparent;
       border: 2px solid #6a0dad;
       color: #6a0dad;
     }
+
     body.dark-mode .hero .cta-buttons .btn-secondary {
       border-color: #6a0dad;
       color: #6a0dad;
     }
+
     .hero .cta-buttons a:hover {
       transform: scale(1.1);
     }
-    
+
     /* About Us Section */
     .about-us {
       padding: 5rem 10%;
       background: #f9fafb;
     }
+
     body.dark-mode .about-us {
       background: #1e1e1e;
     }
+
     .about-us h2 {
       font-size: 2.5rem;
       margin-bottom: 2rem;
       text-align: center;
       color: #6a0dad;
     }
+
     body.dark-mode .about-us h2 {
       color: #6a0dad;
     }
+
     .about-us p {
       font-size: 1rem;
       line-height: 1.6;
@@ -179,45 +210,54 @@
       margin: 0 auto;
       color: #475569;
     }
+
     body.dark-mode .about-us p {
       color: #e0e0e0;
     }
+
     .learn-more {
       margin-top: 1rem;
       text-align: center;
     }
+
     .learn-more a {
       text-decoration: none;
       color: #6a0dad;
       font-weight: 600;
       transition: color 0.3s ease;
     }
+
     .learn-more a:hover {
       color: #4b0082;
     }
-    
+
     /* Services Section */
     .services {
       padding: 5rem 10%;
       background: #ffffff;
     }
+
     body.dark-mode .services {
       background: #1e1e1e;
     }
+
     .services h2 {
       font-size: 2.5rem;
       margin-bottom: 2rem;
       text-align: center;
       color: #6a0dad;
     }
+
     body.dark-mode .services h2 {
       color: #6a0dad;
     }
+
     .service-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
     }
+
     .service-card {
       background: #ffffff;
       padding: 1.5rem;
@@ -225,58 +265,75 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
       transition: transform 0.3s ease;
     }
+
     body.dark-mode .service-card {
       background: #333;
     }
+
     .service-card:hover {
       transform: translateY(-10px);
     }
-    .service-card i {
-      font-size: 2rem;
-      color: #6a0dad;
+
+    .service-card svg {
+      width: 2rem;
+      height: 2rem;
+      fill: #6a0dad;
       margin-bottom: 1rem;
     }
+
     .service-card h3 {
       font-size: 1.5rem;
       margin-bottom: 1rem;
       color: #1e293b;
     }
+
     body.dark-mode .service-card h3 {
       color: #e0e0e0;
     }
+
     .service-card p {
       font-size: 1rem;
       line-height: 1.6;
       color: #475569;
     }
+
     body.dark-mode .service-card p {
       color: #e0e0e0;
     }
-    
+
+    /* Chart.js Integration */
+    .chart-container {
+      width: 80%;
+      margin: 2rem auto;
+    }
+
     /* Footer Section */
     footer {
       padding: 2rem 10%;
       background: #0f0c29;
       text-align: center;
     }
+
     footer p {
       font-size: 0.9rem;
       margin-bottom: 1rem;
       color: #e0e0e0;
     }
+
     footer .social-icons a {
       color: #ffffff;
       font-size: 1.2rem;
       margin: 0 0.5rem;
       transition: color 0.3s ease;
     }
+
     footer .social-icons a:hover {
       color: #6a0dad;
     }
   </style>
 </head>
 <body>
-  <!-- Particle Background covers entire screen -->
+  <!-- Particle Background -->
   <div id="particles-js"></div>
 
   <!-- Header -->
@@ -284,27 +341,27 @@
     <div class="logo">InvestWise</div>
     <nav>
       <ul>
-        <li><a href="#about-us">About Us</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#login">Login</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about-us" aria-label="Navigate to About Us section">About Us</a></li>
+        <li><a href="#services" aria-label="Navigate to Services section">Services</a></li>
+        <li><a href="#login" aria-label="Navigate to Login section">Login</a></li>
+        <li><a href="#contact" aria-label="Navigate to Contact section">Contact</a></li>
       </ul>
     </nav>
     <i class="fas fa-moon dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode"></i>
   </header>
 
   <!-- Hero Section -->
-  <section class="hero" id="home">
+  <section class="hero" id="home" data-aos="fade-up" data-aos-duration="1000">
     <h1>Empower Your Investments with Confidence</h1>
     <p>Turn data into financial power with AI-driven insights and actionable recommendations.</p>
     <div class="cta-buttons">
-      <a href="#login" class="btn-primary">Get Started</a>
-      <a href="#about-us" class="btn-secondary">Learn More</a>
+      <a href="#login" class="btn-primary" aria-label="Get Started">Get Started</a>
+      <a href="#about-us" class="btn-secondary" aria-label="Learn More">Learn More</a>
     </div>
   </section>
 
   <!-- About Us Section -->
-  <section id="about-us" class="about-us">
+  <section id="about-us" class="about-us" data-aos="fade-up" data-aos-duration="1000">
     <h2>About InvestWise</h2>
     <p>
       InvestWise Predictor is a cutting-edge investment platform designed to empower users with smart, actionable financial insights. Leveraging advanced AI models, real-time data, and interactive visualizations, we help investors make informed decisions and maximize returns.
@@ -315,24 +372,33 @@
   </section>
 
   <!-- Services Section -->
-  <section id="services" class="services">
+  <section id="services" class="services" data-aos="fade-up" data-aos-duration="1000">
     <h2>Our Services</h2>
     <div class="service-cards">
       <div class="service-card">
-        <i class="fas fa-chart-line"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+        </svg>
         <h3>AI-Powered Predictions</h3>
         <p>Forecast profitable sectors and businesses using historical data and AI models.</p>
       </div>
       <div class="service-card">
-        <i class="fas fa-globe"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+        </svg>
         <h3>Regional Market Analysis</h3>
         <p>Assess investment potential across different countries and regions.</p>
       </div>
       <div class="service-card">
-        <i class="fas fa-shield-alt"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+        </svg>
         <h3>Risk Mitigation Strategies</h3>
         <p>Identify high-risk investments and unstable markets to protect your portfolio.</p>
       </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="investmentChart"></canvas>
     </div>
     <div class="learn-more">
       <a href="#services" target="_blank"><i class="fas fa-arrow-right"></i> Learn More</a>
@@ -340,7 +406,7 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="about-us">
+  <section id="contact" class="about-us" data-aos="fade-up" data-aos-duration="1000">
     <h2>Contact Us</h2>
     <p>
       Have questions or need assistance? Reach out to us via email at 
@@ -382,35 +448,15 @@
           "stroke": {
             "width": 0,
             "color": "#000000"
-          },
-          "polygon": {
-            "nb_sides": 5
-          },
-          "image": {
-            "src": "img/github.svg",
-            "width": 100,
-            "height": 100
           }
         },
         "opacity": {
           "value": 0.5,
-          "random": false,
-          "anim": {
-            "enable": false,
-            "speed": 1,
-            "opacity_min": 0.1,
-            "sync": false
-          }
+          "random": false
         },
         "size": {
           "value": 3,
-          "random": true,
-          "anim": {
-            "enable": false,
-            "speed": 40,
-            "size_min": 0.1,
-            "sync": false
-          }
+          "random": true
         },
         "line_linked": {
           "enable": true,
@@ -426,12 +472,7 @@
           "random": false,
           "straight": false,
           "out_mode": "out",
-          "bounce": false,
-          "attract": {
-            "enable": false,
-            "rotateX": 600,
-            "rotateY": 1200
-          }
+          "bounce": false
         }
       },
       "interactivity": {
@@ -467,19 +508,42 @@
           },
           "push": {
             "particles_nb": 4
-          },
-          "remove": {
-            "particles_nb": 2
           }
         }
       },
       "retina_detect": true
     });
-    
+
     // Dark mode toggle function
     function toggleDarkMode() {
       document.body.classList.toggle('dark-mode');
     }
+
+    // Initialize AOS
+    AOS.init();
+
+    // Chart.js Integration
+    const ctx = document.getElementById('investmentChart').getContext('2d');
+    const investmentChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Investment Growth (%)',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: '#6a0dad',
+          borderColor: '#6a0dad',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   </script>
 </body>
 </html>
