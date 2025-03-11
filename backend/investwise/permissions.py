@@ -139,3 +139,81 @@ class IsAdminOrInvestor(BasePermission):
             request.user.is_authenticated and
             (request.user.is_staff or getattr(request.user, 'role', None) == 'investor')
         )
+
+
+class IsAdminOrEntrepreneur(BasePermission):
+    """
+    Allows access to admin users or users with the 'entrepreneur' role.
+    """
+
+    def has_permission(self, request, view):
+        return bool(
+            request.user and
+            request.user.is_authenticated and
+            (request.user.is_staff or getattr(request.user, 'role', None) == 'entrepreneur')
+        )
+class IsAdminOrOwner(BasePermission):
+    """
+    Allows access to admin users or the object owner.
+    Assumes the object has an 'owner' field referencing the User model.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        return bool(
+            request.user and
+            request.user.is_authenticated and
+            (request.user.is_staff or obj.owner == request.user)
+        )
+
+# ===========================
+# 7. Custom Permissions for Specific Actions
+# ===========================
+
+class CanCreatePrediction(BasePermission):
+    """
+    Allows access to users with the 'investor' role to create predictions.
+    """
+
+    def has_permission(self, request, view):
+        return bool(
+            request.user and
+            request.user.is_authenticated and
+            getattr(request.user, 'role', None) == 'investor'
+        )
+    
+class CanCreateInvestmentPreference(BasePermission):
+    """
+    Allows access to users with the 'investor' role to create investment preferences.
+    """
+
+    def has_permission(self, request, view):
+        return bool(
+            request.user and
+            request.user.is_authenticated and
+            getattr(request.user, 'role', None) == 'investor'
+        )
+
+class CanCreateRiskProfile(BasePermission):
+    """
+    Allows access to users with the 'investor' role to create risk profiles.
+    """
+
+    def has_permission(self, request, view):
+        return bool(
+            request.user and
+            request.user.is_authenticated and
+            getattr(request.user, 'role', None) == 'investor'
+        )
+
+class CanCreateDataPoint(BasePermission):
+    """
+    Allows access to users with the 'entrepreneur' role to create data points.
+    """
+
+    def has_permission(self, request, view):
+        return bool(
+            request.user and
+            request.user.is_authenticated and
+            getattr(request.user, 'role', None) == 'entrepreneur'
+        )
+    
