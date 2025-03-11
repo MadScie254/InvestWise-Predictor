@@ -447,3 +447,130 @@ WHITELISTED_IPS = [
     "192.168.1.1",
     "127.0.0.1",
 ]
+
+# ===========================
+# 23. Example Usage in Django Settings
+# ===========================
+MIDDLEWARE = [
+     "myapp.middleware.RequestLoggingMiddleware",
+     "myapp.middleware.UserActivityTrackingMiddleware",
+     "myapp.middleware.SecurityHeadersMiddleware",
+     "myapp.middleware.APIThrottlingMiddleware",
+     "myapp.middleware.MaintenanceModeMiddleware",
+     "myapp.middleware.CustomErrorHandlingMiddleware",
+ ]
+
+# API_RATE_LIMIT = 100  # Maximum API requests per minute
+# REDIS_CLIENT = redis.StrictRedis(host="localhost", port=6379, db=0)
+# MAINTENANCE_MODE = False  # Enable maintenance mode
+
+CELERY_BEAT_SCHEDULE = {
+    'fetch-financial-data-every-hour': {
+        'task': 'investwise.tasks.fetch_financial_data',
+        'schedule': 3600.0,  # Run every hour
+    },
+    'train-ai-model-daily': {
+        'task': 'investwise.tasks.train_ai_model',
+        'schedule': crontab(hour=2, minute=0),  # Run daily at 2 AM
+    },
+    'send-notification-emails-every-day': {
+        'task': 'investwise.tasks.send_notification_emails',
+        'schedule': crontab(hour=8, minute=0),  # Run daily at 8 AM
+    },
+    'periodic-cache-invalidation-every-day': {
+        'task': 'investwise.tasks.periodic_cache_invalidation',
+        'schedule': crontab(hour=0, minute=0),  # Run daily at midnight
+    },
+}
+
+# ===========================
+# 24. Debug Toolbar Configuration
+# ===========================
+INSTALLED_APPS += ['debug_toolbar']  # Add Debug Toolbar
+MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')  # Insert Debug Toolbar middleware
+
+INTERNAL_IPS = ['127.0.0.1']
+
+
+INSTALLED_APPS = [
+    ...,
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'drf_spectacular',
+    'health_check',
+    'health_check.db',
+    'health_check.cache',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'InvestWise Predictor API',
+    'DESCRIPTION': 'API documentation for InvestWise Predictor.',
+    'VERSION': '1.0.0',
+}
+
+HEALTH_CHECK_API_ENDPOINTS = [
+    'https://api.example.com/health',
+    'https://another-api.com/status',
+]
+
+HEALTH_CHECK_DATA_SOURCES = [
+    {"url": "https://data-source.com/api", "params": {"key": "value"}},
+    {"url": "https://another-data-source.com"},
+]
+
+# ===========================
+# 25. Custom Exception Handling
+# ===========================
+# Custom Exception Handling
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'investwise.error_handling.custom_exception_handler',
+}
+
+MIDDLEWARE = [
+    ...,
+    'investwise.error_handling.GlobalErrorHandlerMiddleware',
+]
+
+# ===========================
+# 26. Custom Middleware Configuration
+# ===========================
+# Custom Middleware Configuration
+MIDDLEWARE = [
+    ...,
+    'investwise.middleware.RequestLoggingMiddleware',
+    'investwise.middleware.UserActivityTrackingMiddleware',
+    'investwise.middleware.SecurityHeadersMiddleware',
+    'investwise.middleware.APIThrottlingMiddleware',
+    'investwise.middleware.MaintenanceModeMiddleware',
+    'investwise.middleware.CustomErrorHandlingMiddleware',
+]
+# ===========================
+# 27. Example Usage in Django Settings
+# ===========================
+# Example Usage in Django Settings
+MIDDLEWARE = [
+    "myapp.middleware.RequestLoggingMiddleware",
+    "myapp.middleware.UserActivityTrackingMiddleware",
+    "myapp.middleware.SecurityHeadersMiddleware",
+    "myapp.middleware.APIThrottlingMiddleware",
+    "myapp.middleware.MaintenanceModeMiddleware",
+    "myapp.middleware.CustomErrorHandlingMiddleware",
+]
+# Compare this snippet from backend/investwise/middleware.py:
+
+
+# Static files configuration
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Whitenoise settings
+WHITENOISE_AUTOREFRESH = False  # Disable autorefresh in production
+WHITENOISE_USE_FINDERS = False  # Disable finders in production

@@ -167,3 +167,33 @@ def fetch_financial_data(sector: str, country: str):
         "country": country,
         "data": "Sample financial data"
     }
+
+default_cache = caches['default']
+
+def invalidate_cache_by_prefix(prefix: str):
+    """
+    Invalidate all cache keys that start with the given prefix.
+    """
+    for key in default_cache.keys(f"{prefix}:*"):
+        default_cache.delete(key)
+
+# ===========================
+# 9. Example Usage in Application
+# ===========================
+
+if __name__ == "__main__":
+    # Fetch financial data for the tech sector in the US
+    data1 = fetch_financial_data("tech", "US")
+    print(data1)
+
+    # Fetch financial data for the tech sector in the US again (should be cached)
+    data2 = fetch_financial_data("tech", "US")
+    print(data2)
+
+    # Invalidate the cache for financial data
+    invalidate_cache_by_prefix("financial_data")
+
+    # Fetch financial data for the tech sector in the US after cache invalidation
+    data3 = fetch_financial_data("tech", "US")
+    print(data3)
+# In this example, we have defined a set of cache utilities and decorators to simplify caching in Django applications. The `generate_cache_key` function generates unique cache keys based on prefixes and arguments. The `cache_result` and `class_cache_result` decorators cache the results of functions and class methods, respectively. The `invalidate_cache_by_prefix` function invalidates cache keys based on a given prefix. Finally, the `log_cache_usage` function logs cache usage for monitoring and debugging purposes.

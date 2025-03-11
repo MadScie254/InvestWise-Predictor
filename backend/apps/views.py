@@ -6,6 +6,11 @@ from rest_framework import status, generics, permissions, filters
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.exceptions import ValidationError
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import status, viewsets
+from rest_framework.permissions import IsAuthenticated
+from .models import Prediction, Notification
+from .serializers import PredictionSerializer, NotificationSerializer
+from .permissions import IsOwnerOrAdmin
 from .models import (
     User,
     Prediction,
@@ -246,3 +251,72 @@ def generate_prediction(sector, country):
         "country": country,
         "predicted_value": predicted_value,
     }
+
+
+# ===========================
+# 6. ViewSets
+# ===========================
+class PredictionViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing predictions.
+    """
+    queryset = Prediction.objects.all()
+    serializer_class = PredictionSerializer
+    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
+
+    def perform_create(self, serializer):
+        """
+        Associate the prediction with the current user upon creation.
+        """
+        serializer.save(owner=self.request.user)
+
+
+class NotificationViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    ViewSet for managing notifications.
+    """
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        """
+        Filter notifications for the current user.
+        """
+        return self.queryset.filter(user=self.request.user)
+    
+# ===========================
+# 7. User Authentication Views
+# ===========================
+
+class UserRegistrationView(APIView):
+    """
+    API endpoint for user registration.
+    """
+    def post(self, request):
+        # Logic for user registration
+        return Response({"message": "User registered successfully."}, status=status.HTTP_201_CREATED)
+
+
+class UserLoginView(APIView):
+    """
+    API endpoint for user login.
+    """
+    def post(self, request):
+        # Logic for user login
+        return Response({"message": "User logged in successfully."}, status=status.HTTP_200_OK)
+
+
+class DashboardView(APIView):
+    """
+    API endpoint for the user dashboard.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Fetch aggregated data for the dashboard
+        data = {
+            "total_predictions": Prediction.objects.filter(owner=request.user).count(),
+            "unread_notifications": Notification.objects.filter(user=request.user, is_read=False).count(),
+        }
+        return Response(data, status=status.HTTP_200_OK)
