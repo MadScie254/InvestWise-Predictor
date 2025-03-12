@@ -15,7 +15,7 @@
   
   <title>InvestWise Predictor</title>
   
-  <!-- Favicon using logo.png -->
+  <!-- Favicon & Logo -->
   <link rel="icon" href="assets/logo.png" type="image/png">
   
   <!-- AOS Library for Scroll Animations -->
@@ -79,7 +79,7 @@
     }
     header nav ul {
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
       list-style: none;
     }
     header nav ul li a {
@@ -152,7 +152,7 @@
       background: #ffffff;
       padding: 1.5rem;
       border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       transition: transform 0.3s ease;
     }
     body.dark-mode .service-card { background: #333; }
@@ -163,32 +163,45 @@
     .service-card p { font-size: 1rem; line-height: 1.6; color: #475569; }
     body.dark-mode .service-card p { color: #e0e0e0; }
     
-    /* Login Section */
-    .login {
+    /* Insights Section */
+    .insights {
       padding: 5rem 10%;
       background: #ffffff;
     }
-    body.dark-mode .login { background: #1e1e1e; }
-    .login h2 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      text-align: center;
-      color: #6a0dad;
+    body.dark-mode .insights { background: #1e1e1e; }
+    .insights h2 { font-size: 2.5rem; margin-bottom: 2rem; text-align: center; color: #6a0dad; }
+    .insights p { font-size: 1rem; line-height: 1.6; text-align: center; max-width: 800px; margin: 0 auto; }
+    
+    /* Blog Section */
+    .blog {
+      padding: 5rem 10%;
+      background: #f9fafb;
     }
-    .login form {
+    body.dark-mode .blog { background: #1e1e1e; }
+    .blog h2 { font-size: 2.5rem; margin-bottom: 2rem; text-align: center; color: #6a0dad; }
+    .blog p { font-size: 1rem; line-height: 1.6; text-align: center; max-width: 800px; margin: 0 auto; }
+    
+    /* Join Us (Sign Up) Section */
+    .join {
+      padding: 5rem 10%;
+      background: #ffffff;
+    }
+    body.dark-mode .join { background: #1e1e1e; }
+    .join h2 { font-size: 2.5rem; margin-bottom: 2rem; text-align: center; color: #6a0dad; }
+    .join form {
       max-width: 400px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
-    .login input {
+    .join input {
       padding: 0.8rem;
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 1rem;
     }
-    .login button {
+    .join button {
       padding: 0.8rem;
       border: none;
       border-radius: 5px;
@@ -198,7 +211,39 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-    .login button:hover { background: #580a9c; }
+    .join button:hover { background: #580a9c; }
+    
+    /* Members Login Section */
+    .members-login {
+      padding: 5rem 10%;
+      background: #ffffff;
+    }
+    body.dark-mode .members-login { background: #1e1e1e; }
+    .members-login h2 { font-size: 2.5rem; margin-bottom: 2rem; text-align: center; color: #6a0dad; }
+    .members-login form {
+      max-width: 400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .members-login input {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .members-login button {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 5px;
+      background: #6a0dad;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .members-login button:hover { background: #580a9c; }
     
     /* Testimonials Section */
     .testimonials {
@@ -263,14 +308,18 @@
   <header data-aos="fade-down" aria-label="Main Navigation">
     <div class="logo" aria-label="InvestWise Logo">
       <a href="#home">
-        <img src="assets/logo.png" alt="InvestWise Logo" style="height:40px;">
+        <img src="assets/logo.png" alt="InvestWise Logo">
       </a>
     </div>
     <nav>
       <ul>
+        <li><a href="#home" aria-label="Home">Home</a></li>
         <li><a href="#about-us" aria-label="About Us">About Us</a></li>
         <li><a href="#services" aria-label="Our Services">Services</a></li>
-        <li><a href="#login" aria-label="Log In">Log In</a></li>
+        <li><a href="#insights" aria-label="Insights">Insights</a></li>
+        <li><a href="#blog" aria-label="Blog">Blog</a></li>
+        <li><a href="#join" aria-label="Join Us">Join Us</a></li>
+        <li><a href="#members-login" aria-label="Members Login">Members Login</a></li>
         <li><a href="#testimonials" aria-label="Testimonials">Testimonials</a></li>
         <li><a href="#contact" aria-label="Contact Us">Contact</a></li>
       </ul>
@@ -288,7 +337,7 @@
     <h1>Empower Your Investments with Confidence</h1>
     <p>AI-driven insights to turn data into financial power.</p>
     <div class="cta-buttons">
-      <a href="#login" class="btn-primary" aria-label="Get Started">Get Started</a>
+      <a href="#join" class="btn-primary" aria-label="Get Started">Get Started</a>
       <a href="#about-us" class="btn-secondary" aria-label="Learn More">Learn More</a>
     </div>
   </section>
@@ -351,12 +400,52 @@
     </div>
   </section>
 
-  <!-- Login Section -->
-  <section id="login" class="login" data-aos="fade-up" data-aos-duration="1000">
-    <h2>Log In</h2>
-    <form aria-label="Login Form">
+  <!-- Insights Section -->
+  <section id="insights" class="insights" data-aos="fade-up" data-aos-duration="1000">
+    <h2>Insights</h2>
+    <p>Stay ahead with data-driven insights and market analysis that empower your investment strategies.</p>
+    <div class="learn-more">
+      <a href="insights.html" target="_blank" aria-label="Read Insights">
+        Read Insights 
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section id="blog" class="blog" data-aos="fade-up" data-aos-duration="1000">
+    <h2>Blog</h2>
+    <p>Explore our latest articles and thought leadership on investment strategies, AI, and market trends.</p>
+    <div class="learn-more">
+      <a href="blog.html" target="_blank" aria-label="Read Blog">
+        Read Blog 
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Join Us (Sign Up) Section -->
+  <section id="join" class="join" data-aos="fade-up" data-aos-duration="1000">
+    <h2>Join Us</h2>
+    <form aria-label="Sign Up Form">
+      <input type="text" name="fullname" placeholder="Full Name" aria-label="Full Name" required>
       <input type="email" name="email" placeholder="Email" aria-label="Email Address" required>
       <input type="password" name="password" placeholder="Password" aria-label="Password" required>
+      <input type="password" name="confirm-password" placeholder="Confirm Password" aria-label="Confirm Password" required>
+      <button type="submit" aria-label="Submit Sign Up">Join Us</button>
+    </form>
+  </section>
+
+  <!-- Members Login Section -->
+  <section id="members-login" class="members-login" data-aos="fade-up" data-aos-duration="1000">
+    <h2>Members Login</h2>
+    <form aria-label="Members Login Form">
+      <input type="email" name="member-email" placeholder="Email" aria-label="Member Email" required>
+      <input type="password" name="member-password" placeholder="Password" aria-label="Member Password" required>
       <button type="submit" aria-label="Submit Login">Log In</button>
     </form>
   </section>
@@ -417,7 +506,7 @@
       </a>
       <a href="#" aria-label="Instagram">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.337 3.608 1.312.975.975 1.25 2.242 1.312 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.337 2.633-1.312 3.608-.975.975-2.242 1.25-3.608 1.312-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.337-3.608-1.312-.975-.975-1.25-2.242-1.312-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.337-2.633 1.312-3.608.975-.975 2.242-1.25 3.608-1.312C8.416 2.175 8.796 2.163 12 2.163M12 0C8.741 0 8.332.015 7.052.072 5.775.129 4.602.416 3.635 1.383 2.667 2.35 2.38 3.523 2.323 4.8.015 8.332 0 8.741 0 12s.015 3.668.072 4.948c.057 1.277.344 2.45 1.312 3.417.967.967 2.14 1.254 3.417 1.312C8.332 23.985 8.741 24 12 24s3.668-.015 4.948-.072c1.277-.057 2.45-.344 3.417-1.312.967-.967 1.254-2.14 1.312-3.417.057-1.28.072-1.689.072-4.948s-.015-3.668-.072-4.948c-.057-1.277-.344-2.45-1.312-3.417C19.398.416 18.225.129 16.948.072 15.668.015 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.337 3.608 1.312.975.975 1.25 2.242 1.312 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.337 2.633-1.312 3.608-.975.975-2.242 1.25-3.608 1.312-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.337-3.608-1.312-.975-.975-1.25-2.242-1.312-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.337-2.45 1.312-3.417.967-.967 2.14-1.254 3.417-1.312C8.332 2.175 8.741 2.163 12 2.163m0-2.163C8.741 0 8.332.015 7.052.072 5.775.129 4.602.416 3.635 1.383 2.667 2.35 2.38 3.523 2.323 4.8.015 8.332 0 8.741 0 12s.015 3.668.072 4.948c.057 1.277.344 2.45 1.312 3.417.967.967 2.14 1.254 3.417 1.312C8.332 23.985 8.741 24 12 24s3.668-.015 4.948-.072c1.277-.057 2.45-.344 3.417-1.312.967-.967 1.254-2.14 1.312-3.417.057-1.28.072-1.689.072-4.948s-.015-3.668-.072-4.948c-.057-1.277-.344-2.45-1.312-3.417C19.398.416 18.225.129 16.948.072 15.668.015 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
         </svg>
       </a>
     </div>
@@ -427,7 +516,7 @@
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-
+  
   <!-- JavaScript -->
   <script>
     // Initialize particles.js
@@ -456,7 +545,6 @@
       document.body.classList.toggle('dark-mode');
       localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
     }
-    // Load Dark Mode Preference
     if (localStorage.getItem('darkMode') === 'true') {
       document.body.classList.add('dark-mode');
     }
