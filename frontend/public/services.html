@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="InvestWise Predictor - Services: Explore our cutting-edge AI-driven investment services designed to empower investors with actionable insights and data-driven decisions.">
+  <meta name="keywords" content="InvestWise, Services, AI investment, financial insights, investment tools, portfolio management, risk analysis">
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Services - InvestWise Predictor">
+  <meta property="og:description" content="Discover how InvestWise Predictor’s innovative services revolutionize investment strategies with AI-powered predictions, risk analysis, and real-time market insights.">
+  <meta property="og:image" content="https://yourdomain.com/assets/logo.png">
+  <meta property="og:url" content="https://investwise.example.com/services.html">
+  <meta property="og:type" content="website">
+  <title>Services - InvestWise Predictor</title>
+  <!-- Favicon & Logo -->
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <!-- AOS Library for Scroll Animations -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Particles.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <!-- Chart.js Library (for interactive charts) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Custom Styles -->
+  <style>
+    /* General Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      color: #1e293b;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
+    }
+    body.dark-mode { background: #121212; color: #e0e0e0; }
+    /* Particle Background */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background: #ffffff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+    header.dark-mode { background: #1e1e1e; }
+    header .logo a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    header .logo img {
+      height: 40px;
+      width: auto;
+    }
+    header nav ul {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    header nav ul li a {
+      text-decoration: none;
+      color: #1e293b;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    header.dark-mode nav ul li a { color: #e0e0e0; }
+    header nav ul li a:hover { color: #6a0dad; }
+    .dark-mode-toggle {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+    }
+    /* Main Content Container */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 90px; /* to avoid fixed header */
+    }
+    /* Sections */
+    section { padding: 5rem 10%; }
+    h2 { 
+      font-size: 2.5rem; 
+      margin-bottom: 2rem; 
+      text-align: center; 
+      color: #6a0dad; 
+      text-transform: uppercase;
+    }
+    .content-container {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: justify;
+    }
+    p { margin-bottom: 1.5rem; }
+    ul { margin-left: 1.5rem; }
+    /* Service Cards */
+    .service-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .service-card {
+      width: 300px;
+      text-align: center;
+      padding: 1.5rem;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+    .service-card i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #6a0dad;
+    }
+    .service-card h3 { margin: 1rem 0 0.5rem; }
+    .service-card p { font-size: 0.9rem; }
+    /* Expandable Sections */
+    .expandable-section {
+      margin: 1rem 0;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .expandable-section:hover { background: #f0f0f0; }
+    .expandable-section .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      font-weight: 600;
+    }
+    .expandable-section .content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0 1rem;
+    }
+    .expandable-section.open .content { max-height: 200px; }
+    /* Customer Journey Flow */
+    .journey-flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .journey-step {
+      width: 250px;
+      text-align: center;
+      padding: 1.5rem;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .journey-step:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+    .journey-step i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #6a0dad;
+    }
+    /* FAQ Section */
+    .faq-item {
+      margin: 1rem 0;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .faq-item:hover { background: #f0f0f0; }
+    .faq-item .question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      font-weight: 600;
+    }
+    .faq-item .answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0 1rem;
+    }
+    .faq-item.open .answer { max-height: 200px; }
+    /* Testimonials */
+    .testimonial-item {
+      margin: 1rem 0;
+      padding: 1rem;
+      border-left: 3px solid #6a0dad;
+    }
+    /* Contact Us Icon Fix */
+    .learn-more a svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      fill: currentColor;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h2 { font-size: 2rem; }
+      p { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+  <!-- Header -->
+  <header data-aos="fade-down" aria-label="Main Navigation">
+    <div class="logo" aria-label="InvestWise Logo">
+      <a href="index.html">
+        <img src="assets/logo.png" alt="InvestWise Logo">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html#home" aria-label="Home">Home</a></li>
+        <li><a href="about.html" aria-label="About Us">About Us</a></li>
+        <li><a href="services.html" aria-label="Our Services">Services</a></li>
+        <li><a href="index.html#insights" aria-label="Insights">Insights</a></li>
+        <li><a href="index.html#blog" aria-label="Blog">Blog</a></li>
+        <li><a href="#join" aria-label="Join Us">Join Us</a></li>
+        <li><a href="#members-login" aria-label="Members Login">Members Login</a></li>
+        <li><a href="index.html#testimonials" aria-label="Testimonials">Testimonials</a></li>
+        <li><a href="index.html#contact" aria-label="Contact Us">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18a8 8 0 110-16 8 8 0 010 16z"/>
+      </svg>
+    </button>
+  </header>
+  <!-- Main Content -->
+  <main>
+    <!-- 1. Introduction -->
+    <section id="introduction" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Our Services</h2>
+      <div class="content-container">
+        <p>
+          At InvestWise Predictor, we offer a suite of AI-driven services designed to empower investors with actionable insights and data-driven decision-making tools. Our platform transforms complex market data into clear, understandable information.
+        </p>
+        <p>
+          Whether you're a seasoned investor or just starting, our services cater to all levels of expertise, ensuring you have the tools you need to succeed in today's dynamic markets.
+        </p>
+      </div>
+    </section>
+<!-- 2. Core Services -->
+<section id="core-services" data-aos="fade-up" data-aos-duration="1000">
+    <h2>Core Services</h2>
+    <div class="content-container">
+      <p>
+        Our core services are built upon cutting-edge AI and machine learning technologies, delivering unparalleled accuracy, real-time insights, and strategic intelligence to navigate global markets effectively.
+      </p>
+      <div class="service-cards">
+        
+        <!-- AI-Powered Predictions -->
+        <div class="service-card" data-aos="zoom-in">
+          <i class="fas fa-chart-line"></i>
+          <h3>AI-Powered Predictions</h3>
+          <p>Utilizing deep learning, statistical inference, and pattern recognition, our AI-driven models analyze vast datasets to predict market trends with precision.</p>
+          <ul>
+            <li><strong>How It Works:</strong> Processes historical and real-time financial data, detects hidden correlations, and anticipates market shifts.</li>
+            <li><strong>Use Cases:</strong> Stock market forecasting, forex and commodity predictions, consumer demand analysis.</li>
+          </ul>
+        </div>
+  
+        <!-- Risk Analysis -->
+        <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Risk Analysis</h3>
+          <p>Our AI-powered risk assessment tools identify market volatility, potential threats, and financial instability to ensure informed decision-making.</p>
+          <ul>
+            <li><strong>How It Works:</strong> Evaluates macroeconomic indicators, geopolitical risks, and financial statements to generate early warnings.</li>
+            <li><strong>Use Cases:</strong> Portfolio hedging, credit and default risk assessments, economic downturn modeling.</li>
+          </ul>
+        </div>
+  
+        <!-- Market Insights -->
+        <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+          <i class="fas fa-globe"></i>
+          <h3>Market Insights</h3>
+          <p>Gain access to real-time, AI-curated market intelligence through interactive dashboards integrating financial data, sentiment analysis, and economic indicators.</p>
+          <ul>
+            <li><strong>How It Works:</strong> Aggregates live financial news, stock performance, and sector trends using NLP and data analytics.</li>
+            <li><strong>Use Cases:</strong> Sector-specific intelligence, competitor benchmarking, economic trend forecasting.</li>
+          </ul>
+        </div>
+  
+        <!-- Customized Recommendations -->
+        <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+          <i class="fas fa-lightbulb"></i>
+          <h3>Customized Recommendations</h3>
+          <p>AI-powered personalized investment strategies based on user preferences, portfolio performance, and market conditions.</p>
+          <ul>
+            <li><strong>How It Works:</strong> Uses reinforcement learning and predictive analytics to generate tailored financial strategies.</li>
+            <li><strong>Use Cases:</strong> Automated portfolio management, trade execution optimization, long-term wealth growth planning.</li>
+          </ul>
+        </div>
+  
+      </div>
+    </div>
+  </section>
+  
+<!-- 3. Advanced Service Breakdown -->
+<section id="detailed-services" data-aos="fade-up" data-aos-duration="1000">
+  <h2>Advanced Service Breakdown</h2>
+  <div class="content-container">
+    
+    <div class="expandable-section" onclick="toggleExpand(this)">
+      <div class="header">
+        <h3>AI-Powered Predictive Analytics</h3>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="content">
+        <p><strong>Overview:</strong> Leverage cutting-edge machine learning algorithms to model complex economic patterns and forecast future market behavior with high confidence intervals.</p>
+        <p><strong>Technical Edge:</strong> Implements deep neural networks (DNNs), time-series analysis (ARIMA, LSTMs), and ensemble methods (XGBoost, Random Forest) to extract insights from multi-dimensional datasets.</p>
+        <p><strong>Key Benefits:</strong> 
+          <ul>
+            <li>Statistically significant predictions minimizing Type I & Type II errors.</li>
+            <li>Real-time model updates based on Bayesian inference and reinforcement learning.</li>
+            <li>Automated feature engineering ensuring adaptive signal detection.</li>
+          </ul>
+        </p>
+        <p><strong>Use Cases:</strong> 
+          <ul>
+            <li>Algorithmic trading: Optimizing trade execution with reinforcement learning.</li>
+            <li>Market sentiment analysis: NLP-driven analysis of financial reports and social media data.</li>
+            <li>Economic forecasting: Modeling inflation, GDP growth, and industry-specific demand trends.</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+
+    <div class="expandable-section" onclick="toggleExpand(this)">
+      <div class="header">
+        <h3>Quantitative Risk Analysis</h3>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="content">
+        <p><strong>Overview:</strong> Systematically evaluate financial risk using probabilistic models, Monte Carlo simulations, and stochastic differential equations.</p>
+        <p><strong>Technical Edge:</strong> 
+          <ul>
+            <li>VaR (Value at Risk) and CVaR (Conditional Value at Risk) calculations for portfolio risk quantification.</li>
+            <li>Markov Chain Monte Carlo (MCMC) simulations for uncertainty modeling.</li>
+            <li>GARCH models for volatility clustering in financial time series.</li>
+          </ul>
+        </p>
+        <p><strong>Key Benefits:</strong> 
+          <ul>
+            <li>Early anomaly detection through unsupervised machine learning techniques.</li>
+            <li>Stress testing for black swan event scenarios using adversarial simulations.</li>
+            <li>Comprehensive risk hedging strategies leveraging derivatives and structured finance techniques.</li>
+          </ul>
+        </p>
+        <p><strong>Use Cases:</strong> 
+          <ul>
+            <li>Hedging strategy optimization using options pricing models (Black-Scholes, Binomial Trees).</li>
+            <li>Liquidity risk assessment in high-frequency trading (HFT) environments.</li>
+            <li>Systemic risk modeling to evaluate potential contagion effects in financial networks.</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+
+    <div class="expandable-section" onclick="toggleExpand(this)">
+      <div class="header">
+        <h3>Real-Time Market Intelligence</h3>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="content">
+        <p><strong>Overview:</strong> Gain instant access to high-frequency financial data streams, sentiment analysis, and trend detection through scalable APIs and distributed computing.</p>
+        <p><strong>Technical Edge:</strong> 
+          <ul>
+            <li>Natural Language Processing (NLP) for entity recognition and sentiment scoring on financial news.</li>
+            <li>Kafka-based real-time data pipelines for sub-millisecond event processing.</li>
+            <li>Graph-based analysis for identifying sectoral interdependencies and capital flows.</li>
+          </ul>
+        </p>
+        <p><strong>Key Benefits:</strong> 
+          <ul>
+            <li>Microsecond-level execution speeds with optimized SQL and NoSQL architectures.</li>
+            <li>Automated market signal extraction through deep reinforcement learning agents.</li>
+            <li>Cross-sector correlation analysis for preemptive decision-making.</li>
+          </ul>
+        </p>
+        <p><strong>Use Cases:</strong> 
+          <ul>
+            <li>Real-time anomaly detection in market behavior using unsupervised clustering.</li>
+            <li>News-driven trading strategies utilizing LLM-powered sentiment analysis.</li>
+            <li>Sectoral rotation strategies leveraging macroeconomic indicators.</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+
+    <div class="expandable-section" onclick="toggleExpand(this)">
+      <div class="header">
+        <h3>AI-Driven Personalized Investment Strategies</h3>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="content">
+        <p><strong>Overview:</strong> Adaptive portfolio management utilizing reinforcement learning and Markowitz portfolio optimization.</p>
+        <p><strong>Technical Edge:</strong> 
+          <ul>
+            <li>Dynamic asset allocation based on non-stationary time-series forecasting.</li>
+            <li>Factor analysis using principal component analysis (PCA) and eigenvector decomposition.</li>
+            <li>Customized risk-return optimization through Bayesian hierarchical modeling.</li>
+          </ul>
+        </p>
+        <p><strong>Key Benefits:</strong> 
+          <ul>
+            <li>Personalized trade recommendations refined through continual learning algorithms.</li>
+            <li>Risk-adjusted return maximization via genetic algorithms.</li>
+            <li>Multi-objective optimization balancing liquidity constraints and yield maximization.</li>
+          </ul>
+        </p>
+        <p><strong>Use Cases:</strong> 
+          <ul>
+            <li>Smart beta investment strategies implementing machine learning-driven factor models.</li>
+            <li>Automated ETF rebalancing using reinforcement learning agents.</li>
+            <li>Real-time asset correlation tracking for minimizing downside risk.</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 4. Customer Journey Flow -->
+    <section id="journey" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Customer Journey Flow</h2>
+      <div class="content-container">
+        <p>
+          Follow these steps to fully utilize our services and maximize your investment potential.
+        </p>
+        <div class="journey-flow">
+          <div class="journey-step" data-aos="zoom-in">
+            <i class="fas fa-sign-in-alt"></i>
+            <h3>Sign Up</h3>
+            <p>Create an account and access our platform.</p>
+          </div>
+          <div class="journey-step" data-aos="zoom-in" data-aos-delay="100">
+            <i class="fas fa-chart-bar"></i>
+            <h3>Analyze Data</h3>
+            <p>Explore AI-driven insights and market trends.</p>
+          </div>
+          <div class="journey-step" data-aos="zoom-in" data-aos-delay="200">
+            <i class="fas fa-lightbulb"></i>
+            <h3>Get Recommendations</h3>
+            <p>Receive tailored investment strategies.</p>
+          </div>
+          <div class="journey-step" data-aos="zoom-in" data-aos-delay="300">
+            <i class="fas fa-check-circle"></i>
+            <h3>Execute</h3>
+            <p>Implement strategies and track performance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 5. FAQs -->
+    <section id="faqs" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Frequently Asked Questions</h2>
+      <div class="content-container">
+        <div class="faq-item" onclick="toggleExpand(this)">
+          <div class="question">
+            <p>How accurate are your AI predictions?</p>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="answer">
+            <p>Our AI models are trained on vast datasets and achieve high accuracy rates, but no prediction is 100% guaranteed.</p>
+          </div>
+        </div>
+        <div class="faq-item" onclick="toggleExpand(this)">
+          <div class="question">
+            <p>Can I customize my recommendations?</p>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="answer">
+            <p>Yes, our platform tailors recommendations based on your portfolio and preferences.</p>
+          </div>
+        </div>
+        <div class="faq-item" onclick="toggleExpand(this)">
+          <div class="question">
+            <p>What kind of support do you offer?</p>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="answer">
+            <p>We offer 24/7 chat support, detailed guides, and personalized consultations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 6. Testimonials -->
+    <section id="testimonials" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Testimonials</h2>
+      <div class="content-container">
+        <div class="testimonial-item" data-aos="fade-up">
+          <p>"InvestWise Predictor transformed my approach to investing. The AI-driven insights are unmatched."</p>
+          <cite>- Alex M.</cite>
+        </div>
+        <div class="testimonial-item" data-aos="fade-up" data-aos-delay="100">
+          <p>"The platform’s recommendations helped me optimize my portfolio and achieve significant growth."</p>
+          <cite>- Sarah K.</cite>
+        </div>
+        <div class="testimonial-item" data-aos="fade-up" data-aos-delay="200">
+          <p>"A must-have tool for any serious investor. The risk analysis feature saved me during volatile times."</p>
+          <cite>- John D.</cite>
+        </div>
+      </div>
+    </section>
+    <!-- 7. Contact & Get Started -->
+    <section id="contact-cta" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Contact & Get Started</h2>
+      <div class="content-container">
+        <p>
+          Ready to elevate your investment strategy with our AI-driven services? Our dedicated support team is here to guide you every step of the way.
+        </p>
+        <p>
+          With an interactive chatbot available 24/7, detailed contact forms, and embedded maps, getting in touch has never been easier. Whether you’re seeking a demo or personalized advice, we’re here to help.
+        </p>
+        <div class="learn-more">
+          <a href="contact.html" target="_blank" aria-label="Contact Us">
+            Contact Us 
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Footer -->
+  <footer data-aos="fade-up">
+    <p>&copy; 2023 InvestWise Predictor. All rights reserved.</p>
+    <div class="social-icons" aria-label="Social Media Links">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- JavaScript -->
+  <script>
+    // Initialize particles.js
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 50, density: { enable: true, value_area: 800 } },
+        color: { value: "#6a0dad" },
+        shape: { type: "circle" },
+        opacity: { value: 0.7, random: false },
+        size: { value: 2, random: true },
+        line_linked: { enable: true, distance: 150, color: "#6a0dad", opacity: 0.4 },
+        move: { enable: true, speed: 3, direction: "none" }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } },
+        modes: { repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+    // Initialize AOS
+    AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+    // Expandable Sections
+    function toggleExpand(element) {
+      element.classList.toggle('open');
+    }
+    // Chart.js Integration (Example Bar Chart)
+    const ctx = document.getElementById('techChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Tech', 'Agriculture', 'Energy', 'Real Estate'],
+        datasets: [{
+          label: 'Sector Growth (%)',
+          data: [25, 15, 10, 30],
+          backgroundColor: '#6a0dad',
+          borderColor: '#6a0dad',
+          borderWidth: 1
+        }]
+      },
+      options: { scales: { y: { beginAtZero: true } } }
+    });
+  </script>
+</body>
+</html>

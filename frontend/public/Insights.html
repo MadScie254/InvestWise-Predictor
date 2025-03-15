@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="InvestWise Predictor - Insights: Explore real-time market trends, AI-driven investment insights, financial news, sector analysis, and economic indicators.">
+  <meta name="keywords" content="InvestWise, Insights, Market Trends, AI Investment, Financial News, Economic Indicators, Investment Tools">
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Insights - InvestWise Predictor">
+  <meta property="og:description" content="Stay ahead with actionable insights from global markets, AI-powered predictions, and curated financial news.">
+  <meta property="og:image" content="https://yourdomain.com/assets/logo.png">
+  <meta property="og:url" content="https://investwise.example.com/insights.html">
+  <meta property="og:type" content="website">
+  <title>Insights - InvestWise Predictor</title>
+  <!-- Favicon & Logo -->
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <!-- AOS Library for Scroll Animations -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Particles.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <!-- Chart.js Library (for interactive charts) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Plotly.js for Advanced Charts -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- Custom Styles -->
+  <style>
+    /* General Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      color: #1e293b;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
+    }
+    body.dark-mode { background: #121212; color: #e0e0e0; }
+    /* Particle Background */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background: #ffffff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+    header.dark-mode { background: #1e1e1e; }
+    header .logo a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    header .logo img {
+      height: 40px;
+      width: auto;
+    }
+    header nav ul {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    header nav ul li a {
+      text-decoration: none;
+      color: #1e293b;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    header.dark-mode nav ul li a { color: #e0e0e0; }
+    header nav ul li a:hover { color: #6a0dad; }
+    .dark-mode-toggle {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+    }
+    /* Main Content Container */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 90px; /* to avoid fixed header */
+    }
+    /* Sections */
+    section { padding: 5rem 10%; }
+    h2 { 
+      font-size: 2.5rem; 
+      margin-bottom: 2rem; 
+      text-align: center; 
+      color: #6a0dad; 
+      text-transform: uppercase;
+    }
+    .content-container {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: justify;
+    }
+    p { margin-bottom: 1.5rem; }
+    ul { margin-left: 1.5rem; }
+    /* Interactive Cards */
+    .interactive-card {
+      background: #f9f9f9;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .interactive-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+    /* Heatmap */
+    .heatmap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .heatmap-item {
+      background: #6a0dad;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    .heatmap-item.low { background: #c8e6c9; color: black; }
+    .heatmap-item.medium { background: #fff9c4; color: black; }
+    .heatmap-item.high { background: #ffcdd2; color: black; }
+    /* Poll Section */
+    .poll-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .poll-options {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .poll-option {
+      padding: 0.5rem 1rem;
+      background: #6a0dad;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .poll-option:hover { background: #4b0082; }
+    /* Tools & Calculators */
+    .calculator-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .calculator-form input, .calculator-form button {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .calculator-form button {
+      background: #6a0dad;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .calculator-form button:hover { background: #4b0082; }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h2 { font-size: 2rem; }
+      p { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+  <!-- Header -->
+  <header data-aos="fade-down" aria-label="Main Navigation">
+    <div class="logo" aria-label="InvestWise Logo">
+      <a href="index.html">
+        <img src="assets/logo.png" alt="InvestWise Logo">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html#home" aria-label="Home">Home</a></li>
+        <li><a href="about.html" aria-label="About Us">About Us</a></li>
+        <li><a href="services.html" aria-label="Our Services">Services</a></li>
+        <li><a href="insights.html" aria-label="Insights">Insights</a></li>
+        <li><a href="index.html#blog" aria-label="Blog">Blog</a></li>
+        <li><a href="#join" aria-label="Join Us">Join Us</a></li>
+        <li><a href="#members-login" aria-label="Members Login">Members Login</a></li>
+        <li><a href="index.html#testimonials" aria-label="Testimonials">Testimonials</a></li>
+        <li><a href="index.html#contact" aria-label="Contact Us">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18a8 8 0 110-16 8 8 0 010 16z"/>
+      </svg>
+    </button>
+  </header>
+  <!-- Main Content -->
+  <main>
+    <!-- 1. Market Overview -->
+    <section id="market-overview" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Market Overview</h2>
+      <div class="content-container">
+        <p>
+          Stay updated with real-time summaries of global and local market trends.
+        </p>
+        <div class="heatmap">
+          <div class="heatmap-item low">NSE: +0.5%</div>
+          <div class="heatmap-item medium">Dow Jones: -0.2%</div>
+          <div class="heatmap-item high">S&P 500: +1.0%</div>
+          <div class="heatmap-item low">FTSE 100: -0.8%</div>
+        </div>
+        <div id="stock-chart" style="width: 100%; height: 400px;"></div>
+        <p>
+          Cryptocurrency Trends:
+          <strong>Bitcoin:</strong> $30,000 | <strong>Ethereum:</strong> $2,000
+        </p>
+        <p>
+          Forex Update:
+          <strong>USD/KES:</strong> 120.50 | <strong>EUR/USD:</strong> 1.10
+        </p>
+        <p>
+          Commodities Prices:
+          <strong>Gold:</strong> $1,900/oz | <strong>Oil:</strong> $80/barrel
+        </p>
+      </div>
+    </section>
+    <!-- 2. AI-Powered Investment Insights -->
+    <section id="ai-insights" data-aos="fade-up" data-aos-duration="1000">
+      <h2>AI-Powered Investment Insights</h2>
+      <div class="content-container">
+        <p>
+          Leverage AI to make informed investment decisions.
+        </p>
+        <div class="interactive-card">
+          <h3>Stock Price Predictions</h3>
+          <canvas id="prediction-chart" width="400" height="200"></canvas>
+        </div>
+        <div class="interactive-card">
+          <h3>Risk Assessments</h3>
+          <div class="risk-gauge">
+            <i class="fas fa-exclamation-circle" style="color: red;"></i> High Risk
+          </div>
+        </div>
+        <div class="interactive-card">
+          <h3>Personalized Recommendations</h3>
+          <p>Top Picks: Tesla (TSLA), Apple (AAPL), Bitcoin (BTC)</p>
+        </div>
+      </div>
+    </section>
+    <!-- 3. Financial News & Analysis -->
+    <section id="financial-news" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Financial News & Analysis</h2>
+      <div class="content-container">
+        <p>
+          Breaking news and expert opinions curated for you.
+        </p>
+        <div class="news-article">
+          <h3>Bloomberg: Tech Stocks Surge Amid AI Boom</h3>
+          <p>Sentiment: Positive</p>
+        </div>
+        <div class="news-article">
+          <h3>CNBC: Fed Raises Interest Rates by 0.25%</h3>
+          <p>Sentiment: Neutral</p>
+        </div>
+      </div>
+    </section>
+    <!-- 4. Sector-Specific Deep Dives -->
+    <section id="sector-analysis" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Sector-Specific Deep Dives</h2>
+      <div class="content-container">
+        <p>
+          Detailed reports on key industries.
+        </p>
+        <div class="interactive-card">
+          <h3>Technology</h3>
+          <p>AI and blockchain innovations driving growth.</p>
+        </div>
+        <div class="interactive-card">
+          <h3>Real Estate</h3>
+          <p>Property prices stabilize amid rising mortgage rates.</p>
+        </div>
+      </div>
+    </section>
+    <!-- 5. Economic Indicators & Reports -->
+    <section id="economic-indicators" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Economic Indicators & Reports</h2>
+      <div class="content-container">
+        <p>
+          Key macro-economic metrics impacting investments.
+        </p>
+        <div class="interactive-card">
+          <h3>GDP Growth Rates</h3>
+          <p>Global GDP Growth: 3.2% | US GDP Growth: 2.5%</p>
+        </div>
+        <div class="interactive-card">
+          <h3>Inflation & Interest Rates</h3>
+          <p>US Inflation Rate: 3.0% | Fed Funds Rate: 5.25%</p>
+        </div>
+      </div>
+    </section>
+    <!-- 6. Investment Strategies & Guides -->
+    <section id="investment-strategies" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Investment Strategies & Guides</h2>
+      <div class="content-container">
+        <p>
+          Learn the basics and advanced strategies for investing.
+        </p>
+        <div class="interactive-card">
+          <h3>Basic Concepts</h3>
+          <p>Understand stocks, bonds, ETFs, and mutual funds.</p>
+        </div>
+        <div class="interactive-card">
+          <h3>Technical Analysis</h3>
+          <p>Master candlestick charts and financial statements.</p>
+        </div>
+      </div>
+    </section>
+    <!-- 7. User-Generated Insights & Community Polls -->
+    <section id="community-insights" data-aos="fade-up" data-aos-duration="1000">
+      <h2>User-Generated Insights & Community Polls</h2>
+      <div class="content-container">
+        <p>
+          Engage with our community and share your ideas.
+        </p>
+        <div class="poll-section">
+          <h3>Market Confidence Survey</h3>
+          <div class="poll-options">
+            <div class="poll-option" onclick="vote('positive')">Positive</div>
+            <div class="poll-option" onclick="vote('neutral')">Neutral</div>
+            <div class="poll-option" onclick="vote('negative')">Negative</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 8. Tools & Calculators -->
+    <section id="tools-calculators" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Tools & Calculators</h2>
+      <div class="content-container">
+        <p>
+          Use our interactive tools to plan your investments.
+        </p>
+        <form class="calculator-form" onsubmit="calculateReturn(event)">
+          <input type="number" placeholder="Initial Capital" required>
+          <input type="number" placeholder="Interest Rate (%)" required>
+          <input type="number" placeholder="Duration (Years)" required>
+          <button type="submit">Calculate Return</button>
+        </form>
+        <p id="result"></p>
+      </div>
+    </section>
+    <!-- 9. Insights Archive -->
+    <section id="archive" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Insights Archive</h2>
+      <div class="content-container">
+        <p>
+          Access historical reports and user contributions.
+        </p>
+        <ul>
+          <li><a href="#">Q1 2023 Market Report</a></li>
+          <li><a href="#">Top Investment Strategies 2022</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <!-- Footer -->
+  <footer data-aos="fade-up">
+    <p>&copy; 2023 InvestWise Predictor. All rights reserved.</p>
+    <div class="social-icons" aria-label="Social Media Links">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- JavaScript -->
+  <script>
+    // Initialize particles.js
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#6a0dad" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: false },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: "#6a0dad", opacity: 0.4 },
+        move: { enable: true, speed: 6, direction: "none" }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } },
+        modes: { repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+    // Initialize AOS
+    AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+    // Stock Chart Example (Plotly)
+    const stockData = [
+      { x: ['2023-01-01', '2023-02-01', '2023-03-01'], y: [3000, 3100, 3200], type: 'line', name: 'S&P 500' },
+      { x: ['2023-01-01', '2023-02-01', '2023-03-01'], y: [12000, 11800, 11900], type: 'line', name: 'NSE' }
+    ];
+    Plotly.newPlot('stock-chart', stockData, { title: 'Market Performance' });
+    // Prediction Chart Example (Chart.js)
+    const predictionCtx = document.getElementById('prediction-chart').getContext('2d');
+    new Chart(predictionCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+        datasets: [{
+          label: 'Predicted Price',
+          data: [100, 105, 110, 115],
+          borderColor: '#6a0dad',
+          borderWidth: 2,
+          fill: false
+        }]
+      },
+      options: { scales: { y: { beginAtZero: false } } }
+    });
+    // Poll Voting Functionality
+    function vote(sentiment) {
+      alert(`You voted: ${sentiment}`);
+    }
+    // Investment Return Calculator
+    function calculateReturn(event) {
+      event.preventDefault();
+      const inputs = event.target.querySelectorAll('input');
+      const capital = parseFloat(inputs[0].value);
+      const rate = parseFloat(inputs[1].value) / 100;
+      const years = parseFloat(inputs[2].value);
+      const result = capital * Math.pow(1 + rate, years);
+      document.getElementById('result').innerText = `Future Value: $${result.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
