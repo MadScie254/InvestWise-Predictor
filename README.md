@@ -1,6 +1,6 @@
 # InvestWise Predictor
 
-![InvestWise Logo](https://via.placeholder.com/600x200)
+![InvestWise Logo](https://github.com/MadScie254/InvestWise-Predictor/blob/main/frontend/public/assets/logo.png)]
 
 ## Table of Contents
 
