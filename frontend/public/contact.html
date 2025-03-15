@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="InvestWise Predictor - Contact Us: Reach out to our team for inquiries, support, or partnerships. We’re here to help you with your investment journey.">
+  <meta name="keywords" content="InvestWise, Contact Us, Support, Investment Advice, Partnership, Live Chat, FAQ, Careers">
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Contact InvestWise Predictor">
+  <meta property="og:description" content="Get in touch with InvestWise Predictor’s dedicated support team. Whether you need assistance, advice, or partnership opportunities, we’re just a click away!">
+  <meta property="og:image" content="https://yourdomain.com/assets/logo.png">
+  <meta property="og:url" content="https://investwise.example.com/contact.html">
+  <meta property="og:type" content="website">
+  <title>Contact Us - InvestWise Predictor</title>
+  <!-- Favicon & Logo -->
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <!-- AOS Library for Scroll Animations -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Particles.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <!-- Custom Styles -->
+  <style>
+    /* General Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      color: #1e293b;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
+    }
+    body.dark-mode { background: #121212; color: #e0e0e0; }
+    /* Particle Background */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background: #ffffff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+    header.dark-mode { background: #1e1e1e; }
+    header .logo a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    header .logo img {
+      height: 40px;
+      width: auto;
+    }
+    header nav ul {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    header nav ul li a {
+      text-decoration: none;
+      color: #1e293b;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    header.dark-mode nav ul li a { color: #e0e0e0; }
+    header nav ul li a:hover { color: #6a0dad; }
+    .dark-mode-toggle {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+    }
+    /* Main Content Container */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 90px; /* to avoid fixed header */
+    }
+    /* Sections */
+    section { padding: 5rem 10%; }
+    h2 { 
+      font-size: 2.5rem; 
+      margin-bottom: 2rem; 
+      text-align: center; 
+      color: #6a0dad; 
+      text-transform: uppercase;
+    }
+    .content-container {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: justify;
+    }
+    p { margin-bottom: 1.5rem; }
+    ul { margin-left: 1.5rem; }
+    /* Contact Information */
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .contact-info-item {
+      width: 250px;
+      text-align: center;
+      padding: 1.5rem;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .contact-info-item:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+    .contact-info-item i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #6a0dad;
+    }
+    /* Contact Form */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .contact-form button {
+      padding: 1rem;
+      background: #6a0dad;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .contact-form button:hover { background: #4b0082; }
+    /* Live Chat & Chatbot */
+    .live-chat {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .live-chat a {
+      text-decoration: none;
+      color: #6a0dad;
+      font-weight: 600;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .live-chat a:hover { color: #4b0082; transform: scale(1.05); }
+    /* Social Media Links */
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .social-icons a {
+      color: #6a0dad;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+    .social-icons a:hover { color: #4b0082; }
+    /* Google Maps Embed */
+    .google-maps {
+      margin: 2rem auto;
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    /* FAQs */
+    .faq-item {
+      margin: 1rem 0;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .faq-item:hover { background: #f0f0f0; }
+    .faq-item .question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      font-weight: 600;
+    }
+    .faq-item .answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0 1rem;
+    }
+    .faq-item.open .answer { max-height: 200px; }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h2 { font-size: 2rem; }
+      p { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+  <!-- Header -->
+  <header data-aos="fade-down" aria-label="Main Navigation">
+    <div class="logo" aria-label="InvestWise Logo">
+      <a href="index.html">
+        <img src="assets/logo.png" alt="InvestWise Logo">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html#home" aria-label="Home">Home</a></li>
+        <li><a href="about.html" aria-label="About Us">About Us</a></li>
+        <li><a href="services.html" aria-label="Our Services">Services</a></li>
+        <li><a href="insights.html" aria-label="Insights">Insights</a></li>
+        <li><a href="#blog" aria-label="Blog">Blog</a></li>
+        <li><a href="#join" aria-label="Join Us">Join Us</a></li>
+        <li><a href="#members-login" aria-label="Members Login">Members Login</a></li>
+        <li><a href="index.html#testimonials" aria-label="Testimonials">Testimonials</a></li>
+        <li><a href="contact.html" aria-label="Contact Us">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18a8 8 0 110-16 8 8 0 010 16z"/>
+      </svg>
+    </button>
+  </header>
+  <!-- Main Content -->
+  <main>
+    <!-- 1. Contact Information -->
+    <section id="contact-info" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Contact Information</h2>
+      <div class="contact-info">
+        <div class="contact-info-item" data-aos="zoom-in">
+          <i class="fas fa-map-marker-alt"></i>
+          <h3>Address</h3>
+          <p>Ruiru, Kiambu, Kenya</p>
+        </div>
+        <div class="contact-info-item" data-aos="zoom-in" data-aos-delay="100">
+          <i class="fas fa-phone"></i>
+          <h3>Phone</h3>
+          <p>+254 742 007 277</p>
+        </div>
+        <div class="contact-info-item" data-aos="zoom-in" data-aos-delay="200">
+          <i class="fas fa-clock"></i>
+          <h3>Hours</h3>
+          <p>Mon-Fri: 9 AM - 6 PM</p>
+        </div>
+        <div class="contact-info-item" data-aos="zoom-in" data-aos-delay="300">
+          <i class="fas fa-envelope"></i>
+          <h3>Email</h3>
+          <p>support@investwise.com</p>
+        </div>
+      </div>
+    </section>
+    <!-- 2. Contact Form -->
+    <section id="contact-form" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Send Us a Message</h2>
+      <form class="contact-form" action="submit_form.php" method="POST" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <label for="subject">Subject:</label>
+        <select id="subject" name="subject" required>
+          <option value="" disabled selected>Select Subject</option>
+          <option value="General Inquiry">General Inquiry</option>
+          <option value="Technical Support">Technical Support</option>
+          <option value="Investment Advice">Investment Advice</option>
+          <option value="Partnership">Partnership</option>
+        </select>
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <label for="file-upload">Attach File (Optional):</label>
+        <input type="file" id="file-upload" name="file">
+        <button type="submit" aria-label="Submit Form">Submit</button>
+      </form>
+    </section>
+    <!-- 3. Live Chat & Chatbot Integration -->
+    <section id="live-chat" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Live Chat & Chatbot</h2>
+      <div class="live-chat">
+        <p>💬 Chat with Us – Start a conversation on WhatsApp or Messenger!</p>
+        <a href="https://wa.me/254742007277" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+      </div>
+    </section>
+    <!-- 4. Social Media Links -->
+    <section id="social-media" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Connect with Us</h2>
+      <div class="social-icons">
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </section>
+    <!-- 5. Office Location & Google Maps Embed -->
+    <section id="location" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Find Us Here</h2>
+      <div class="google-maps">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.795677453413!2d36.93086331446936!3d-1.1473603360448597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f44c7f0f0f0f0%3A0x1a1a1a1a1a1a1a1a!2sRuiru%2C%20Kiambu%2C%20Kenya!5e0!3m2!1sen!2ske!4v1699999999999!5m2!1sen!2ske" 
+                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
+    <!-- 6. Frequently Asked Questions (FAQs) -->
+    <section id="faqs" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Frequently Asked Questions</h2>
+      <div class="content-container">
+        <div class="faq-item" onclick="toggleExpand(this)">
+          <div class="question">
+            <p>How do I start investing with InvestWise?</p>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="answer">
+            <p>Sign up for an account, explore our AI-driven insights, and start building your portfolio today.</p>
+          </div>
+        </div>
+        <div class="faq-item" onclick="toggleExpand(this)">
+          <div class="question">
+            <p>What are the supported payment methods?</p>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="answer">
+            <p>We support bank transfers, credit/debit cards, and popular e-wallets like PayPal and M-Pesa.</p>
+          </div>
+        </div>
+        <div class="faq-item" onclick="toggleExpand(this)">
+          <div class="question">
+            <p>How can I withdraw funds?</p>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="answer">
+            <p>Log into your account, navigate to the "Withdraw" section, and follow the instructions.</p>
+          </div>
+        </div>
+        <div class="faq-item" onclick="toggleExpand(this)">
+          <div class="question">
+            <p>How can I get personalized investment advice?</p>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="answer">
+            <p>Contact our support team or use the chatbot to request personalized recommendations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 7. Careers & Partnership Inquiries -->
+    <section id="careers-partnerships" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Careers & Partnerships</h2>
+      <div class="content-container">
+        <p>Interested in joining our team? Visit our <a href="careers.html" target="_blank">Careers Page</a>.</p>
+        <p>For partnership inquiries, email us at <a href="mailto:partnerships@investwise.com">partnerships@investwise.com</a>.</p>
+      </div>
+    </section>
+    <!-- 8. Legal & Compliance Information -->
+    <section id="legal" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Legal & Compliance</h2>
+      <div class="content-container">
+        <p><a href="terms.html" target="_blank">Terms of Service</a> | <a href="privacy.html" target="_blank">Privacy Policy</a></p>
+        <p>Disclaimer: All investments carry risks. Please read our compliance documents carefully before proceeding.</p>
+      </div>
+    </section>
+  </main>
+  <!-- Footer -->
+  <footer data-aos="fade-up">
+    <p>&copy; 2023 InvestWise Predictor. All rights reserved.</p>
+    <div class="social-icons" aria-label="Social Media Links">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- JavaScript -->
+  <script>
+    // Initialize particles.js
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#6a0dad" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: false },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: "#6a0dad", opacity: 0.4 },
+        move: { enable: true, speed: 6, direction: "none" }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } },
+        modes: { repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+    // Initialize AOS
+    AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+    // Expandable Sections
+    function toggleExpand(element) {
+      element.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
