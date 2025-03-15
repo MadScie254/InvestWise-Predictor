@@ -1,28 +1,28 @@
 <!-- Header Section -->
 <div align="center">
   <h1>
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rocket/rocket-original.svg" width="40" height="40" style="vertical-align: middle"/> 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rocket/rocket-original.svg" width="40" style="vertical-align: middle"/> 
     Daniel Wanjala Machimbo 
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rocket/rocket-original.svg" width="40" height="40" style="vertical-align: middle"/>
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rocket/rocket-original.svg" width="40" style="vertical-align: middle"/>
   </h1>
-  <p>
+  
+  <div class="header-links">
     <a href="https://www.linkedin.com/in/daniel-wanjala-912b8b17b">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="25" style="vertical-align: middle"/>
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="28"/>
     </a>
     <a href="https://github.com/MadScie254">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="25" style="vertical-align: middle"/>
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="28"/>
     </a>
     <a href="mailto:dmwanjala254@gmail.com">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" width="25" style="vertical-align: middle"/>
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" width="28"/>
     </a>
-  </p>
-  <p>
-    Data Scientist | IT Manager | Machine Learning Engineer <br/>
-    Transforming complex data into actionable insights <br/>
-    <img src="https://progress-bar.dev/80/?scale=100&title=Python" style="margin: 5px 0"/>
-    <img src="https://progress-bar.dev/75/?scale=100&title=Machine%20Learning" style="margin: 5px 0"/>
-    <img src="https://progress-bar.dev/90/?scale=100&title=Data%20Analysis" style="margin: 5px 0"/>
-  </p>
+  </div>
+
+  <div class="progress-container">
+    <img src="https://progress-bar.dev/85/?scale=100&title=Python&color=blue" class="progress-bar"/>
+    <img src="https://progress-bar.dev/80/?scale=100&title=Machine%20Learning&color=green" class="progress-bar"/>
+    <img src="https://progress-bar.dev/95/?scale=100&title=Data%20Analysis&color=orange" class="progress-bar"/>
+  </div>
 </div>
 
 ---
@@ -36,33 +36,31 @@
     </h2>
   </summary>
   
-  <div style="padding: 15px; background: #f5f5f5; border-radius: 10px">
-    <p>
-      Data strategist with 5+ years of experience in transforming raw data into enterprise solutions. 
-      Currently pursuing MSc in Data Science at Cooperative University Kenya while leading IT operations at Kingdom Hospital.
-    </p>
+  <div class="content-card">
+    <div class="about-text">
+      <p>Data strategist blending 5+ years of IT management with advanced data science expertise. Currently:</p>
+      <ul>
+        <li>Lead IT Manager at Kingdom Hospital</li>
+        <li>MSc Data Science candidate (Cooperative University Kenya)</li>
+        <li>Certified in Advanced Machine Learning (HackerRank)</li>
+      </ul>
+    </div>
     
-    <div style="display: flex; gap: 20px; flex-wrap: wrap">
-      <div>
-        <h3>Education</h3>
-        <ul>
-          <li>MSc Data Science (ongoing)</li>
-          <li>BSc Information Technology</li>
-          <li>Certifications: 
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/certifications/certifications-original.svg" width="18" style="vertical-align: middle"/>
-            <a href="[HackerRank Badge URL]">HackerRank Data Science</a>
-          </li>
-        </ul>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original-wordmark.svg" width="40"/>
+        <h4>Python</h4>
+        <p>Pandas • NumPy • Scikit-learn</p>
       </div>
-      
-      <div>
-        <h3>Core Expertise</h3>
-        <ul>
-          <li>Predictive Modeling</li>
-          <li>Healthcare Analytics</li>
-          <li>Time Series Forecasting</li>
-          <li>IT Infrastructure Management</li>
-        </ul>
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aws/aws-original-wordmark.svg" width="40"/>
+        <h4>Cloud</h4>
+        <p>AWS • SageMaker • EC2</p>
+      </div>
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tableau/tableau-original.svg" width="40"/>
+        <h4>BI</h4>
+        <p>Tableau • Power BI • Looker</p>
       </div>
     </div>
   </div>
@@ -70,60 +68,56 @@
 
 ---
 
-<!-- Technical Showcase -->
+<!-- Technical Expertise -->
 <details>
   <summary>
     <h2>
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/code/code-original.svg" width="25" style="vertical-align: middle"/>
-      Technical Expertise
+      Technical Stack
     </h2>
   </summary>
   
-  <div style="padding: 15px; background: #f5f5f5; border-radius: 10px">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px">
-    
-      <!-- Tools Grid -->
-      <div class="tool-card">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original-wordmark.svg" width="40"/>
-        <h4>Python</h4>
-        <p>Advanced proficiency in data manipulation (Pandas), ML (Scikit-learn), and deep learning (TensorFlow)</p>
+  <div class="content-card">
+    <div class="tech-grid">
+      <div class="tech-category">
+        <h3>Data Engineering</h3>
+        <ul>
+          <li>Apache Spark</li>
+          <li>Airflow</li>
+          <li>SQL/NoSQL</li>
+        </ul>
       </div>
-      
-      <div class="tool-card">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tableau/tableau-original.svg" width="40"/>
-        <h4>Tableau</h4>
-        <p>Dashboard development with real-time data visualization for executive reporting</p>
+      <div class="tech-category">
+        <h3>Machine Learning</h3>
+        <ul>
+          <li>TensorFlow</li>
+          <li>PyTorch</li>
+          <li>AutoML</li>
+        </ul>
       </div>
-      
-      <div class="tool-card">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aws/aws-original-wordmark.svg" width="40"/>
-        <h4>AWS</h4>
-        <p>Cloud infrastructure management for scalable ML pipelines</p>
+      <div class="tech-category">
+        <h3>DevOps</h3>
+        <ul>
+          <li>Docker</li>
+          <li>Kubernetes</li>
+          <li>CI/CD</li>
+        </ul>
       </div>
-      
-      <div class="tool-card">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original-wordmark.svg" width="40"/>
-        <h4>TensorFlow</h4>
-        <p>Developed NLP models achieving 92% accuracy in sentiment analysis</p>
-      </div>
-      
     </div>
     
-    <!-- Code Snippet -->
-    <div style="margin: 20px 0; padding: 15px; background: #2d2d2d; border-radius: 8px">
-      <h3>Sample: Time Series Forecasting</h3>
+    <div class="code-snippet">
+      <h3>Time Series Forecasting Example</h3>
       ```python
       import pandas as pd
       from statsmodels.tsa.arima.model import ARIMA
 
-      # CBK Remittance Forecasting Model
       def forecast_remittances(data):
           model = ARIMA(data['remittances'], order=(5,1,0))
           results = model.fit()
           forecast = results.get_forecast(steps=12)
-          return forecast.predicted_mean
-          
-      # Achieved 89% prediction accuracy on monthly remittance data
+          return forecast.conf_int(), forecast.predicted_mean
+
+      # Achieved 89% accuracy on CBK remittance data
       ```
     </div>
   </div>
@@ -136,38 +130,34 @@
   <summary>
     <h2>
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/project-diagram/project-diagram-original.svg" width="25" style="vertical-align: middle"/>
-      Key Projects
+      Impactful Projects
     </h2>
   </summary>
   
-  <div style="padding: 15px; background: #f5f5f5; border-radius: 10px">
-    <div class="project-card">
-      <h3>Central Bank Remittance Forecasting</h3>
-      <p>
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/money/money-original.svg" width="20" style="vertical-align: middle"/>
-        Economic Analysis | 
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original-wordmark.svg" width="20" style="vertical-align: middle"/>
-        Machine Learning
-      </p>
+  <div class="content-card">
+    <div class="project">
+      <h3>CBK Remittance Forecasting System</h3>
+      <div class="project-meta">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/money/money-original.svg" width="20"/>
+        <span>Economic Analysis</span>
+      </div>
       <ul>
-        <li>Developed SARIMA model with 89% accuracy</li>
-        <li>Processed 15GB of historical economic data</li>
-        <li>Reduced manual forecasting efforts by 70%</li>
+        <li>Developed SARIMA model with 89% prediction accuracy</li>
+        <li>Processed 15GB+ historical economic data</li>
+        <li>Reduced manual reporting efforts by 70%</li>
       </ul>
     </div>
-    
-    <div class="project-card">
-      <h3>Hospital Resource Optimization</h3>
-      <p>
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heartbeat/heartbeat-original.svg" width="20" style="vertical-align: middle"/>
-        Healthcare Analytics | 
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original-wordmark.svg" width="20" style="vertical-align: middle"/>
-        Predictive Modeling
-      </p>
+
+    <div class="project">
+      <h3>Hospital Resource Optimizer</h3>
+      <div class="project-meta">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heartbeat/heartbeat-original.svg" width="20"/>
+        <span>Healthcare Analytics</span>
+      </div>
       <ul>
-        <li>Implemented bed occupancy prediction model</li>
-        <li>Increased resource allocation efficiency by 35%</li>
-        <li>Reduced patient wait times by 45%</li>
+        <li>Predicted patient admission rates with 92% accuracy</li>
+        <li>Optimized bed allocation using ML-driven insights</li>
+        <li>Reduced operational costs by 28%</li>
       </ul>
     </div>
   </div>
@@ -175,15 +165,34 @@
 
 ---
 
-<!-- Tech Radar -->
+<!-- Certifications -->
 <details>
   <summary>
     <h2>
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/radar/radar-original.svg" width="25" style="vertical-align: middle"/>
-      Tech Radar
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/certifications/certifications-original.svg" width="25" style="vertical-align: middle"/>
+      Certifications
     </h2>
   </summary>
-  <img src="https://tech-radar.dev/radar.png?data=python,90;ml,85;cloud,80;devops,75" width="600"/>
+  
+  <div class="content-card">
+    <div class="cert-grid">
+      <div class="cert-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hackerrank/hackerrank-original.svg" width="40"/>
+        <h4>HackerRank</h4>
+        <p>Data Science Certification</p>
+      </div>
+      <div class="cert-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aws/aws-original-wordmark.svg" width="40"/>
+        <h4>AWS</h4>
+        <p>Machine Learning Specialty</p>
+      </div>
+      <div class="cert-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/coursera/coursera-original.svg" width="40"/>
+        <h4>Coursera</h4>
+        <p>Deep Learning Specialization</p>
+      </div>
+    </div>
+  </div>
 </details>
 
 ---
@@ -193,33 +202,24 @@
   <summary>
     <h2>
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/contact/contact-original.svg" width="25" style="vertical-align: middle"/>
-      Contact & Collaboration
+      Let's Connect
     </h2>
   </summary>
   
-  <div style="padding: 15px; background: #f5f5f5; border-radius: 10px">
-    <div style="display: flex; gap: 20px; flex-wrap: wrap">
-      <a href="mailto:dmwanjala254@gmail.com" class="contact-badge">
+  <div class="content-card">
+    <div class="contact-grid">
+      <a href="mailto:dmwanjala254@gmail.com" class="contact-button">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" width="25"/>
-        Email
+        Email Me
       </a>
-      <a href="https://www.linkedin.com/in/daniel-wanjala-912b8b17b" class="contact-badge">
+      <a href="https://www.linkedin.com/in/daniel-wanjala-912b8b17b" class="contact-button">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="25"/>
         LinkedIn
       </a>
-      <a href="tel:+254742007277" class="contact-badge">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/phone/phone-original.svg" width="25"/>
-        +254 742 007 277
+      <a href="https://github.com/MadScie254" class="contact-button">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="25"/>
+        GitHub
       </a>
-    </div>
-    
-    <div style="margin-top: 20px">
-      <h3>Let's Collaborate On:</h3>
-      <ul>
-        <li>Healthcare predictive analytics solutions</li>
-        <li>Financial time series forecasting systems</li>
-        <li>Cloud-based ML infrastructure development</li>
-      </ul>
     </div>
   </div>
 </details>
@@ -227,39 +227,181 @@
 ---
 
 <!-- GitHub Stats -->
-<div align="center" style="margin: 30px 0">
-  <img src="https://github-readme-stats.vercel.app/api?username=MadScie254&show_icons=true&theme=radical"/>
-  <img src="https://streak-stats.demolab.com/?user=MadScie254&theme=dark"/>
+<div align="center" class="stats-container">
+  <img src="https://github-readme-stats.vercel.app/api?username=MadScie254&show_icons=true&theme=radical" alt="GitHub Stats"/>
+  <img src="https://streak-stats.demolab.com/?user=MadScie254&theme=dark" alt="Contribution Streak"/>
 </div>
 
 <style>
-.tool-card {
-  padding: 15px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+/* Base Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  margin: 0 20px;
+}
+
+h2 {
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 5px;
+}
+
+/* Header Styles */
+.header-links {
+  margin: 15px 0;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.header-links a {
   transition: transform 0.2s;
 }
-.tool-card:hover {
-  transform: translateY(-5px);
+
+.header-links a:hover {
+  transform: scale(1.1);
 }
-.project-card {
-  padding: 15px;
-  background: white;
-  border-radius: 8px;
-  margin: 10px 0;
+
+.progress-container {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.progress-bar {
+  border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-.contact-badge {
-  padding: 10px 15px;
-  background: #e0e0e0;
-  border-radius: 20px;
-  text-decoration: none;
-  color: #333;
-  transition: all 0.2s;
+
+/* Content Styles */
+.content-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin: 10px 0;
 }
-.contact-badge:hover {
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.skill-item {
+  text-align: center;
+  padding: 15px;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.skill-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Tech Section */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.code-snippet {
+  background: #2d2d2d;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+/* Project Styles */
+.project {
+  margin: 15px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.project:hover {
+  transform: translateX(10px);
+}
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+/* Certification Styles */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.cert-item {
+  text-align: center;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+/* Contact Styles */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.contact-button {
+  padding: 12px;
   background: #007bff;
   color: white;
+  text-align: center;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.contact-button:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Stats Section */
+.stats-container {
+  margin: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.stats-container img {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .skills-grid, .tech-grid, .cert-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
