@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="InvestWise Predictor - Testimonials: Discover real client success stories, feedback, and ratings that highlight our commitment to data-driven investment strategies.">
+  <meta name="keywords" content="InvestWise, Testimonials, Client Feedback, Investment Success, AI Insights, Financial Growth">
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Testimonials - InvestWise Predictor">
+  <meta property="og:description" content="See how InvestWise transforms financial futures through AI-driven strategies. Read real client testimonials, watch video reviews, and share your experience today.">
+  <meta property="og:image" content="https://yourdomain.com/assets/logo.png">
+  <meta property="og:url" content="https://investwise.example.com/testimonials.html">
+  <meta property="og:type" content="website">
+  <title>Testimonials - InvestWise Predictor</title>
+  <!-- Favicon & Logo -->
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <!-- AOS Library for Scroll Animations -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Particles.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <!-- Custom Styles -->
+  <style>
+    /* General Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      color: #1e293b;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
+    }
+    body.dark-mode { background: #121212; color: #e0e0e0; }
+    /* Particle Background */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background: #ffffff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+    header.dark-mode { background: #1e1e1e; }
+    header .logo a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    header .logo img {
+      height: 40px;
+      width: auto;
+    }
+    header nav ul {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    header nav ul li a {
+      text-decoration: none;
+      color: #1e293b;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    header.dark-mode nav ul li a { color: #e0e0e0; }
+    header nav ul li a:hover { color: #6a0dad; }
+    .dark-mode-toggle {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+    }
+    /* Main Content Container */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 90px; /* to avoid fixed header */
+    }
+    /* Hero Section with Video Background */
+    .hero-section {
+      position: relative;
+      height: 60vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-section video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+    }
+    .hero-section .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+    .hero-section h1 {
+      font-size: 2.5rem;
+      color: #fff;
+      z-index: 2;
+    }
+    .hero-section p {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      z-index: 2;
+    }
+    .hero-section a {
+      color: #fff;
+      background: #6a0dad;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .hero-section a:hover { background: #4b0082; }
+    /* Testimonial Grid */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 4rem 0;
+    }
+    .testimonial-card {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .testimonial-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+    .testimonial-card i.fa-user-circle {
+      font-size: 3rem;
+      color: #6a0dad;
+      margin-bottom: 1rem;
+    }
+    .testimonial-card .rating {
+      margin: 1rem 0;
+      font-size: 1.2rem;
+      color: #FFD700;
+    }
+    /* Video Testimonials */
+    .video-testimonials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .video-testimonial {
+      width: 300px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .video-testimonial iframe {
+      width: 100%;
+      height: 200px;
+    }
+    /* Ratings & Statistics */
+    .ratings-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 4rem 0;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-item i {
+      font-size: 3rem;
+      color: #6a0dad;
+    }
+    .stat-item h3 {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+    }
+    /* Submit Testimonial Form */
+    .submit-testimonial {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+    .submit-testimonial input,
+    .submit-testimonial textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .submit-testimonial button {
+      background: #6a0dad;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .submit-testimonial button:hover { background: #4b0082; }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      p { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+  <!-- Header -->
+  <header data-aos="fade-down" aria-label="Main Navigation">
+    <div class="logo" aria-label="InvestWise Logo">
+      <a href="index.html">
+        <img src="assets/logo.png" alt="InvestWise Logo">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html#home" aria-label="Home">Home</a></li>
+        <li><a href="about.html" aria-label="About Us">About Us</a></li>
+        <li><a href="services.html" aria-label="Our Services">Services</a></li>
+        <li><a href="insights.html" aria-label="Insights">Insights</a></li>
+        <li><a href="blog.html" aria-label="Blog">Blog</a></li>
+        <li><a href="#join" aria-label="Join Us">Join Us</a></li>
+        <li><a href="#members-login" aria-label="Members Login">Members Login</a></li>
+        <li><a href="testimonials.html" aria-label="Testimonials">Testimonials</a></li>
+        <li><a href="contact.html" aria-label="Contact Us">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18a8 8 0 110-16 8 8 0 010 16z"/>
+      </svg>
+    </button>
+  </header>
+  <!-- Main Content -->
+  <main>
+    <!-- 1. Hero Section with Video Background -->
+    <section class="hero-section" data-aos="fade-up" data-aos-duration="1000">
+      <video autoplay muted loop>
+        <source src="assets/video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="overlay"></div>
+      <div class="content-container">
+        <h1>Numbers Tell One Story, But Experiences Tell Another</h1>
+        <p>See how InvestWise transforms financial futures through data-driven strategies.</p>
+        <a href="#testimonials">See What Our Clients Say</a>
+      </div>
+    </section>
+    <!-- 2. Client Testimonials Grid -->
+    <section id="testimonials" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Client Testimonials</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card" data-aos="zoom-in">
+          <i class="fas fa-user-circle"></i>
+          <p>"InvestWise transformed my investment strategy! Their AI-driven insights helped me make smarter decisions."</p>
+          <p class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
+          <p>— John Kamau, Financial Analyst</p>
+        </div>
+        <div class="testimonial-card" data-aos="zoom-in" data-aos-delay="100">
+          <i class="fas fa-user-circle"></i>
+          <p>"Their platform is intuitive and powerful. I’ve seen a 30% portfolio growth in just 6 months!"</p>
+          <p class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
+          <p>— Sarah K., Investor</p>
+        </div>
+        <div class="testimonial-card" data-aos="zoom-in" data-aos-delay="200">
+          <i class="fas fa-user-circle"></i>
+          <p>"Highly recommend InvestWise for their personalized advice and real-time market insights."</p>
+          <p class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
+          <p>— Robert N., Business Owner</p>
+        </div>
+      </div>
+    </section>
+    <!-- 3. Video Testimonials Section -->
+    <section id="video-testimonials" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Video Testimonials</h2>
+      <div class="video-testimonials">
+        <div class="video-testimonial">
+          <iframe src="https://www.youtube.com/embed/gOQwUr23YVY?feature=shared" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-testimonial">
+          <iframe src="https://www.youtube.com/embed/gOQwUr23YVY?feature=shared" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+    <!-- 4. Industry-Specific Feedback -->
+    <section id="industry-feedback" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Industry-Specific Feedback</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card" data-aos="zoom-in">
+          <i class="fas fa-user-circle"></i>
+          <p>"Their Personal Investment Advisory service is unmatched. I’ve doubled my returns!"</p>
+          <p class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
+          <p>— Emily W., Individual Investor</p>
+        </div>
+        <div class="testimonial-card" data-aos="zoom-in" data-aos-delay="100">
+          <i class="fas fa-user-circle"></i>
+          <p>"Data Science & Analytics Consultancy has been instrumental in scaling our business."</p>
+          <p class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
+          <p>— James K., CEO</p>
+        </div>
+        <div class="testimonial-card" data-aos="zoom-in" data-aos-delay="200">
+          <i class="fas fa-user-circle"></i>
+          <p>"Cryptocurrency insights from InvestWise have been invaluable for navigating volatile markets."</p>
+          <p class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
+          <p>— David M., Crypto Enthusiast</p>
+        </div>
+      </div>
+    </section>
+    <!-- 5. Ratings & Statistics Summary -->
+    <section id="ratings-stats" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Ratings & Statistics</h2>
+      <div class="ratings-stats">
+        <div class="stat-item">
+          <i class="fas fa-star"></i>
+          <h3>⭐ 4.8/5 Average Rating</h3>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-chart-bar"></i>
+          <h3>📊 95% Client Satisfaction</h3>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-dollar-sign"></i>
+          <h3>💰 $5M+ Portfolio Growth Tracked</h3>
+        </div>
+      </div>
+    </section>
+    <!-- 6. Call to Action: "Share Your Experience" -->
+    <section id="share-experience" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Share Your Experience</h2>
+      <form class="submit-testimonial" aria-label="Submit Testimonial">
+        <input type="text" placeholder="Your Name" required>
+        <textarea placeholder="Your Testimonial" rows="5" required></textarea>
+        <select required>
+          <option value="" disabled selected>Select Rating</option>
+          <option value="5">★★★★★</option>
+          <option value="4">★★★★☆</option>
+          <option value="3">★★★☆☆</option>
+          <option value="2">★★☆☆☆</option>
+          <option value="1">★☆☆☆☆</option>
+        </select>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </main>
+  <!-- Footer -->
+  <footer data-aos="fade-up">
+    <p>&copy; 2023 InvestWise Predictor. All rights reserved.</p>
+    <div class="social-icons" aria-label="Social Media Links">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- JavaScript -->
+  <script>
+    // Initialize particles.js
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#6a0dad" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: false },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: "#6a0dad", opacity: 0.4 },
+        move: { enable: true, speed: 6, direction: "none" }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } },
+        modes: { repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+    // Initialize AOS
+    AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+  </script>
+</body>
+</html>
