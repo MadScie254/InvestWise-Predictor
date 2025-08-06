@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'health_check.storage',  # File storage backend
 
     # Project-specific apps
-    'predictor',  # Main app for InvestWise Predictor
+    'apps',  # Main app for InvestWise Predictor (renamed from predictor)
 ]
 
 MIDDLEWARE = [
@@ -155,7 +155,7 @@ configure_logging()
 # 5. Authentication Configuration
 # ===========================
 
-AUTH_USER_MODEL = 'predictor.User'  # Custom user model
+AUTH_USER_MODEL = 'apps.User'  # Custom user model
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
