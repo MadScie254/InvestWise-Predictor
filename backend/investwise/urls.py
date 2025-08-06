@@ -7,13 +7,6 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-from predictor.views import (
-    PredictionViewSet,
-    UserRegistrationView,
-    UserLoginView,
-    DashboardView,
-    NotificationViewSet,
-)
 
 # ===========================
 # 1. API Routes
@@ -25,20 +18,8 @@ api_patterns = [
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
-    # User Registration and Login
-    path('auth/register/', UserRegistrationView.as_view(), name='user_register'),
-    path('auth/login/', UserLoginView.as_view(), name='user_login'),
-
-    # Prediction Endpoints
-    path('predictions/', PredictionViewSet.as_view({'get': 'list', 'post': 'create'}), name='prediction_list_create'),
-    path('predictions/<int:pk>/', PredictionViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='prediction_detail'),
-
-    # Notifications Endpoints
-    path('notifications/', NotificationViewSet.as_view({'get': 'list'}), name='notification_list'),
-    path('notifications/<int:pk>/', NotificationViewSet.as_view({'get': 'retrieve', 'delete': 'destroy'}), name='notification_detail'),
-
-    # Dashboard Endpoint
-    path('dashboard/', DashboardView.as_view(), name='dashboard'),
+    # App API endpoints
+    path('v1/', include('apps.urls')),
 ]
 
 # ===========================

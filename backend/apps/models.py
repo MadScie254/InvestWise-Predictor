@@ -2,10 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
-from django_countries.fields import CountryField
-from enumfields import EnumField  # Install django-enumfields for robust enums
 from datetime import datetime
-from django.db import models
 
 
 # ===========================
@@ -24,7 +21,11 @@ class User(AbstractUser):
 
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
-    risk_tolerance = EnumField(RiskTolerance, max_length=1, default=RiskTolerance.MODERATE)
+    risk_tolerance = models.CharField(
+        max_length=1, 
+        choices=RiskTolerance.choices, 
+        default=RiskTolerance.MODERATE
+    )
 
     def __str__(self):
         return self.username
@@ -46,9 +47,13 @@ class Prediction(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='predictions')
     sector = models.CharField(max_length=255, help_text="The industry or sector being analyzed.")
-    country = CountryField()  # Use django-countries for country selection
+    country = models.CharField(max_length=100, help_text="Country code or name")
     predicted_value = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    status = EnumField(Status, max_length=2, default=Status.PENDING)
+    status = models.CharField(
+        max_length=2, 
+        choices=Status.choices, 
+        default=Status.PENDING
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -79,7 +84,7 @@ class DataPoint(models.Model):
     indicator = models.CharField(max_length=255, help_text="The type of economic indicator (e.g., GDP, inflation).")
     value = models.FloatField()
     date = models.DateField()
-    country = CountryField()
+    country = models.CharField(max_length=100, help_text="Country code or name")
     source = models.CharField(max_length=255, help_text="The source of the data (e.g., World Bank, KNBS).")
 
     def __str__(self):
@@ -92,8 +97,13 @@ class InvestmentPreference(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='investment_preference')
     preferred_sector = models.CharField(max_length=255, blank=True, null=True)
-    preferred_country = CountryField(blank=True, null=True)
-    risk_tolerance = EnumField(User.RiskTolerance, max_length=1, blank=True, null=True)
+    preferred_country = models.CharField(max_length=100, blank=True, null=True)
+    risk_tolerance = models.CharField(
+        max_length=1, 
+        choices=User.RiskTolerance.choices, 
+        blank=True, 
+        null=True
+    )
 
     def __str__(self):
         return f"Preferences for {self.user.username}"
@@ -109,7 +119,11 @@ class RiskProfile(models.Model):
         AGGRESSIVE = 'A', _('Aggressive')
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='risk_profile')
-    profile_type = EnumField(ProfileType, max_length=1, default=ProfileType.BALANCED)
+    profile_type = models.CharField(
+        max_length=1, 
+        choices=ProfileType.choices, 
+        default=ProfileType.BALANCED
+    )
     score = models.IntegerField(default=50, help_text="Risk score between 0 and 100.")
     description = models.TextField(blank=True, null=True)
 
