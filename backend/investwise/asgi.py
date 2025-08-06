@@ -2,7 +2,7 @@ import os
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
-from predictor import routing as predictor_routing  # Import WebSocket routing from the predictor app
+from apps import routing as apps_routing  # Import WebSocket routing from the apps
 
 # ===========================
 # 1. Environment Configuration
@@ -30,7 +30,7 @@ application = ProtocolTypeRouter({
     # WebSocket connections are routed through AuthMiddlewareStack and URLRouter
     "websocket": AuthMiddlewareStack(
         URLRouter(
-            predictor_routing.websocket_urlpatterns  # Include WebSocket routes from the predictor app
+            apps_routing.websocket_urlpatterns  # Include WebSocket routes from the apps
         )
     ),
 })
