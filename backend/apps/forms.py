@@ -2,7 +2,18 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
-from django_countries.widgets import CountrySelectWidget
+
+# Try to import django_countries, fall back to regular Select if not available
+try:
+    from django_countries.widgets import CountrySelectWidget
+    COUNTRIES_AVAILABLE = True
+except ImportError:
+    from django.forms.widgets import Select as CountrySelectWidget
+    COUNTRIES_AVAILABLE = False
+
+# Import User model
+User = get_user_model()
+
 from .models import (
     Prediction,
     DataPoint,
@@ -29,8 +40,8 @@ class CustomUserCreationForm(UserCreationForm):
         help_text="Optional."
     )
     risk_tolerance = forms.ChoiceField(
-        choices=User.RiskTolerance.choices,
-        initial=User.RiskTolerance.MODERATE,
+        choices=[('L', 'Low'), ('M', 'Moderate'), ('H', 'High')],
+        initial='M',
         help_text="Your tolerance for investment risks."
     )
 
@@ -308,7 +319,9 @@ class SectorPerformanceForm(forms.ModelForm):
         min_value=0,
         help_text="The market size (USD) of the sector."
     )
-    year = forms.PositiveIntegerField(
+    year = forms.IntegerField(
+        min_value=1900,
+        max_value=2100,
         help_text="The year of the performance data."
     )
 

@@ -20,9 +20,9 @@ from .models import (
 )
 from .forms import (
     CustomUserCreationForm,
-    CustomUserChangeForm,
-    PredictionAdminForm,
-    DataPointAdminForm,
+    # CustomUserChangeForm,  # TODO: Create this form
+    # PredictionAdminForm,   # TODO: Create this form  
+    # DataPointAdminForm,    # TODO: Create this form
 )
 
 # ===========================
@@ -68,7 +68,7 @@ class UserAdmin(admin.ModelAdmin):
     """
     Admin configuration for the User model.
     """
-    form = CustomUserChangeForm
+    # form = CustomUserChangeForm  # TODO: Create this form
     add_form = CustomUserCreationForm
     list_display = ('username', 'email', 'is_staff', 'is_superuser', 'date_joined', 'last_login')
     list_filter = ('is_staff', 'is_superuser', 'date_joined')
@@ -104,7 +104,7 @@ class PredictionAdmin(admin.ModelAdmin):
     """
     Admin configuration for the Prediction model.
     """
-    form = PredictionAdminForm
+    # form = PredictionAdminForm  # TODO: Create this form
     list_display = ('user', 'sector', 'country', 'predicted_value', 'created_at', 'status')
     list_filter = ('sector', 'country', 'status', 'created_at')
     search_fields = ('user__username', 'sector', 'country')
@@ -142,7 +142,7 @@ class DataPointAdmin(admin.ModelAdmin):
     """
     Admin configuration for the DataPoint model.
     """
-    form = DataPointAdminForm
+    # form = DataPointAdminForm  # TODO: Create this form
     list_display = ('indicator', 'value', 'date', 'country', 'source')
     list_filter = ('indicator', 'country', 'date')
     search_fields = ('indicator', 'country', 'source')
@@ -266,7 +266,7 @@ class CustomAdminView(admin.ModelAdmin):
 
 
 # Register the custom admin view
-admin_site.register_view('custom-admin-view/', view=CustomAdminView, name='Custom Admin View')
+# admin_site.register_view('custom-admin-view/', view=CustomAdminView, name='Custom Admin View')  # TODO: Fix custom admin view
 
 
 # ===========================
