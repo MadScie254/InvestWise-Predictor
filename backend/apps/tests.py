@@ -1,9 +1,11 @@
 import unittest
+from unittest.mock import patch, MagicMock
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from .models import (
     Prediction,
     DataPoint,
@@ -19,9 +21,163 @@ from .serializers import (
     InvestmentPreferenceSerializer,
     RiskProfileSerializer,
     NotificationSerializer,
+    UserRegistrationSerializer,
+    UserSerializer,
 )
-from .views import GeneratePredictionView
+from .views import GeneratePredictionView, register_user, login_user, logout_user
 from .utils import generate_prediction
+
+
+# ===========================
+# 1. Authentication Tests
+# ===========================
+
+class AuthenticationTestCase(APITestCase):
+    """Test cases for user authentication views."""
+    
+    def setUp(self):
+        self.client = APIClient()
+        self.user_data = {
+            'username': 'testuser',
+            'email': 'test@example.com',
+            'password': 'testpassword123',
+            'first_name': 'Test',
+            'last_name': 'User'
+        }
+        
+    def test_user_registration_success(self):
+        """Test successful user registration."""
+        url = reverse('register')
+        response = self.client.post(url, self.user_data, format='json')
+        
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIn('user', response.data)
+        self.assertEqual(response.data['user']['username'], 'testuser')
+        self.assertEqual(response.data['user']['email'], 'test@example.com')
+        
+        # Check if JWT tokens are in response (if available)
+        if 'jwt_available' not in response.data or response.data.get('jwt_available', True):
+            self.assertIn('access', response.data)
+            self.assertIn('refresh', response.data)
+    
+    def test_user_registration_invalid_data(self):
+        """Test user registration with invalid data."""
+        url = reverse('register')
+        invalid_data = {'username': 'testuser'}  # Missing required fields
+        response = self.client.post(url, invalid_data, format='json')
+        
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+    
+    def test_user_login_success(self):
+        """Test successful user login."""
+        # Create a user first
+        User.objects.create_user(
+            username='testuser',
+            email='test@example.com',
+            password='testpassword123'
+        )
+        
+        url = reverse('login')
+        login_data = {
+            'username': 'testuser',
+            'password': 'testpassword123'
+        }
+        response = self.client.post(url, login_data, format='json')
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('user', response.data)
+        self.assertEqual(response.data['user']['username'], 'testuser')
+    
+    def test_user_login_invalid_credentials(self):
+        """Test login with invalid credentials."""
+        url = reverse('login')
+        login_data = {
+            'username': 'nonexistent',
+            'password': 'wrongpassword'
+        }
+        response = self.client.post(url, login_data, format='json')
+        
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertIn('error', response.data)
+    
+    def test_user_login_missing_fields(self):
+        """Test login with missing required fields."""
+        url = reverse('login')
+        login_data = {'username': 'testuser'}  # Missing password
+        response = self.client.post(url, login_data, format='json')
+        
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('error', response.data)
+    
+    def test_user_logout_success(self):
+        """Test successful user logout."""
+        # Create and authenticate user
+        user = User.objects.create_user(
+            username='testuser',
+            password='testpassword123'
+        )
+        self.client.force_authenticate(user=user)
+        
+        url = reverse('logout')
+        logout_data = {'refresh_token': 'dummy_token'}
+        response = self.client.post(url, logout_data, format='json')
+        
+        # Should return success regardless of JWT availability
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('message', response.data)
+    
+    def test_user_logout_missing_token(self):
+        """Test logout without refresh token."""
+        user = User.objects.create_user(
+            username='testuser',
+            password='testpassword123'
+        )
+        self.client.force_authenticate(user=user)
+        
+        url = reverse('logout')
+        response = self.client.post(url, {}, format='json')
+        
+        # Should handle missing token gracefully
+        self.assertIn(response.status_code, [status.HTTP_200_OK, status.HTTP_400_BAD_REQUEST])
+
+
+class JWTMockTests(APITestCase):
+    """Test JWT functionality with mocked JWT library."""
+    
+    def setUp(self):
+        self.client = APIClient()
+        self.user_data = {
+            'username': 'testuser',
+            'email': 'test@example.com',
+            'password': 'testpassword123'
+        }
+    
+    @patch('apps.views.JWT_AVAILABLE', True)
+    @patch('apps.views.RefreshToken')
+    def test_registration_with_jwt_available(self, mock_refresh_token):
+        """Test registration when JWT is available."""
+        # Mock JWT token generation
+        mock_token = MagicMock()
+        mock_token.access_token = 'mock_access_token'
+        mock_refresh_token.for_user.return_value = mock_token
+        mock_token.__str__ = lambda x: 'mock_refresh_token'
+        
+        url = reverse('register')
+        response = self.client.post(url, self.user_data, format='json')
+        
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIn('access', response.data)
+        self.assertIn('refresh', response.data)
+    
+    @patch('apps.views.JWT_AVAILABLE', False)
+    def test_registration_without_jwt_available(self):
+        """Test registration when JWT is not available."""
+        url = reverse('register')
+        response = self.client.post(url, self.user_data, format='json')
+        
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIn('message', response.data)
+        self.assertEqual(response.data['jwt_available'], False)
 
 
 # ===========================

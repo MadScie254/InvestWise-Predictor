@@ -1,13 +1,20 @@
 
+import os
 from .base import *  # Import base settings
+from datetime import timedelta
 
 # ===========================
 # 1. General Settings
 # ===========================
 
+# Override base settings for local development
+# Set a development SECRET_KEY if not provided in environment
+if 'DJANGO_SECRET_KEY' not in os.environ:
+    os.environ['DJANGO_SECRET_KEY'] = 'django-insecure-local-development-key-only-for-testing-12345'
+
 DEBUG = True  # Enable debug mode for local development
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Allow local hosts only
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']  # Allow local hosts
 
 # ===========================
 # 2. Security Settings
@@ -17,24 +24,31 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Allow local hosts only
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
-SECURE_BROWSER_XSS_FILTER = False
-SECURE_CONTENT_TYPE_NOSNIFF = False
-X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # ===========================
 # 3. Database Configuration
 # ===========================
 
+# Use SQLite for local development (simpler setup)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'investwise_local'),
-        'USER': os.getenv('DB_USER', 'postgres'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'password'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# If PostgreSQL environment variables are provided, use them
+if os.getenv('DB_NAME'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME', 'investwise_local'),
+            'USER': os.getenv('DB_USER', 'postgres'),
+            'PASSWORD': os.getenv('DB_PASSWORD', 'password'),
+            'HOST': os.getenv('DB_HOST', 'localhost'),
+            'PORT': os.getenv('DB_PORT', '5432'),
+        }
+    }
 
 # ===========================
 # 4. Caching Configuration
