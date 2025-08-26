@@ -1,33 +1,276 @@
 # InvestWise Predictor
 
-![InvestWise Logo](https://github.com/MadScie254/InvestWise-Predictor/blob/main/frontend/public/assets/logo.png)]
+![InvestWise Logo](https://github.com/MadScie254/InvestWise-Predictor/blob/main/frontend/public/assets/logo.png)
+
+[![CI/CD Pipeline](https://github.com/MadScie254/InvestWise-Predictor/actions/workflows/ci.yml/badge.svg)](https://github.com/MadScie254/InvestWise-Predictor/actions/workflows/ci.yml)
+[![Security](https://img.shields.io/badge/security-hardened-green)](./SECURITY.md)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Project Overview](#project-overview)
-3. [Key Features](#key-features)
-4. [Technology Stack](#technology-stack)
-5. [Installation Guide](#installation-guide)
-6. [Usage Instructions](#usage-instructions)
-7. [API Integration](#api-integration)
-8. [Database Schema](#database-schema)
-9. [Security Considerations](#security-considerations)
-10. [Performance Optimization](#performance-optimization)
-11. [Contributing](#contributing)
-12. [License](#license)
-13. [Future Plans](#future-plans)
-14. [Acknowledgments](#acknowledgments)
-15. [Contact Information](#contact-information)
-16. [Appendix](#appendix)
+2. [Quick Start](#quick-start)
+3. [Local Development Setup](#local-development-setup)
+4. [Environment Configuration](#environment-configuration)
+5. [Running Migrations](#running-migrations)
+6. [Running Tests](#running-tests)
+7. [Project Overview](#project-overview)
+8. [Key Features](#key-features)
+9. [Technology Stack](#technology-stack)
+10. [API Documentation](#api-documentation)
+11. [Security Considerations](#security-considerations)
+12. [Contributing](#contributing)
+13. [License](#license)
 
 ---
 
 ## Introduction
 
-Welcome to **InvestWise Predictor**, a cutting-edge machine learning-powered investment analytics tool designed to assist investors in making data-driven decisions. In today's fast-paced financial world, having access to accurate and timely insights is crucial for success. InvestWise Predictor leverages advanced algorithms, real-time data feeds, and predictive modeling techniques to analyze historical financial data, economic indicators, and market trends.
+Welcome to **InvestWise Predictor**, a cutting-edge machine learning-powered investment analytics tool designed to assist investors in making data-driven decisions. This platform leverages advanced algorithms, real-time data feeds, and predictive modeling techniques to analyze financial data and market trends.
 
-This repository contains the source code and documentation for the InvestWise Predictor web application. Whether you're an individual investor, financial analyst, or business looking to optimize your investment strategies, InvestWise provides the tools and insights needed to stay ahead of the curve.
+---
+
+## Quick Start
+
+### Prerequisites
+
+- Python 3.12+
+- Node.js 18+
+- PostgreSQL 12+ (optional for production)
+- Redis (optional for caching)
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/MadScie254/InvestWise-Predictor.git
+cd InvestWise-Predictor
+```
+
+### 2. Set Up Environment Variables
+
+```bash
+# Copy the environment template
+cp backend/.env.example backend/.env
+
+# Edit the environment file with your configuration
+nano backend/.env
+```
+
+### 3. Backend Setup
+
+```bash
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r backend/requirements.txt
+
+# Set up database
+cd backend
+python manage.py migrate --settings=investwise.settings.local
+
+# Create superuser
+python manage.py createsuperuser --settings=investwise.settings.local
+
+# Run development server
+python manage.py runserver --settings=investwise.settings.local
+```
+
+### 4. Frontend Setup
+
+```bash
+# Install dependencies
+cd frontend
+npm install
+
+# Start development server
+npm start
+```
+
+The application will be available at:
+- Backend API: http://localhost:8000
+- Frontend: http://localhost:3000
+
+---
+
+## Local Development Setup
+
+### Backend Development
+
+1. **Environment Setup**
+   ```bash
+   cd backend
+   python -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   ```
+
+2. **Database Configuration**
+   - For SQLite (default): No additional setup required
+   - For PostgreSQL: Set `DB_NAME`, `DB_USER`, `DB_PASSWORD` in `.env`
+
+3. **Run Development Server**
+   ```bash
+   python manage.py runserver --settings=investwise.settings.local
+   ```
+
+### Frontend Development
+
+1. **Install Dependencies**
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+2. **Environment Variables**
+   ```bash
+   # Create frontend environment file
+   cp .env.example .env.local
+   ```
+
+3. **Start Development Server**
+   ```bash
+   npm start
+   ```
+
+### Development Tools
+
+- **Backend Debugging**: Django Debug Toolbar is available in local development
+- **API Documentation**: Access at http://localhost:8000/api/docs/
+- **Admin Interface**: Access at http://localhost:8000/admin/
+
+---
+
+## Environment Configuration
+
+### Required Environment Variables
+
+Create a `backend/.env` file from the template:
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+**Critical Variables:**
+
+```bash
+# Django Security (REQUIRED)
+DJANGO_SECRET_KEY=your-super-secret-key-minimum-50-characters
+DJANGO_DEBUG=True  # Set to False in production
+DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+
+# Database (Optional - defaults to SQLite)
+DJANGO_DATABASE_URL=postgres://user:password@localhost:5432/investwise
+
+# Security (Required for production)
+DATA_ENCRYPTION_KEY=your-encryption-key
+```
+
+**Complete Configuration:**
+
+See `backend/.env.example` for all available options including:
+- Database settings
+- Redis/Celery configuration
+- Email settings
+- External API keys
+- AI/ML model paths
+
+### Environment-Specific Settings
+
+- **Development**: Use `investwise.settings.local`
+- **Testing**: Use `investwise.settings.test`
+- **Staging**: Use `investwise.settings.staging`
+- **Production**: Use `investwise.settings.production`
+
+---
+
+## Running Migrations
+
+### Initial Setup
+
+```bash
+cd backend
+python manage.py migrate --settings=investwise.settings.local
+```
+
+### Creating New Migrations
+
+```bash
+# After model changes
+python manage.py makemigrations --settings=investwise.settings.local
+python manage.py migrate --settings=investwise.settings.local
+```
+
+### Database Management
+
+```bash
+# Create superuser
+python manage.py createsuperuser --settings=investwise.settings.local
+
+# Load sample data (if available)
+python manage.py loaddata fixtures/sample_data.json --settings=investwise.settings.local
+
+# Reset database (development only)
+python manage.py flush --settings=investwise.settings.local
+```
+
+---
+
+## Running Tests
+
+### Backend Tests
+
+```bash
+cd backend
+
+# Run all tests
+python -m pytest
+
+# Run with coverage
+python -m pytest --cov=apps --cov=investwise --cov-report=html
+
+# Run specific test file
+python -m pytest apps/tests.py
+
+# Run specific test
+python -m pytest apps/tests.py::AuthenticationTestCase::test_user_registration_success
+```
+
+### Frontend Tests
+
+```bash
+cd frontend
+
+# Run all tests
+npm test
+
+# Run tests with coverage
+npm test -- --coverage --watchAll=false
+
+# Run specific test file
+npm test components.test.js
+```
+
+### Security Testing
+
+```bash
+# Install security tools
+pip install bandit safety pip-audit
+
+# Run security scans
+bandit -r backend/
+safety check
+pip-audit
+```
+
+### CI/CD Testing
+
+The project includes a comprehensive CI/CD pipeline that runs:
+- Code linting (flake8, ESLint)
+- Unit tests with coverage reporting
+- Security vulnerability scanning
+- Integration tests
 
 ---
 
@@ -35,19 +278,14 @@ This repository contains the source code and documentation for the InvestWise Pr
 
 ### What is InvestWise Predictor?
 
-InvestWise Predictor is a comprehensive platform that combines artificial intelligence (AI) and machine learning (ML) to deliver actionable investment recommendations. The system processes vast amounts of financial data, identifies patterns, and generates predictions to help users make informed decisions. Key functionalities include:
+InvestWise Predictor is a comprehensive platform that combines artificial intelligence (AI) and machine learning (ML) to deliver actionable investment recommendations. The system processes financial data, identifies patterns, and generates predictions to help users make informed decisions.
 
-- **Real-Time Data Feeds**: Access live stock prices, economic indicators, and news updates.
-- **Predictive Modeling**: Utilize ML models such as LSTM, XGBoost, and Random Forests to forecast market trends.
-- **Customizable Dashboards**: Tailor the interface to suit your preferences and focus on specific assets or sectors.
-- **User Authentication**: Secure login with OAuth 2.0 integration for Google, LinkedIn, and other providers.
-- **Cross-Platform Compatibility**: A responsive design ensures seamless performance on desktops, tablets, and mobile devices.
-
-### Why Choose InvestWise?
-
-The financial markets are complex and dynamic, requiring sophisticated tools to navigate effectively. InvestWise stands out due to its:
-
-- **Accuracy**: Backed by state-of-the-art ML algorithms trained on extensive datasets.
+**Key Functionalities:**
+- **Real-Time Data Feeds**: Live stock prices and economic indicators
+- **Predictive Modeling**: ML models (LSTM, XGBoost, Random Forests)
+- **Customizable Dashboards**: Tailored interfaces for specific assets
+- **Secure Authentication**: JWT-based authentication with proper session management
+- **Cross-Platform Compatibility**: Responsive design for all devices
 - **Simplicity**: User-friendly interface with intuitive navigation and minimal clutter.
 - **Speed**: Optimized for fast loading times and instant updates.
 - **Security**: Robust encryption protocols and secure authentication mechanisms protect user data.

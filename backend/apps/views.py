@@ -1,3 +1,4 @@
+from typing import Optional, Dict, Any
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.db.models import Q, Avg, Count
@@ -14,6 +15,7 @@ try:
     JWT_AVAILABLE = True
 except ImportError:
     JWT_AVAILABLE = False
+    RefreshToken = None
 
 from .models import Prediction, Investment, Notification, Feedback
 from .serializers import (
@@ -21,6 +23,23 @@ from .serializers import (
     NotificationSerializer, FeedbackSerializer, UserRegistrationSerializer
 )
 from .utils import generate_prediction
+
+
+def create_jwt_response(user) -> Dict[str, Any]:
+    """Create JWT token response for user authentication."""
+    if JWT_AVAILABLE and RefreshToken:
+        refresh = RefreshToken.for_user(user)
+        return {
+            'user': UserSerializer(user).data,
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
+    else:
+        return {
+            'user': UserSerializer(user).data,
+            'message': 'Authentication successful. JWT tokens are not available - please install djangorestframework-simplejwt.',
+            'jwt_available': False
+        }
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -32,77 +51,65 @@ class StandardResultsSetPagination(PageNumberPagination):
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
 def register_user(request):
-    """Register a new user"""
+    """Register a new user and return authentication tokens."""
     serializer = UserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
-        
-        # Use JWT tokens if available, otherwise just return user data
-        if JWT_AVAILABLE:
-            refresh = RefreshToken.for_user(user)
-            return Response({
-                'user': UserSerializer(user).data,
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            }, status=status.HTTP_201_CREATED)
-        else:
-            return Response({
-                'user': UserSerializer(user).data,
-                'message': 'User registered successfully. JWT not available.'
-            }, status=status.HTTP_201_CREATED)
+        response_data = create_jwt_response(user)
+        return Response(response_data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
 def login_user(request):
-    """Login user and return JWT tokens"""
+    """Login user and return authentication tokens."""
     username = request.data.get('username')
     password = request.data.get('password')
     
-    if username and password:
-        user = authenticate(username=username, password=password)
-        if user:
-            if JWT_AVAILABLE:
-                refresh = RefreshToken.for_user(user)
-                return Response({
-                    'user': UserSerializer(user).data,
-                    'refresh': str(refresh),
-                    'access': str(refresh.access_token),
-                }, status=status.HTTP_200_OK)
-            else:
-                return Response({
-                    'user': UserSerializer(user).data,
-                    'message': 'Login successful. JWT not available.'
-                }, status=status.HTTP_200_OK)
-        else:
-            return Response(
-                {'error': 'Invalid credentials'},
-                status=status.HTTP_401_UNAUTHORIZED
-            )
-    return Response(
-        {'error': 'Username and password required'},
-        status=status.HTTP_400_BAD_REQUEST
-    )
+    if not username or not password:
+        return Response(
+            {'error': 'Username and password are required'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    user = authenticate(username=username, password=password)
+    if user:
+        response_data = create_jwt_response(user)
+        return Response(response_data, status=status.HTTP_200_OK)
+    else:
+        return Response(
+            {'error': 'Invalid credentials'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
 
 
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
 def logout_user(request):
-    """Logout user by blacklisting refresh token"""
-    if JWT_AVAILABLE:
-        try:
-            refresh_token = request.data["refresh_token"]
-            token = RefreshToken(refresh_token)
-            token.blacklist()
-            return Response({'message': 'Successfully logged out'})
-        except Exception as e:
-            return Response(
-                {'error': 'Invalid token'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-    else:
-        return Response({'message': 'Logged out (JWT not available)'})
+    """Logout user by blacklisting refresh token."""
+    if not JWT_AVAILABLE:
+        return Response({
+            'message': 'Logged out successfully. JWT tokens are not available.',
+            'jwt_available': False
+        })
+    
+    refresh_token = request.data.get('refresh_token')
+    if not refresh_token:
+        return Response(
+            {'error': 'Refresh token is required'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    try:
+        token = RefreshToken(refresh_token)
+        token.blacklist()
+        return Response({'message': 'Successfully logged out'})
+    except Exception as e:
+        return Response(
+            {'error': 'Invalid or expired token'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 class ProfileView(APIView):

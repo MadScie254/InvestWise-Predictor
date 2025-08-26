@@ -1,11 +1,14 @@
+from typing import Dict, Any
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
+from django.core.validators import MinLengthValidator, EmailValidator
+import re
 from .models import Prediction, Investment, Notification, Feedback
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """Serializer for User model"""
+    """Serializer for User model with enhanced validation."""
     
     class Meta:
         model = User
@@ -14,21 +17,75 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    """Serializer for user registration"""
-    password = serializers.CharField(write_only=True, validators=[validate_password])
-    password_confirm = serializers.CharField(write_only=True)
+    """Serializer for user registration with comprehensive validation."""
+    password = serializers.CharField(
+        write_only=True, 
+        validators=[validate_password, MinLengthValidator(8)],
+        help_text="Password must be at least 8 characters long"
+    )
+    password_confirm = serializers.CharField(
+        write_only=True,
+        help_text="Must match the password field"
+    )
+    email = serializers.EmailField(
+        validators=[EmailValidator()],
+        help_text="Valid email address required"
+    )
+    username = serializers.CharField(
+        validators=[MinLengthValidator(3)],
+        help_text="Username must be at least 3 characters long"
+    )
     
     class Meta:
         model = User
         fields = ['username', 'email', 'password', 'password_confirm', 'first_name', 'last_name']
     
-    def validate(self, attrs):
+    def validate_username(self, value: str) -> str:
+        """Validate username format and uniqueness."""
+        if not re.match(r'^[a-zA-Z0-9_]+$', value):
+            raise serializers.ValidationError(
+                "Username can only contain letters, numbers, and underscores"
+            )
+        
+        if User.objects.filter(username__iexact=value).exists():
+            raise serializers.ValidationError("Username already exists")
+        
+        return value.lower()
+    
+    def validate_email(self, value: str) -> str:
+        """Validate email uniqueness."""
+        if User.objects.filter(email__iexact=value).exists():
+            raise serializers.ValidationError("Email address already registered")
+        
+        return value.lower()
+    
+    def validate_password(self, value: str) -> str:
+        """Enhanced password validation."""
+        if len(value) < 8:
+            raise serializers.ValidationError("Password must be at least 8 characters long")
+        
+        if not re.search(r'[A-Z]', value):
+            raise serializers.ValidationError("Password must contain at least one uppercase letter")
+        
+        if not re.search(r'[a-z]', value):
+            raise serializers.ValidationError("Password must contain at least one lowercase letter")
+        
+        if not re.search(r'\d', value):
+            raise serializers.ValidationError("Password must contain at least one digit")
+        
+        return value
+    
+    def validate(self, attrs: Dict[str, Any]) -> Dict[str, Any]:
+        """Cross-field validation."""
         if attrs['password'] != attrs['password_confirm']:
-            raise serializers.ValidationError("Passwords don't match")
+            raise serializers.ValidationError({"password_confirm": "Passwords don't match"})
+        
+        # Remove password_confirm from validated data
+        attrs.pop('password_confirm', None)
         return attrs
     
-    def create(self, validated_data):
-        validated_data.pop('password_confirm', None)
+    def create(self, validated_data: Dict[str, Any]) -> User:
+        """Create user with validated data."""
         user = User.objects.create_user(**validated_data)
         return user
 
