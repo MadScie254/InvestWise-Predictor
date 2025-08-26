@@ -1,4 +1,5 @@
 
+import os
 from .base import *  # Import base settings
 
 # ===========================
@@ -7,23 +8,41 @@ from .base import *  # Import base settings
 
 DEBUG = False  # Disable debug mode in production
 
+# Get allowed hosts from environment variable
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'investwise.com,www.investwise.com').split(',')
 
 # ===========================
 # 2. Security Settings
 # ===========================
 
+# Force HTTPS in production
 SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
 SESSION_COOKIE_SECURE = True  # Ensure cookies are only sent over HTTPS
 CSRF_COOKIE_SECURE = True  # Ensure CSRF tokens are only sent over HTTPS
-SECURE_BROWSER_XSS_FILTER = True  # Enable XSS protection
-SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent browsers from guessing content types
-X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking attacks
+
+# Additional security headers
 SECURE_HSTS_SECONDS = 31536000  # Enable HSTS (1 year)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Include subdomains in HSTS
 SECURE_HSTS_PRELOAD = True  # Allow preloading in browsers
 
+# Cookie security
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_AGE = 3600  # 1 hour session timeout
+
+# Content security
+SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
+
 # ===========================
+# 3. Database Configuration
+# ===========================
+
+# Production should use PostgreSQL via DATABASE_URL environment variable
+# This is handled in base.py but we can ensure it's enforced here
+if not os.getenv('DJANGO_DATABASE_URL'):
+    raise ImproperlyConfigured(
+        "DJANGO_DATABASE_URL environment variable is required in production"
+    )
 # 3. Database Configuration
 # ===========================
 

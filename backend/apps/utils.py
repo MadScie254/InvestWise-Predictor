@@ -2,6 +2,7 @@ import random
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
+from typing import Dict, Any, Optional
 from django.core.cache import cache
 from django.conf import settings
 import logging
@@ -9,7 +10,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def generate_prediction(symbol, prediction_type, time_horizon):
+def generate_prediction(symbol: str, prediction_type: str, time_horizon: str) -> Dict[str, Any]:
     """
     Generate AI-powered investment predictions
     
@@ -26,6 +27,7 @@ def generate_prediction(symbol, prediction_type, time_horizon):
     cache_key = f"prediction_{symbol}_{prediction_type}_{time_horizon}"
     cached_result = cache.get(cache_key)
     if cached_result:
+        logger.info(f"Returning cached prediction for {symbol}")
         return cached_result
     
     try:
