@@ -27,18 +27,18 @@ settings_file = settings_files.get(ENVIRONMENT, 'settings')
 try:
     # Import the appropriate settings module
     if settings_file == 'settings':
-        from .settings import *
+        from .base import *
     elif settings_file == 'local':
-        from .local import *
+        from .base import *
     elif settings_file == 'test':
-        from .test import *
+        from .base import *
     elif settings_file == 'production':
-        from .production import *
+        from .base import *
     elif settings_file == 'staging':
-        from .staging import *
+        from .base import *
     else:
-        from .settings import *  # fallback to main settings
+        from .base import *  # fallback to base settings
         
 except ImportError as e:
-    # Fallback to main settings if specific environment settings don't exist
-    from .settings import *
+    # Fallback to base settings if specific environment settings don't exist
+    from .base import *
