@@ -17,7 +17,7 @@ class AppsConfig(AppConfig):
     def ready(self):
         """
         Entry point for initializing the app after it has been loaded.
-        Use this method to connect signals, perform checks, and initialize services.
+        Use this method to connect the signals, perform checks, and initialize services.
         """
         super().ready()
         
