@@ -13,8 +13,11 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# Copy requirements and install dependencies
+# Copy packaging files first for better caching
+COPY pyproject.toml setup.cfg README.md ./
 COPY requirements.txt .
+
+# Install dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
@@ -22,6 +25,9 @@ RUN pip install -r requirements.txt
 COPY app ./app
 COPY alembic ./alembic
 COPY alembic.ini .
+
+# Install the package in editable mode for development
+RUN pip install -e .
 
 # Create non-root user
 RUN adduser --disabled-password --gecos '' appuser
