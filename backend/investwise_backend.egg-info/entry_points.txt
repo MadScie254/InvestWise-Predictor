@@ -1,0 +1,2 @@
+[console_scripts]
+investwise-server = app.main:main

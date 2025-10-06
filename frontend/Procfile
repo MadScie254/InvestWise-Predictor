@@ -1,1 +1,41 @@
+# Production Procfile for InvestWise Predictor
+# This file defines the process types and commands for deployment
 
+# Web process - Main application server
+web: gunicorn --bind 0.0.0.0:$PORT --workers 3 --worker-class gevent --worker-connections 1000 --timeout 30 --keep-alive 2 --preload investwise.wsgi:application
+
+# Worker process - Background task processing
+worker: celery -A investwise worker --loglevel=info --concurrency=2 --prefetch-multiplier=1
+
+# Beat process - Periodic task scheduler
+beat: celery -A investwise beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+# Release process - Run migrations and collectstatic
+release: python manage.py migrate --noinput && python manage.py collectstatic --noinput --clear
+
+# Clock process - Alternative scheduler (if not using beat)
+clock: python manage.py runclock
+
+# Flower process - Celery monitoring (optional for staging/development)
+flower: celery -A investwise flower --port=$PORT
+
+# Database migration process
+migrate: python manage.py migrate --noinput
+
+# Static files collection
+collectstatic: python manage.py collectstatic --noinput --clear
+
+# Create superuser (for initial deployment)
+createsuperuser: python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@investwise.com', 'changeme123') if not User.objects.filter(username='admin').exists() else None"
+
+# Load initial data
+loaddata: python manage.py loaddata initial_data.json
+
+# Cache warming
+warmcache: python manage.py shell -c "from django.core.cache import cache; from apps.utils import warm_cache; warm_cache()"
+
+# Health check
+healthcheck: python manage.py check --deploy
+
+# Redis cache clear
+clearcache: python manage.py shell -c "from django.core.cache import cache; cache.clear()"

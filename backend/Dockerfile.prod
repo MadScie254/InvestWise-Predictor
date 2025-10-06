@@ -1,0 +1,55 @@
+# Production Dockerfile with wheel build
+FROM python:3.11-slim AS builder
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+
+# Copy source code and build wheel
+COPY . .
+RUN pip install --upgrade pip setuptools wheel build
+RUN python -m build --wheel
+
+# Production image
+FROM python:3.11-slim AS production
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y \
+    libpq5 \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy and install wheel
+COPY --from=builder /build/dist/*.whl /tmp/
+RUN pip install --upgrade pip
+RUN pip install /tmp/*.whl[prod]
+RUN rm /tmp/*.whl
+
+# Copy additional files
+COPY alembic ./alembic
+COPY alembic.ini .
+
+# Create non-root user
+RUN adduser --disabled-password --gecos '' appuser
+RUN chown -R appuser:appuser /app
+USER appuser
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:4000/healthz || exit 1
+
+EXPOSE 4000
+
+CMD ["gunicorn", "app.main:app", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:4000"]

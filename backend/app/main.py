@@ -67,10 +67,14 @@ async def root():
         "docs_url": "/docs" if settings.ENVIRONMENT != "production" else None
     }
 
-if __name__ == "__main__":
+def main():
+    """Main entry point for console script"""
     uvicorn.run(
         "app.main:app",
         host="0.0.0.0",
         port=4000,
         reload=settings.ENVIRONMENT == "development"
     )
+
+if __name__ == "__main__":
+    main()
