@@ -1,0 +1,390 @@
+# Default values for investwise.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Global configuration
+global:
+  imageRegistry: ""
+  imagePullSecrets: []
+  storageClass: ""
+
+# Environment
+environment: development
+
+# Image pull policy
+imagePullPolicy: IfNotPresent
+
+# Common labels
+commonLabels: {}
+
+# Common annotations
+commonAnnotations: {}
+
+# Backend service configuration
+backend:
+  enabled: true
+  name: backend
+  
+  image:
+    registry: ghcr.io
+    repository: yourusername/investwise-predictor-backend
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  
+  replicaCount: 2
+  
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8000
+    annotations: {}
+  
+  ingress:
+    enabled: true
+    className: "nginx"
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+      - host: api.investwise.local
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: investwise-backend-tls
+        hosts:
+          - api.investwise.local
+  
+  env:
+    - name: ENVIRONMENT
+      value: "production"
+    - name: DATABASE_URL
+      valueFrom:
+        secretKeyRef:
+          name: investwise-secrets
+          key: database-url
+    - name: REDIS_URL
+      valueFrom:
+        secretKeyRef:
+          name: investwise-secrets
+          key: redis-url
+    - name: SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: investwise-secrets
+          key: secret-key
+    - name: ML_SERVICE_URL
+      value: "http://investwise-ml-service:8001"
+  
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: 8000
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+  
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+# ML Service configuration
+mlService:
+  enabled: true
+  name: ml-service
+  
+  image:
+    registry: ghcr.io
+    repository: yourusername/investwise-predictor-ml-service
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  
+  replicaCount: 2
+  
+  service:
+    type: ClusterIP
+    port: 8001
+    targetPort: 8001
+    annotations: {}
+  
+  env:
+    - name: ENVIRONMENT
+      value: "production"
+    - name: MODEL_PATH
+      value: "/app/models"
+    - name: MLFLOW_TRACKING_URI
+      value: "http://mlflow:5000"
+  
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 4Gi
+    requests:
+      cpu: 1000m
+      memory: 2Gi
+  
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8001
+    initialDelaySeconds: 60
+    periodSeconds: 30
+    timeoutSeconds: 10
+    failureThreshold: 3
+  
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: 8001
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 70
+    targetMemoryUtilizationPercentage: 80
+  
+  # Persistent volume for models
+  persistence:
+    enabled: true
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    annotations: {}
+
+# Frontend configuration
+frontend:
+  enabled: true
+  name: frontend
+  
+  image:
+    registry: ghcr.io
+    repository: yourusername/investwise-predictor-frontend
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  
+  replicaCount: 2
+  
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 3000
+    annotations: {}
+  
+  ingress:
+    enabled: true
+    className: "nginx"
+    annotations:
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+      - host: investwise.local
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: investwise-frontend-tls
+        hosts:
+          - investwise.local
+  
+  env:
+    - name: NEXT_PUBLIC_API_URL
+      value: "https://api.investwise.local"
+    - name: NEXTAUTH_URL
+      value: "https://investwise.local"
+    - name: NEXTAUTH_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: investwise-secrets
+          key: nextauth-secret
+  
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 250m
+      memory: 512Mi
+  
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 3000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  
+  readinessProbe:
+    httpGet:
+      path: /
+      port: 3000
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+  
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 80
+
+# Database configuration (if using in-cluster database)
+postgresql:
+  enabled: false  # Set to true if you want to use in-cluster PostgreSQL
+  auth:
+    postgresPassword: "investwise123"
+    username: "investwise_user"
+    password: "investwise_password"
+    database: "investwise_db"
+  
+  primary:
+    persistence:
+      enabled: true
+      size: 20Gi
+    
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+
+# Redis configuration (if using in-cluster Redis)
+redis:
+  enabled: false  # Set to true if you want to use in-cluster Redis
+  auth:
+    enabled: true
+    password: "redis123"
+  
+  master:
+    persistence:
+      enabled: true
+      size: 8Gi
+    
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+
+# MLflow tracking server
+mlflow:
+  enabled: true
+  name: mlflow
+  
+  image:
+    registry: ghcr.io
+    repository: mlflow/mlflow
+    tag: "2.9.2"
+    pullPolicy: IfNotPresent
+  
+  replicaCount: 1
+  
+  service:
+    type: ClusterIP
+    port: 5000
+    targetPort: 5000
+  
+  env:
+    - name: MLFLOW_BACKEND_STORE_URI
+      value: "postgresql://investwise_user:investwise_password@postgresql:5432/mlflow"
+    - name: MLFLOW_DEFAULT_ARTIFACT_ROOT
+      value: "s3://investwise-ml-models/mlflow-artifacts"
+  
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  
+  persistence:
+    enabled: true
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    size: 20Gi
+
+# Monitoring
+monitoring:
+  enabled: true
+  
+  prometheus:
+    enabled: true
+    server:
+      persistentVolume:
+        size: 20Gi
+  
+  grafana:
+    enabled: true
+    adminPassword: "admin123"
+    persistence:
+      enabled: true
+      size: 5Gi
+
+# Security
+podSecurityPolicy:
+  enabled: false
+
+networkPolicy:
+  enabled: false
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 2000
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 1000
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Secrets (these should be created separately)
+secrets:
+  name: investwise-secrets
+  data: {}  # Populated by external secret management

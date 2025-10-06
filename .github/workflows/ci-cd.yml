@@ -1,0 +1,369 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_USER: test_user
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        cd backend
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov pytest-asyncio httpx
+    
+    - name: Set up environment variables
+      run: |
+        echo "DATABASE_URL=postgresql://test_user:test_password@localhost:5432/test_db" >> $GITHUB_ENV
+        echo "REDIS_URL=redis://localhost:6379" >> $GITHUB_ENV
+        echo "SECRET_KEY=test_secret_key_for_ci" >> $GITHUB_ENV
+        echo "ENVIRONMENT=testing" >> $GITHUB_ENV
+    
+    - name: Generate sample data
+      run: |
+        python scripts/generate_sample_data.py
+    
+    - name: Run backend tests
+      run: |
+        cd backend
+        pytest tests/ -v --cov=app --cov-report=xml --cov-report=html
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./backend/coverage.xml
+        flags: backend
+        name: backend-coverage
+
+  test-ml-service:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-ml-${{ hashFiles('ml_service/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-ml-
+    
+    - name: Install dependencies
+      run: |
+        cd ml_service
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov pytest-asyncio httpx
+    
+    - name: Generate sample data for ML
+      run: |
+        python scripts/generate_sample_data.py
+    
+    - name: Run ML service tests
+      run: |
+        cd ml_service
+        pytest tests/ -v --cov=app --cov-report=xml
+    
+    - name: Upload ML coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./ml_service/coverage.xml
+        flags: ml-service
+        name: ml-service-coverage
+
+  test-frontend:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: Run frontend linting
+      run: |
+        cd frontend
+        npm run lint
+    
+    - name: Run frontend tests
+      run: |
+        cd frontend
+        npm run test:ci
+    
+    - name: Build frontend
+      run: |
+        cd frontend
+        npm run build
+
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+    
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  build-and-push:
+    needs: [test-backend, test-ml-service, test-frontend, security-scan]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    permissions:
+      contents: read
+      packages: write
+    
+    strategy:
+      matrix:
+        service: [backend, ml_service, frontend]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.service }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix={{branch}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+    
+    - name: Generate sample data (for backend/ml builds)
+      if: matrix.service != 'frontend'
+      run: |
+        python scripts/generate_sample_data.py
+    
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./${{ matrix.service }}
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  deploy-staging:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment: staging
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+    
+    - name: Install kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'v1.28.0'
+    
+    - name: Update kubeconfig
+      run: |
+        aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
+    
+    - name: Deploy to staging
+      run: |
+        # Update image tags in Helm values
+        cd k8s/helm/investwise
+        
+        # Update backend image
+        sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend:${{ github.sha }}|" values-staging.yaml
+        
+        # Update ML service image
+        sed -i "s|mlService:.*image:.*|mlService:\n  image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-ml_service:${{ github.sha }}|" values-staging.yaml
+        
+        # Update frontend image
+        sed -i "s|frontend:.*image:.*|frontend:\n  image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-frontend:${{ github.sha }}|" values-staging.yaml
+        
+        # Deploy with Helm
+        helm upgrade --install investwise-staging . \
+          -f values-staging.yaml \
+          --namespace investwise-staging \
+          --create-namespace \
+          --wait \
+          --timeout 10m
+    
+    - name: Run deployment tests
+      run: |
+        # Wait for deployment to be ready
+        kubectl wait --for=condition=available --timeout=300s deployment/investwise-backend -n investwise-staging
+        kubectl wait --for=condition=available --timeout=300s deployment/investwise-ml-service -n investwise-staging
+        kubectl wait --for=condition=available --timeout=300s deployment/investwise-frontend -n investwise-staging
+        
+        # Run health checks
+        kubectl get pods -n investwise-staging
+        
+        # Test API endpoints
+        BACKEND_URL=$(kubectl get service investwise-backend -n investwise-staging -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+        curl -f http://$BACKEND_URL/health || exit 1
+        
+        ML_SERVICE_URL=$(kubectl get service investwise-ml-service -n investwise-staging -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+        curl -f http://$ML_SERVICE_URL/health || exit 1
+
+  deploy-production:
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment: production
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+    
+    - name: Install kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'v1.28.0'
+    
+    - name: Update kubeconfig
+      run: |
+        aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
+    
+    - name: Deploy to production
+      run: |
+        # Update image tags in Helm values
+        cd k8s/helm/investwise
+        
+        # Update backend image
+        sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend:${{ github.sha }}|" values-production.yaml
+        
+        # Update ML service image
+        sed -i "s|mlService:.*image:.*|mlService:\n  image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-ml_service:${{ github.sha }}|" values-production.yaml
+        
+        # Update frontend image
+        sed -i "s|frontend:.*image:.*|frontend:\n  image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-frontend:${{ github.sha }}|" values-production.yaml
+        
+        # Deploy with Helm (production uses rolling update strategy)
+        helm upgrade --install investwise . \
+          -f values-production.yaml \
+          --namespace investwise-production \
+          --create-namespace \
+          --wait \
+          --timeout 15m
+    
+    - name: Run production health checks
+      run: |
+        # Wait for deployment to be ready
+        kubectl wait --for=condition=available --timeout=600s deployment/investwise-backend -n investwise-production
+        kubectl wait --for=condition=available --timeout=600s deployment/investwise-ml-service -n investwise-production
+        kubectl wait --for=condition=available --timeout=600s deployment/investwise-frontend -n investwise-production
+        
+        # Test API endpoints
+        BACKEND_URL=$(kubectl get service investwise-backend -n investwise-production -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+        curl -f http://$BACKEND_URL/health || exit 1
+        
+        ML_SERVICE_URL=$(kubectl get service investwise-ml-service -n investwise-production -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+        curl -f http://$ML_SERVICE_URL/health || exit 1
+    
+    - name: Send deployment notification
+      if: always()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        channel: '#deployments'
+        text: |
+          Production deployment ${{ job.status }}!
+          Commit: ${{ github.sha }}
+          Author: ${{ github.actor }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
