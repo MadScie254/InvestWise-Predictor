@@ -1,0 +1,40 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+env/
+*.sqlite3
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+.next/
+dist/
+build/
+
+# Docker
+docker-compose.override.yml
+*.log
+
+# OS
+.DS_Store
+.idea/
+.vscode/
+
+# DVC
+.dvc/
+
+# ML artifacts
+ml/training/artifacts/
+models/
+mlruns/
+
+# Data
+data/processed/
+data/cleaned/
+!data/raw/
