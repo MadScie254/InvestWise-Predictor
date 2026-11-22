@@ -1,0 +1,14 @@
+name = "investwise-proxy"
+main = "worker.js"
+compatibility_date = "2026-11-22"
+
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+
+[observability.traces]
+enabled = true
+head_sampling_rate = 0.01

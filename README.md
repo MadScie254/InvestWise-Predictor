@@ -1,7 +1,5 @@
 # InvestWise Predictor
 
-![InvestWise Logo](https://github.com/MadScie254/InvestWise-Predictor/blob/main/frontend/public/assets/logo.png)]
-
 ## Table of Contents
 
 1. [Introduction](#introduction)
@@ -25,9 +23,9 @@
 
 ## Introduction
 
-Welcome to **InvestWise Predictor**, a cutting-edge machine learning-powered investment analytics tool designed to assist investors in making data-driven decisions. In today's fast-paced financial world, having access to accurate and timely insights is crucial for success. InvestWise Predictor leverages advanced algorithms, real-time data feeds, and predictive modeling techniques to analyze historical financial data, economic indicators, and market trends.
+InvestWise Predictor is a research desk for people allocating capital in Kenya. It reads public prices, prints a short statistical forecast, and scores a few small-business ideas against the capital and county you enter. It does not place trades, and it does not need a paid database.
 
-This repository contains the source code and documentation for the InvestWise Predictor web application. Whether you're an individual investor, financial analyst, or business looking to optimize your investment strategies, InvestWise provides the tools and insights needed to stay ahead of the curve.
+The application that runs is in `web`. Older notes in this repository describe drafts that were never wired to a live site.
 
 ---
 
@@ -35,91 +33,72 @@ This repository contains the source code and documentation for the InvestWise Pr
 
 ### What is InvestWise Predictor?
 
-InvestWise Predictor is a comprehensive platform that combines artificial intelligence (AI) and machine learning (ML) to deliver actionable investment recommendations. The system processes vast amounts of financial data, identifies patterns, and generates predictions to help users make informed decisions. Key functionalities include:
+A desk for reading the shilling, the Nairobi board, and a forecast before committing money. It is a sketch, not a broker.
 
-- **Real-Time Data Feeds**: Access live stock prices, economic indicators, and news updates.
-- **Predictive Modeling**: Utilize ML models such as LSTM, XGBoost, and Random Forests to forecast market trends.
-- **Customizable Dashboards**: Tailor the interface to suit your preferences and focus on specific assets or sectors.
-- **User Authentication**: Secure login with OAuth 2.0 integration for Google, LinkedIn, and other providers.
-- **Cross-Platform Compatibility**: A responsive design ensures seamless performance on desktops, tablets, and mobile devices.
-
-### Why Choose InvestWise?
-
-The financial markets are complex and dynamic, requiring sophisticated tools to navigate effectively. InvestWise stands out due to its:
-
-- **Accuracy**: Backed by state-of-the-art ML algorithms trained on extensive datasets.
-- **Simplicity**: User-friendly interface with intuitive navigation and minimal clutter.
-- **Speed**: Optimized for fast loading times and instant updates.
-- **Security**: Robust encryption protocols and secure authentication mechanisms protect user data.
-- **Scalability**: Designed to handle large volumes of data and support growing user bases.
+- **Prices**: Daily closes for the shilling, the euro, the pound, Brent, gold, coffee, wheat, the S&P 500, and a Johannesburg ETF used only as a regional stand-in.
+- **Nairobi board**: A delayed public list. If the live page does not answer, the last captured session stays on the desk and is marked as such.
+- **Forecasts**: Sequence smoothing, boosted stumps, and a small random forest, each with a recent direction hit and a typical miss.
+- **Ventures**: Fourteen Kenyan trades scored against capital, county, risk, inflation, the shilling, and Brent.
+- **Account**: A name and a password hash that stay in this browser.
 
 ---
 
 ## Key Features
 
-### 1. Real-Time Market Insights
+### 1. Market page
 
-Stay updated with the latest market movements through our live data ticker. This feature displays real-time stock prices, currency exchange rates, and economic indicators, ensuring you always have the most current information at your fingertips.
+Daily closes, World Bank figures for Kenya, and the Nairobi board. Pin a name and it stays on this browser.
 
-### 2. Predictive Analytics
+### 2. Forecast
 
-Leverage advanced ML models to predict future market trends. Our platform supports multiple algorithms, including:
+Three models on series that publish a long daily history:
 
-- **Long Short-Term Memory (LSTM)**: Ideal for time-series forecasting.
-- **Extreme Gradient Boosting (XGBoost)**: Excellent for classification and regression tasks.
-- **Random Forests**: Provides robust predictions even with noisy data.
+- **Sequence smoothing**: Holt's method, for a level and a capped drift. This is the practical time-series reading.
+- **Boosted stumps**: short rules that correct one another, then fade.
+- **Random forest**: a stand of short trees voting on the next return.
 
-Users can upload their datasets or input stock symbols to generate forecasts tailored to their needs.
+Forecasts run on rates, commodities, and two global equity series that publish long daily history. Nairobi quotes stay on the board until a free source publishes a long enough daily file.
 
-### 3. Interactive Dashboards
+### 3. Charts
 
-Visualize your portfolio performance and market trends using interactive charts and graphs. Built with libraries like D3.js and Chart.js, these visualizations are both informative and aesthetically pleasing.
+One SVG chart. History is ink, the forecast is copper, and the band is the recent miss widened with the horizon.
 
-### 4. AI-Curated News Feed
+### 4. Briefing
 
-Our AI analyzes thousands of articles daily to surface the most relevant financial news stories. Combined with sentiment analysis, this feed helps you gauge market sentiment and identify emerging opportunities.
+Headlines from a public Kenya news search. Tone is a word count on the title, not a reading of the article. Times are East Africa time.
 
-### 5. Personalized Alerts
+### 5. Alerts
 
-Set custom alerts for specific stocks, indices, or commodities. Receive notifications when prices reach predefined thresholds, allowing you to act swiftly.
+Set a price and the open Alerts page checks it about once a minute. There is no background watcher, because that would need a paid job.
 
-### 6. Dark Mode Support
+### 6. Light and dark
 
-Switch between light and dark modes for enhanced usability, especially during long sessions or in low-light environments.
+The theme is stored in this browser and applied before the page paints.
 
 ---
 
 ## Technology Stack
 
-InvestWise Predictor is built using modern technologies to ensure scalability, performance, and maintainability. Below is an overview of the primary components used in the project:
+This version is built to run on free tiers. There is no Supabase project and no paid database.
 
-### Frontend
+### Application
 
-- **Framework**: React.js / Next.js
-- **State Management**: Redux Toolkit / Zustand
-- **Styling**: TailwindCSS + shadcn/ui
-- **Charts & Visualizations**: D3.js, Chart.js, Plotly
-- **Routing**: React Router DOM
-- **Animations**: Framer Motion
+- **Framework**: Next.js, in the `web` directory
+- **Charts**: drawn as SVG in the app, so there is no chart vendor to license
+- **Accounts, pins, alerts, saved forecasts**: stored in the browser
+- **Forecasts**: sequence smoothing (Holt), boosted stumps, and a small random forest, fit on the prices the page just loaded
 
-### Backend
+### Data, all keyless
 
-- **Server**: Node.js with Express.js
-- **Database**: MongoDB / PostgreSQL
-- **Authentication**: OAuth 2.0 (Google, LinkedIn)
-- **API Gateway**: Apollo Server / GraphQL
+- **Rates and commodities**: Yahoo Finance chart endpoint (dollar, euro, pound, Brent, gold, coffee, wheat, S&P 500, and a Johannesburg ETF used only as a regional stand-in)
+- **Nairobi board**: the public AFX board. If that page does not answer, the desk shows the last captured session and says so
+- **Kenya macro**: World Bank API (GDP growth, inflation, unemployment, GDP per person)
+- **Briefing**: Google News RSS, with a word-count tone on the headline
 
-### APIs & Data Sources
+### Hosting
 
-- **Stock Prices**: Yahoo Finance API, Alpha Vantage
-- **News Feeds**: NewsAPI, Finnhub
-- **Economic Indicators**: World Bank API, Federal Reserve Economic Data (FRED)
-
-### Deployment
-
-- **Hosting**: AWS EC2 / Heroku
-- **Containerization**: Docker
-- **CI/CD Pipeline**: GitHub Actions / Jenkins
+- **App**: Vercel hobby plan, root directory `web`
+- **Edge fetch**: a Cloudflare Worker in `cloudflare/market-proxy` caches the four allowlisted sources and is used only when a direct fetch fails. Set `MARKET_PROXY_URL` to the worker origin if you deploy it.
 
 ---
 
@@ -129,12 +108,11 @@ To set up and run the InvestWise Predictor locally, follow the steps below:
 
 ### Prerequisites
 
-Ensure you have the following installed on your system:
-
-- Node.js (v14+)
-- npm or yarn
+- Node.js 20 or newer
+- npm
 - Git
-- MongoDB or PostgreSQL (optional, depending on your setup)
+
+No database is required.
 
 ### Step 1: Clone the Repository
 
@@ -143,36 +121,25 @@ git clone https://github.com/MadScie254/InvestWise-Predictor.git
 cd InvestWise-Predictor
 ```
 
-### Step 2: Install Dependencies
+### Step 2: Install and start
 
 ```bash
+cd web
 npm install
-# OR
-yarn install
+npm test
+npm run dev
 ```
 
-### Step 3: Configure Environment Variables
+Open `http://localhost:3000`.
 
-Create a `.env` file in the root directory and populate it with the required variables:
-
-```env
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/investwise
-API_KEY_YAHOO_FINANCE=your_api_key_here
-API_KEY_NEWSAPI=your_api_key_here
-GOOGLE_CLIENT_ID=your_google_client_id_here
-GOOGLE_CLIENT_SECRET=your_google_client_secret_here
-```
-
-### Step 4: Start the Application
+### Optional: Cloudflare proxy
 
 ```bash
-npm start
-# OR
-yarn start
+cd cloudflare/market-proxy
+npx wrangler deploy
 ```
 
-Open your browser and navigate to `http://localhost:3000` to view the application.
+Then set `MARKET_PROXY_URL` on the Vercel project to the worker origin, including `https` and without a trailing path. The worker only forwards four public hosts.
 
 ---
 
@@ -180,84 +147,54 @@ Open your browser and navigate to `http://localhost:3000` to view the applicatio
 
 Once the application is running, you can explore its features as follows:
 
-### 1. Landing Page
+### 1. Home
 
-The landing page introduces users to InvestWise Predictor and highlights its key benefits. Use the "Get Started" button to create an account or log in if you already have one.
+The home page prints the shilling, a thirty-session sketch, and four facts: NASI, GDP growth, inflation, and Brent.
 
-### 2. Login/Register
+### 2. Account
 
-Sign in using your credentials or authenticate via Google or LinkedIn. If you're new, register for an account to access personalized features.
+Create a desk with an email and password, or continue as a guest. The password is hashed in the browser and never leaves the machine. Signing in on another computer will not find the account.
 
-### 3. Dashboard
+### 3. Markets
 
-Upon logging in, you'll be directed to the dashboard. Here, you can:
+Open Markets to move across a series, read the World Bank table, search the Nairobi board, and pin a name.
 
-- View real-time market data.
-- Customize your watchlist.
-- Generate predictions for selected assets.
-- Explore AI-curated news articles.
+### 4. Forecast
 
-### 4. Prediction Page
+Open Forecast, choose a series with a long public history, pick a model and a horizon, and run it. The page shows the path, a widening band, and how often the same model got the recent direction right. Nairobi share quotes are not forecast here, because the free board does not publish enough daily history.
 
-Navigate to the prediction page to upload datasets or enter stock symbols. Choose a model from the dropdown menu and click "Run Prediction" to see results.
+### 5. Account, alerts, ventures
 
-### 5. User Profile
-
-Manage your account settings, saved reports, and notification preferences. You can also switch between light and dark modes here.
+Kept forecasts appear on Account. Alerts fire only while that page is open. Ventures scores three ideas from the capital and county you type.
 
 ---
 
 ## API Integration
 
-InvestWise Predictor relies on several third-party APIs to fetch real-time data and enhance functionality. Below is an example of how we integrate the Yahoo Finance API to retrieve stock prices.
+The app exposes its own routes. They cache briefly at the edge.
 
-### Example Code: Fetching Stock Prices
+- `GET /api/series?symbol=USDKES=X`
+- `GET /api/board`
+- `GET /api/macro`
+- `GET /api/news`
+- `GET /api/forecast?symbol=BZ=F&model=holt&horizon=20`
 
-```javascript
-import axios from 'axios';
-
-const fetchStockPrices = async (symbol) => {
-  try {
-    const response = await axios.get(`https://api.example.com/stock/${symbol}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching stock prices:', error);
-    throw error;
-  }
-};
-
-export default fetchStockPrices;
-```
-
-Replace `https://api.example.com/stock/${symbol}` with the actual endpoint provided by the API provider.
+`model` is `holt`, `boost`, or `forest`.
 
 ---
 
-## Database Schema
+## What is stored
 
-The database schema for InvestWise Predictor is designed to store user information, predictions, and other relevant data efficiently. Below is an example schema using MongoDB.
+Nothing is stored on a server. In this browser, local storage holds:
 
-### Users Collection
-
-| Field         | Type       | Description                          |
-|---------------|------------|--------------------------------------|
-| `_id`         | ObjectId   | Unique identifier for the user       |
-| `username`    | String     | Username chosen by the user          |
-| `email`       | String     | User's email address                 |
-| `password`    | String     | Hashed password                      |
-| `theme`       | String     | Preferred UI theme (light/dark)      |
-| `alerts`      | Array      | List of custom alerts                |
-
-### Predictions Collection
-
-| Field         | Type       | Description                          |
-|---------------|------------|--------------------------------------|
-| `_id`         | ObjectId   | Unique identifier for the prediction |
-| `userId`      | ObjectId   | Reference to the user who made it    |
-| `symbol`      | String     | Stock symbol                         |
-| `model`       | String     | Name of the ML model used            |
-| `results`     | Object     | Prediction output                    |
-| `createdAt`   | Date       | Timestamp of creation                |
+| Key | Contents |
+| --- | --- |
+| `iw-users` | Name, email, salt, and a PBKDF2 password hash |
+| `iw-session` | The id of the open desk |
+| `iw-alerts` | Price alerts |
+| `iw-pins` | Pinned Nairobi tickers |
+| `iw-forecasts` | Forecasts you chose to keep |
+| `iw-theme` | Light or dark |
 
 ---
 
@@ -265,22 +202,16 @@ The database schema for InvestWise Predictor is designed to store user informati
 
 Security is paramount for any financial application. InvestWise Predictor implements the following measures to safeguard user data:
 
-1. **Encryption**: All sensitive data is encrypted using industry-standard algorithms.
-2. **OAuth 2.0**: Secure authentication with trusted providers like Google and LinkedIn.
-3. **Rate Limiting**: Prevent abuse by limiting API requests per user.
-4. **Input Validation**: Sanitize all inputs to prevent SQL injection and XSS attacks.
-5. **Regular Audits**: Conduct periodic security audits to identify and mitigate vulnerabilities.
+1. Passwords are hashed with PBKDF2 in the browser and are not sent to a server.
+2. The Cloudflare proxy allowlists four public hosts and refuses every other address.
+3. Page text is rendered as text. News links open the publisher, they are not injected as HTML.
+4. Forecast routes only accept the series and models the desk knows.
 
 ---
 
 ## Performance Optimization
 
-To ensure optimal performance, InvestWise Predictor employs several strategies:
-
-- **Caching**: Store frequently accessed data in memory to reduce latency.
-- **Lazy Loading**: Load components only when necessary to improve initial load times.
-- **Compression**: Enable Gzip compression for faster data transfer.
-- **CDN**: Serve static assets from a Content Delivery Network (CDN) for better global reach.
+Series, the board, macro figures, and headlines are cached in memory for a few minutes, and the API routes send a short shared cache header. The forecast is computed when you ask for it.
 
 ---
 
@@ -317,70 +248,38 @@ Stay tuned for updates!
 
 ## Acknowledgments
 
-We would like to thank the following projects and libraries for their invaluable contributions:
-
-- [React.js](https://reactjs.org/)
-- [D3.js](https://d3js.org/)
-- [TailwindCSS](https://tailwindcss.com/)
-- [Yahoo Finance API](https://finance.yahoo.com/)
+Public series come from Yahoo Finance chart data, the World Bank API, Google News, and the AFX Nairobi board.
 
 ---
 
 ## Contact Information
 
-For inquiries or support, please contact us at:
-
-- Email: support@investwise.com
-- Website: https://www.investwise.com
+Daniel Wanjala Machimbo
+[dmwanjala254@gmail.com](mailto:dmwanjala254@gmail.com)
+[LinkedIn](https://www.linkedin.com/in/daniel-wanjala-91)
+[GitHub](https://github.com/MadScie254)
 
 ---
 
 ## Appendix
 
-This section includes additional resources and references for further reading.
+Older write-ups in this repository (`README_COMPLETE.md`, `IMPLEMENTATION_COMPLETE.md`, `TESTING_GUIDE.md`) describe a draft stack. The running application is `web`.
 
-- [Machine Learning for Financial Markets](https://example.com/ml-financial-markets)
-- [Best Practices for Web Development](https://example.com/web-dev-best-practices)
+## Troubleshooting
 
-## 🛠 Troubleshooting
-### Common Issues & Fixes
-1. **Invalid API key errors**
-   - Check `.env` for correct API keys.
-   - Verify account limitations on API providers.
-2. **Model not training correctly**
-   - Ensure `data/` contains clean historical data.
-   - Tune hyperparameters and retrain.
-3. **App not running**
-   - Ensure dependencies are installed (`pip install -r requirements.txt`).
-   - Check logs for missing modules.
+1. **The Nairobi board says it is a captured session.** The public board page did not answer. Rates, commodities, and the World Bank figures are separate and can still be live.
+2. **A forecast is refused.** The series needs at least 80 daily closes. Nairobi quotes from the free board are too short, so they stay on Markets.
+3. **The app does not start.** Run `npm install` inside `web`, with Node 20 or newer.
 
-## 📚 Use Cases
-### 1. Individual Investors
-- Predict stock trends for better entry/exit points.
-- Optimize portfolio based on risk-return analysis.
+## Use cases
 
-### 2. Financial Analysts
-- Analyze large-scale historical data.
-- Test strategies with real-time simulations.
+1. **Individual investors.** Read the shilling, Brent, and the Nairobi board before deciding an entry.
+2. **Founders.** Score a venture against capital, county, and the latest inflation print.
+3. **Analysts.** Compare three models on the same series and read the recent miss rate before quoting a path.
 
-### 3. Hedge Funds & Institutions
-- Automate investment decisions using ML models.
-- Integrate with existing trading platforms.
+## Contact
 
-## 🤝 Contributing
-1. Fork the repository.
-2. Create a new branch (`feature-xyz`).
-3. Commit your changes.
-4. Open a Pull Request.
-
-## 📜 License
-This project is licensed under the **MIT License**. See `LICENSE` for details.
-
-## 📬 Contact
-📧 **Daniel Wanjala Machimbo**  
-✉️ [dmwanjala254@gmail.com](mailto:dmwanjala254@gmail.com)  
-🔗 [LinkedIn](https://www.linkedin.com/in/daniel-wanjala-91)  
-📌 [GitHub](https://github.com/MadScie254)  
-
----
-⚡ *Invest wisely with InvestWise Predictor!* 🚀
+Daniel Wanjala Machimbo
+[dmwanjala254@gmail.com](mailto:dmwanjala254@gmail.com)
+[LinkedIn](https://www.linkedin.com/in/daniel-wanjala-91)
+[GitHub](https://github.com/MadScie254)

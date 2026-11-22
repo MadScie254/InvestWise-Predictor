@@ -1,4 +1,6 @@
-# 🎯 InvestWise-Predictor Implementation Complete
+The application that runs is in `web`. This note describes an earlier draft and is not the current system.
+
+# InvestWise-Predictor Implementation Complete
 
 ## ✅ Implementation Status: PRODUCTION READY
 
