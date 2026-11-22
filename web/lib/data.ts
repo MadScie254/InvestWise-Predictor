@@ -22,13 +22,15 @@ function proxyBase() {
   return (process.env.MARKET_PROXY_URL || "").replace(/\/$/, "")
 }
 
-export async function fetchUpstream(url: string) {
+export async function fetchUpstream(url: string, options?: { timeoutMs?: number; proxy?: boolean }) {
   const headers = {
     "user-agent": "InvestWiseDesk/1.0",
     accept: "application/json, application/xml, text/html;q=0.9, */*;q=0.8",
   }
+  const timeoutMs = options?.timeoutMs ?? 9000
+  const allowProxy = options?.proxy !== false
   try {
-    const response = await fetch(url, { headers, cache: "no-store", signal: AbortSignal.timeout(9000) })
+    const response = await fetch(url, { headers, cache: "no-store", signal: AbortSignal.timeout(timeoutMs) })
     if (response.ok) return response
     if (response.status < 500) {
       const error = new Error(`status ${response.status}`) as Error & { retry?: boolean }
@@ -37,10 +39,10 @@ export async function fetchUpstream(url: string) {
     }
   } catch (error) {
     const proxy = proxyBase()
-    if (!proxy || (error && typeof error === "object" && "retry" in error && error.retry === false)) throw error
+    if (!allowProxy || !proxy || (error && typeof error === "object" && "retry" in error && error.retry === false)) throw error
   }
   const proxy = proxyBase()
-  if (!proxy) throw new Error("The data source did not answer.")
+  if (!allowProxy || !proxy) throw new Error("The data source did not answer.")
   const response = await fetch(`${proxy}/fetch?url=${encodeURIComponent(url)}`, {
     cache: "no-store",
     signal: AbortSignal.timeout(9000),
@@ -84,7 +86,7 @@ export async function getBoard(): Promise<Board> {
   const cached = recall<Board>("board", 3 * 60 * 1000)
   if (cached) return cached
   try {
-    const response = await fetchUpstream("https://afx.kwayisi.org/nse/")
+    const response = await fetchUpstream("https://afx.kwayisi.org/nse/", { timeoutMs: 4000, proxy: false })
     const board = parseBoardHtml(await response.text())
     return remember("board", board)
   } catch {
