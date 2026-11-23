@@ -1,3 +1,5 @@
+The application that runs is in `web`. Run `npm test` there. This guide describes an earlier draft.
+
 # InvestWise-Predictor Testing Guide
 
 ## 🧪 Testing the Complete Functionality

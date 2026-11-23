@@ -338,4 +338,4 @@ Thank you for considering contributing to **InvestWise Predictor**! Your efforts
 
 If you have any questions or need further clarification, feel free to reach out via GitHub Discussions or email us at [info@investwise.com](mailto:info@investwise.com).  
 
-Happy coding! 🚀  
+Happy coding.  

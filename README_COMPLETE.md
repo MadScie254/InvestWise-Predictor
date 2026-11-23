@@ -1,4 +1,6 @@
-# 🚀 InvestWise-Predictor: Complete Production System
+The application that runs is in `web`. This note describes an earlier draft and is not the current system.
+
+# InvestWise-Predictor: an earlier draft
 
 A comprehensive, production-ready AI-powered investment prediction platform built with FastAPI, Next.js, and advanced MLOps infrastructure.
 
