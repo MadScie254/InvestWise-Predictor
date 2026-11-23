@@ -130,7 +130,7 @@ npm test
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:3000`. Tests run on your machine. This repository does not use GitHub Actions.
 
 ### Optional: Cloudflare proxy
 
